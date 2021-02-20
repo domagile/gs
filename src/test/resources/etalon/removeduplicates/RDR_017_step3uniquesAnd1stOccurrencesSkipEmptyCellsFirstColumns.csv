@@ -1,0 +1,41 @@
+Lab1,Lab2,Lab3,Status
+1,2,45,Unique or 1st occurrence
+234,435,75,Unique or 1st occurrence
+567,567,567,Unique or 1st occurrence
+2,3,4,Unique or 1st occurrence
+sfd,,sdf,Unique or 1st occurrence
+q,q,sdf,Unique or 1st occurrence
+sfd,a,asd,
+,dfg,,
+w,w,w,Unique or 1st occurrence
+167.93,182,153.73,Unique or 1st occurrence
+177.53,185.86,164.28,Unique or 1st occurrence
+187.13,189.71,174.82,Unique or 1st occurrence
+196.73,193.57,185.36,Unique or 1st occurrence
+206.33,197.43,195.9,Unique or 1st occurrence
+215.93,201.29,206.45,Unique or 1st occurrence
+q,q,sdf,
+225.53,205.14,216.99,Unique or 1st occurrence
+235.13,209,227.53,Unique or 1st occurrence
+244.73,212.86,238.08,Unique or 1st occurrence
+1,2,5,
+1,2,45,
+234,435,75,
+567,567,567,
+2,3,4,
+sfd,dfg,sdf,
+q,q,sdf,
+sfd,a,asd,
+,dfg,,
+w,w,w,
+167.93,182,153.73,
+177.53,185.86,164.28,
+187.13,189.71,174.82,
+196.73,193.57,185.36,
+206.33,197.43,195.9,
+215.93,201.29,206.45,
+q,q,sdf,
+225.53,205.14,216.99,
+235.13,209,227.53,
+244.73,212.86,238.08,
+Sfd,A,Asd,

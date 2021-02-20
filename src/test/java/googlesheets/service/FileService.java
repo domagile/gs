@@ -28,7 +28,10 @@ public class FileService {
             }
             for (int i = 0; i < list1.size(); i++) {
                 if (!list1.get(i).equals(list2.get(i))) {
-                    Assert.fail("Difference in row " + (i + 1));
+                    String message = "Difference in row " + (i + 1) + ":";
+                    message += "\nActual row: " + list1.get(i);
+                    message += "\nExpected row: " + list2.get(i);
+                    Assert.fail(message);
                 }
             }
         }

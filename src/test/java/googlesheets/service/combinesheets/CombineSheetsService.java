@@ -10,6 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Arrays;
 import java.util.List;
 
+import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
+
 public class CombineSheetsService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
@@ -35,20 +38,14 @@ public class CombineSheetsService {
 
 
     public static void selectSheetsToCombine(int... sheets) throws InterruptedException {
-        SheetList sheetList = expandSheetList();
-        Arrays.stream(sheets).forEach(sheetList::selectSheet);
+        EntityList sheetList = expandSheetList();
+        Arrays.stream(sheets).forEach(sheetList::clickEntity);
         clickNext();
     }
 
 
-    private static SheetList expandSheetList() throws InterruptedException {
-        List<WebElement> iFrames = driver.findElements(By.tagName("iframe"));
-        WebElement iFrame = iFrames.get(iFrames.size() - 1);
-        driver.switchTo().frame(iFrame);
-        WebElement sandboxFrame = driver.findElement(By.id("sandboxFrame"));
-        driver.switchTo().frame(sandboxFrame);
-        WebElement userHtmlFrame = driver.findElement(By.id("userHtmlFrame"));
-        driver.switchTo().frame(userHtmlFrame);
+    private static EntityList expandSheetList() throws InterruptedException {
+        switchDriverToAddonIframe();
 
         WebElement tBody = driver.findElement(By.cssSelector(".first-step-table-body"));
         List<WebElement> trs = tBody.findElements(By.tagName("tr"));
@@ -59,7 +56,7 @@ public class CombineSheetsService {
         }
         WebElement td = trs.get(0).findElements(By.tagName("td")).get(0);
         td.click();
-        return new SheetList(trs);
+        return new EntityList(trs, 1);
     }
 
 
@@ -79,34 +76,13 @@ public class CombineSheetsService {
 
 
 
-    private static void clickAddonsMenu() throws InterruptedException {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Add-ons']")));
-        try {
-            driver.findElement(By.xpath("//*[text()='Add-ons']")).click();
-        }
-        //"Working" message prevents from clicking if it's done right after login
-        catch (ElementClickInterceptedException e)
-        {
-            Thread.sleep(1000);
-            clickAddonsMenu();
-        }
-    }
-
-
-    private static void clickStartMenu() {
+    private static void clickStartMenu() throws InterruptedException {
         clickMenuItem("Start");
     }
 
 
-    private static void clickCombineSheetsMenu() {
+    private static void clickCombineSheetsMenu() throws InterruptedException {
         clickMenuItem("Combine Sheets");
-    }
-
-
-    private static void clickMenuItem(String menuName) {
-        String xpath = "//*[text()='" + menuName + "']";
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-        driver.findElement(By.xpath(xpath)).click();
     }
 
 
@@ -124,25 +100,17 @@ public class CombineSheetsService {
 
 
     private static void chooseStoreToNewSpreadsheet() {
-        clickLocationRadioButton("place0");
+        clickRadioButton("place0");
     }
 
 
     private static void chooseStoreToNewSheet() {
-        clickLocationRadioButton("place1");
+        clickRadioButton("place1");
     }
 
 
     private static void chooseStoreToCustomLocation() {
-        clickLocationRadioButton("place2");
-    }
-
-
-    private static void clickLocationRadioButton(String place0) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(place0)));
-        //isDisplayed() returns false by some reason
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
-                driver.findElement(By.id(place0)));
+        clickRadioButton("place2");
     }
 
 
@@ -178,22 +146,13 @@ public class CombineSheetsService {
 
     private static void setConsiderTableHeaders(boolean value)
     {
-        setOptionCheckboxValue(value, "bSheetHasHeaders");
+        setCheckboxValue(value, "bSheetHasHeaders");
     }
 
 
     private static void setSeparateByBlankRow(boolean value)
     {
-        setOptionCheckboxValue(value, "bSeparate");
-    }
-
-
-    private static void setOptionCheckboxValue(boolean value, String bSheetHasHeaders) {
-        WebElement checkbox = driver.findElement(By.id(bSheetHasHeaders));
-        if (checkbox.isSelected() != value) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
-                    checkbox);
-        }
+        setCheckboxValue(value, "bSeparate");
     }
 }
 

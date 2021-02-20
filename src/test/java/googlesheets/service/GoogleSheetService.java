@@ -1,14 +1,12 @@
 package googlesheets.service;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
+import java.time.Duration;
 
 import static googlesheets.service.FileService.compareFileWithEtalon;
 import static googlesheets.service.FileService.removeDownloadedListFile;
@@ -101,9 +99,77 @@ public class GoogleSheetService {
 
 
     public static void checkResult(String spreadsheetName, String resultListName, String etalonFile) throws InterruptedException, IOException {
+        checkResult(spreadsheetName, resultListName, etalonFile, true);
+    }
+
+    public static void checkResult(String spreadsheetName, String resultListName, String etalonFile, boolean removeList) throws InterruptedException, IOException {
         startCSVDownload();
-        removeListThroughMenu(resultListName);
+        if (removeList) {
+            removeListThroughMenu(resultListName);
+        }
         compareFileWithEtalon(spreadsheetName, resultListName, etalonFile);
         removeDownloadedListFile(spreadsheetName, resultListName);
+    }
+
+
+    public static void clickAddonsMenu() throws InterruptedException {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Add-ons']")));
+        try {
+            driver.findElement(By.xpath("//*[text()='Add-ons']")).click();
+        }
+        //"Working" message prevents from clicking if it's done right after login
+        catch (ElementClickInterceptedException e)
+        {
+            Thread.sleep(1000);
+            clickAddonsMenu();
+        }
+    }
+
+
+    public static void clickMenuItem(String menuName) throws InterruptedException {
+        String xpath = "//*[text()='" + menuName + "']";
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        try {
+            driver.findElement(By.xpath(xpath)).click();
+        }
+        catch (ElementClickInterceptedException e) {
+            Thread.sleep(2000);
+            clickMenuItem(menuName);
+        }
+    }
+
+
+    public static void clickHighLevelMenuItem(String menuName, String nextMenuName) {
+        String xpath = "//*[text()='" + menuName + "']";
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        driver.findElement(By.xpath(xpath)).click();
+        try {
+            xpath = "//*[text()='" + nextMenuName + "']";
+            wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        }
+        catch (TimeoutException e) {
+            //fixme: repeat invocation only 1 time
+            clickHighLevelMenuItem(menuName, nextMenuName);
+        }
+        finally {
+            WebDriverService.getInstance().resetWaitTimeout();
+        }
+    }
+
+
+    public static void clickRadioButton(String buttonId) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(buttonId)));
+        //isDisplayed() returns false by some reason
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
+                driver.findElement(By.id(buttonId)));
+    }
+
+
+    public static void setCheckboxValue(boolean value, String checkboxId) {
+        WebElement checkbox = driver.findElement(By.id(checkboxId));
+        if (checkbox.isSelected() != value) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
+                    checkbox);
+        }
     }
 }
