@@ -9,31 +9,33 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static googlesheets.service.GoogleSheetService.getResultListName;
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 
-public class AFR001_ValueTest extends AFRTest {
+public class AFR005_FormulaTest extends AFRTest {
     @BeforeClass
     public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1wXhDHPNarDutnSz-CQk1yaA7D-W6GC3-odsi_-Zf9lw/edit#gid=1061966272");
+        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/10rEMkpDxfYrN1WfzeszOuAgwUM2vlWhaxHajdEeEcIY/edit#gid=134980356");
     }
 
-    @Ignore
     @Test
-    public void valuesNumberAllSheets() throws IOException, InterruptedException {
+    public void formula() throws IOException, InterruptedException {
         runAdvancedFindAndReplace();
-        setSearchString("600");
+        setSearchIn(SearchInSelection.SELECTED_LISTS, 2);
+
+        setSearchString("IFERROR");
         setMatchCase(false);
         setEntireCell(false);
         setByMask(false);
-        setValues(true);
-        setFormulas(false);
+
+        setValues(false);
+        setFormulas(true);
         setNotes(false);
         setHyperlinks(false);
         setErrors(false);
 
-        setSearchIn(SearchInSelection.SELECTED_LISTS, 2, 3);
-       clickFindAll();
-       runExportAllFoundEntries();
-        checkResult("Export results 1", "advancedfindreplace\\AFR_001_valuesNumberAllSheets.csv");
+        clickFindAll();
+        runExportAllFoundEntries();
+        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_005_Formula.csv");
     }
 }

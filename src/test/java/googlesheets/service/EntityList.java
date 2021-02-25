@@ -1,4 +1,4 @@
-package googlesheets.service.combinesheets;
+package googlesheets.service;
 
 import googlesheets.service.WebDriverService;
 import org.openqa.selenium.By;
@@ -19,11 +19,10 @@ public class EntityList {
     }
 
 
-    public void selectEntity(int position, boolean value)
+    public void selectEntity(int position, boolean value, By checkboxLocator)
     {
-        //fixme: checkbox selector to params
         WebElement td = trs.get(position).findElements(By.tagName("td")).get(checkboxColumn);
-        WebElement checkbox = td.findElement(By.className("rd-column-select-checkbox"));
+        WebElement checkbox = td.findElement(checkboxLocator);
         if (checkbox.isSelected() != value) {
             td.click();
         }

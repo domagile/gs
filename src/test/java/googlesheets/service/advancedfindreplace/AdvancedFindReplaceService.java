@@ -17,6 +17,10 @@ public class AdvancedFindReplaceService {
 
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
+    public static final String BUTTON_ID_FIND_ALL = "afrFindActionButtonBottom";
+    public static final String BUTTON_ID_REPLACE_ALL = "afrReplaceAllActionButton";
+    public static final String BUTTON_ID_REPLACE = "afrReplaceActionButton";
+    public static final String BUTTON_ID_NEW_SEARCH = "afrNewSearchButton";
 
 
     public static void runAdvancedFindAndReplace() throws InterruptedException {
@@ -45,6 +49,19 @@ public class AdvancedFindReplaceService {
         }
     }
 
+    public static void setReplaceString(String replacementString) throws InterruptedException {
+        By replaceWithLocator = By.id("afrReplaceString");
+        wait.until(ExpectedConditions.presenceOfElementLocated(replaceWithLocator));
+        try {
+            driver.findElement(replaceWithLocator).clear();
+            driver.findElement(replaceWithLocator).sendKeys(replacementString);
+        }
+        //todo: replace with some generic construction
+        catch (ElementNotInteractableException e) {
+            Thread.sleep(1000);
+            setReplaceString(replacementString);
+        }
+    }
 
 
     private static void clickAdvancedFindAndReplaceMenu() {
@@ -57,19 +74,62 @@ public class AdvancedFindReplaceService {
     }
 
 
-    public static void setSearchIn(SearchInSelection searchIn, int... indexes)
-    {
-
+    public static void setSearchIn(SearchInSelection searchIn, Integer... indexes) throws InterruptedException {
+        switch (searchIn) {
+            case SELECTED_LISTS:
+                By checkboxLocator = By.tagName("input");
+                selectRowsInTable("afrSheetsList", checkboxLocator, indexes);
+                return;
+            default:
+                throw new UnsupportedOperationException(String.format("Selection type is not supported: %s", searchIn.toString()));
+        }
     }
 
-    public static void clickFindAll()
-    {
-
+    public static void clickFindAll() throws InterruptedException {
+        clickButton(BUTTON_ID_FIND_ALL);
     }
 
-    public static void runExportAllFoundEntries(){
-
+    public static void clickReplaceAll() throws InterruptedException {
+        clickButton(BUTTON_ID_REPLACE_ALL);
     }
+    public static void clickReplace() throws InterruptedException {
+        clickButton(BUTTON_ID_REPLACE);
+    }
+
+    public static void clickNewSearch() throws InterruptedException {
+        clickButton(BUTTON_ID_NEW_SEARCH);
+    }
+
+    public static void runExportAllFoundEntries() throws InterruptedException {
+        clickButton("afrOptionOfResultMenuWrapper");
+        clickMenuItem("Export all found entries");
+    }
+
+    public static void runExportRowsWithAllFoundEntries() throws InterruptedException {
+        clickButton("afrOptionOfResultMenuWrapper");
+        clickMenuItem("Export rows with all found entries");
+    }
+
+    public static void runDeleteRowsWithAllFoundEntries() throws InterruptedException {
+        clickButton("afrOptionOfResultMenuWrapper");
+        clickMenuItem("Delete rows with all found entries");
+    }
+
+    public static void runExportTheSelectedEntries() throws InterruptedException {
+        clickButton("afrOptionOfResultMenuWrapper");
+        clickMenuItem("Export the selected entries");
+    }
+
+    public static void runExportRowsWithTheSelectedEntries() throws InterruptedException {
+        clickButton("afrOptionOfResultMenuWrapper");
+        clickMenuItem("Export rows with the selected entries");
+    }
+
+    public static void runDeleteRowsWithTheSelectedEntries() throws InterruptedException {
+        clickButton("afrOptionOfResultMenuWrapper");
+        clickMenuItem("Delete rows with the selected entries");
+    }
+
 
     public static void setMatchCase(boolean value) {
         setCheckboxValue(value,"afrMatchCase");

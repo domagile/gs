@@ -1,18 +1,17 @@
 package googlesheets.service.removeduplicates;
 
+import googlesheets.service.GlobalContext;
 import googlesheets.service.WebDriverService;
-import googlesheets.service.combinesheets.EntityList;
-import org.openqa.selenium.*;
+import googlesheets.service.generic.GenericAddonService;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
 
-public class RemoveDuplicatesService {
+public class RemoveDuplicatesService extends GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
@@ -24,30 +23,17 @@ public class RemoveDuplicatesService {
 
 
     public static void runFindDuplicateOrUniqueRows() throws InterruptedException {
-        clickAddonsMenu();
-        clickRemoveDuplicatesMenu();
-        clickFindDuplicateOrUniqueRowsMenu();
-        //todo: change to some explicit wait
-        //wait for dialog window to be loaded
-        Thread.sleep(5000);
-
-        switchDriverToAddonIframe();
+        if (GlobalContext.IS_POWER_TOOLS_MODE) {
+            runThroughPowerTools();
+        } else {
+            runAsSeparateAddon();
+        }
     }
 
 
     public static void selectColumnsToSearchIn(Integer... indexes) throws InterruptedException {
-        WebElement tBody = driver.findElement(By.id("rdColumnsList"));
-        List<WebElement> trs = tBody.findElements(By.tagName("tr"));
-        //if list is loaded during long time
-        while (trs.isEmpty()) {
-            Thread.sleep(1000);
-            trs = tBody.findElements(By.tagName("tr"));
-        }
-        EntityList columns = new EntityList(trs, 0);
-        List indexList = Arrays.asList(indexes);
-        for (int i = 0; i < trs.size(); i++) {
-            columns.selectEntity(i, indexList.contains(i + 1));
-        }
+        By checkboxLocator = By.className("rd-column-select-checkbox");
+        selectRowsInTable("rdColumnsList", checkboxLocator, indexes);
     }
 
 
@@ -60,20 +46,8 @@ public class RemoveDuplicatesService {
         clickHighLevelMenuItem(MENU_TEXT_REMOVE_DUPLICATES, MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_ROWS);
     }
 
-    //fixme: create generic method to click buttons
     public static void clickNext() throws InterruptedException {
-        try {
-            By nextButton = By.id(BUTTON_ID_NEXT);
-            wait.until(ExpectedConditions.elementToBeClickable(nextButton));
-            driver.findElement(nextButton).click();
-        } catch (InvalidElementStateException | TimeoutException e) {
-            Thread.sleep(1000);
-            clickNext();
-        }
-    }
-
-    public static void clickUndo() throws InterruptedException {
-        driver.findElement(By.id("t-undo")).findElement(By.className("goog-toolbar-button-inner-box")).click();
+        clickButton(BUTTON_ID_NEXT);
     }
 
     public static void setRange(String range) throws InterruptedException {
@@ -85,15 +59,13 @@ public class RemoveDuplicatesService {
             driver.findElement(selectedRangeLocator).clear();
             driver.findElement(selectedRangeLocator).sendKeys(range);
             Thread.sleep(2000);
-        }
-        catch (ElementNotInteractableException e) {
+        } catch (ElementNotInteractableException e) {
             Thread.sleep(1000);
             setRange(range);
         }
     }
 
-    public static void setCreateBackupCopyOfSheet(boolean value)
-    {
+    public static void setCreateBackupCopyOfSheet(boolean value) {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY)));
 //        WebElement checkbox = driver.findElement(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY));
 //        if (checkbox.isSelected() != value) {
@@ -144,6 +116,42 @@ public class RemoveDuplicatesService {
         clickRadioButton("rdActionDeleteValues");
     }
 
+    public static void setCustomLocationRange(String range) throws InterruptedException {
+        By selectedCustomLocationRange = By.id("rdExistingSheetRange");
+        wait.until(ExpectedConditions.presenceOfElementLocated(selectedCustomLocationRange));
+        try {
+            //fixme: replace with some check
+            driver.findElement(selectedCustomLocationRange).clear();
+            driver.findElement(selectedCustomLocationRange).sendKeys(range);
+            Thread.sleep(2000);
+        } catch (ElementNotInteractableException e) {
+            Thread.sleep(1000);
+            setRange(range);
+        }
+    }
+
+    public static void clickCopyToAnotherLocation() {
+        clickRadioButton("rdActionCopy");
+    }
+
+    public static void clickNewSheet() {
+        clickRadioButton("rdPlaceNewSheet");
+    }
+
+    public static void clickNewSpreadsheet() {
+        clickRadioButton("rdPlaceNewSpreadsheet");
+    }
+
+    public static void clickCustomLocation() throws InterruptedException {
+        clickRadioButton("rdPlaceExistingSheet");
+        //wait until dynamic behavior assigns default range
+        Thread.sleep(2000);
+    }
+
+    public static void clickMoveToAnotherLocation() {
+        clickRadioButton("rdActionMove");
+    }
+
     // Delete entire rows from the sheet
 
     public static void clickDeleteEntireRowsFromTheSheetRadioButton() {
@@ -167,14 +175,34 @@ public class RemoveDuplicatesService {
     }
 
 
-    private static void clickButton(String id) throws InterruptedException {
-        try {
-            By button = By.id(id);
-            wait.until(ExpectedConditions.elementToBeClickable(button));
-            driver.findElement(button).click();
-        } catch (ElementClickInterceptedException e) {
-            Thread.sleep(1000);
-            clickButton(id);
-        }
+    private static void runThroughPowerTools() throws InterruptedException {
+        runPowerTools();
+
+//        "dedupeTab"
+
+
+    }
+
+
+    private static void runPowerTools() throws InterruptedException {
+        clickAddonsMenu();
+        clickHighLevelMenuItem("Power Tools", "Start");
+        clickMenuItem("Start");
+        //todo: change to some explicit wait
+        //wait for dialog window to be loaded
+        Thread.sleep(5000);
+        switchDriverToAddonIframe();
+    }
+
+
+    private static void runAsSeparateAddon() throws InterruptedException {
+        clickAddonsMenu();
+        clickRemoveDuplicatesMenu();
+        clickFindDuplicateOrUniqueRowsMenu();
+        //todo: change to some explicit wait
+        //wait for dialog window to be loaded
+        Thread.sleep(5000);
+
+        switchDriverToAddonIframe();
     }
 }

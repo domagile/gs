@@ -1,5 +1,6 @@
 package googlesheets.service.combinesheets;
 
+import googlesheets.service.EntityList;
 import googlesheets.service.WebDriverService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;

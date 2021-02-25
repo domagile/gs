@@ -7,10 +7,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
-import static googlesheets.service.FileService.compareFileWithEtalon;
-import static googlesheets.service.FileService.removeDownloadedListFile;
-
+import static googlesheets.service.FileService.*;
+//90min
 public class GoogleSheetService {
     private static final String LOGIN = "gsheetauto";
     private static final String PASSWORD = "Cfqnktdsq1";
@@ -48,13 +49,21 @@ public class GoogleSheetService {
 
 
     public static void startCSVDownload() throws InterruptedException {
-        driver.findElement(By.xpath("//*[text()='File']")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@aria-label='Download d']")));
+        clickElement(By.xpath("//*[text()='File']"));
+        clickElement(By.xpath("//*[@aria-label='Download d']"));
+        clickElement(By.xpath("//*[@aria-label='Comma-separated values (.csv, current sheet) c']"));
+    }
 
-        driver.findElement(By.xpath("//*[@aria-label='Download d']")).click();
-        Thread.sleep(1000);
-        driver.findElement(
-                By.xpath("//*[@aria-label='Comma-separated values (.csv, current sheet) c']")).click();
+
+    public static void clickElement(By locator) throws InterruptedException {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+            driver.findElement(locator).click();
+        } catch (InvalidElementStateException e) {
+            Thread.sleep(1000);
+            clickElement(locator);
+        }
+
     }
 
 
@@ -67,15 +76,26 @@ public class GoogleSheetService {
     public static void openSheetContextMenu(String sheetName) throws InterruptedException {
         Actions actions = new Actions(driver);
         By xpath = By.xpath("//*[text()='" + sheetName + "']");
+//        By xpath = By.xpath("//*[text()[contains(.,'" + sheetName + "')]]");
         wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
-        WebElement elementLocator = driver.findElement(xpath);
+        WebElement element = driver.findElement(xpath);
         try {
-            actions.contextClick(elementLocator).perform();
+            actions.contextClick(element).perform();
         }
         catch (StaleElementReferenceException e) {
             Thread.sleep(1000);
             openSheetContextMenu(sheetName);
         }
+    }
+
+
+    public static String getResultListName(String namePart) {
+        driver.switchTo().defaultContent();
+
+        By xpath = By.xpath("//*[text()[contains(.,'" + namePart + "')]]");
+        wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
+        WebElement element = driver.findElement(xpath);
+        return element.getText().trim();
     }
 
 
@@ -103,6 +123,11 @@ public class GoogleSheetService {
     }
 
     public static void checkResult(String spreadsheetName, String resultListName, String etalonFile, boolean removeList) throws InterruptedException, IOException {
+        if (fileExists(spreadsheetName, resultListName)) {
+            throw new IllegalStateException(String.format("File for list %s already exists", resultListName));
+        }
+        driver.switchTo().defaultContent();
+        makeSheetActive(resultListName);
         startCSVDownload();
         if (removeList) {
             removeListThroughMenu(resultListName);
@@ -112,13 +137,20 @@ public class GoogleSheetService {
     }
 
 
+    public static void makeSheetActive(String sheetName) {
+        By xpath = By.xpath("//*[text()='" + sheetName + "']");
+        driver.findElement(xpath).click();
+    }
+
+
     public static void clickAddonsMenu() throws InterruptedException {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Add-ons']")));
         try {
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Add-ons']")));
             driver.findElement(By.xpath("//*[text()='Add-ons']")).click();
         }
         //"Working" message prevents from clicking if it's done right after login
-        catch (ElementClickInterceptedException e)
+        //Dialog popup from previous test can prevent from clicking also
+        catch (ElementClickInterceptedException | UnhandledAlertException e)
         {
             Thread.sleep(1000);
             clickAddonsMenu();
@@ -132,8 +164,8 @@ public class GoogleSheetService {
         try {
             driver.findElement(By.xpath(xpath)).click();
         }
-        catch (ElementClickInterceptedException e) {
-            Thread.sleep(2000);
+        catch (ElementNotInteractableException e) {
+            Thread.sleep(1000);
             clickMenuItem(menuName);
         }
     }
@@ -171,5 +203,44 @@ public class GoogleSheetService {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
                     checkbox);
         }
+    }
+
+    public static void clickUndo() {
+        driver.findElement(By.id("t-undo")).findElement(By.className("goog-toolbar-button-inner-box")).click();
+    }
+
+
+    public static void clickUndo(int clickNumber) {
+        for (int i = 0; i < clickNumber; i++) {
+            clickUndo();
+        }
+    }
+
+
+    public static void selectRowsInTable(String tableBodyId, By checkboxLocator, Integer... indexes) throws InterruptedException {
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.id(tableBodyId)));
+            WebElement tBody = driver.findElement(By.id(tableBodyId));
+            List<WebElement> trs = tBody.findElements(By.tagName("tr"));
+            //if list is loaded during long time
+            while (trs.isEmpty()) {
+                Thread.sleep(1000);
+                trs = tBody.findElements(By.tagName("tr"));
+            }
+            EntityList columns = new EntityList(trs, 0);
+            List indexList = Arrays.asList(indexes);
+            for (int i = 0; i < trs.size(); i++) {
+                columns.selectEntity(i, indexList.contains(i + 1), checkboxLocator);
+            }
+        }
+        //when tBody is reloaded by browser and link is not actual
+        catch (StaleElementReferenceException e) {
+            selectRowsInTable(tableBodyId, checkboxLocator, indexes);
+        }
+    }
+
+
+    public static void clickButton(String id) throws InterruptedException {
+        clickElement(By.id(id));
     }
 }

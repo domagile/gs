@@ -43,11 +43,20 @@ public class FileService {
 
 
     public static void compareFileWithEtalon(String spreadsheetName, String listName, String etalonFileName) throws InterruptedException, IOException {
-        //todo: replace with checking of file existance
-        Thread.sleep(3000);
+        String downloadedFileName = getDownloadedFileName(spreadsheetName, listName);
+        File downloadedFile = new File(downloadedFileName);
+        int maxWaitMillis = 10000;
+        int checkTimeMillis = 500;
+        for (int i = 0; i < maxWaitMillis; i++) {
+            if (downloadedFile.exists()) {
+                break;
+            }
+            Thread.sleep(checkTimeMillis);
+            i += checkTimeMillis;
+        }
 
         String etalonPath = "src\\test\\resources\\etalon\\";
-        FileService.checkFileEquality(getDownloadedFileName(spreadsheetName, listName), etalonPath + etalonFileName);
+        FileService.checkFileEquality(downloadedFileName, etalonPath + etalonFileName);
     }
 
 
@@ -56,7 +65,12 @@ public class FileService {
     }
 
 
-    private static String getDownloadedFileName(String spreadsheetName, String listName)
+    public static boolean fileExists(String spreadsheetName, String listName) {
+        return new File(getDownloadedFileName(spreadsheetName, listName)).exists();
+    }
+
+
+    public static String getDownloadedFileName(String spreadsheetName, String listName)
     {
         String userDirectory = System.getProperty("user.home");
         return String.format("%s\\Downloads\\%s - %s.csv", userDirectory, spreadsheetName, listName);

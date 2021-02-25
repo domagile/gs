@@ -6,8 +6,7 @@ import java.io.IOException;
 
 import static googlesheets.service.FileService.compareFileWithEtalon;
 import static googlesheets.service.FileService.removeDownloadedListFile;
-import static googlesheets.service.GoogleSheetService.startCSVDownload;
-import static googlesheets.service.removeduplicates.RemoveDuplicatesService.clickUndo;
+import static googlesheets.service.GoogleSheetService.*;
 
 public abstract class RDTest extends SpreadsheetTest {
     @Override
@@ -19,10 +18,16 @@ public abstract class RDTest extends SpreadsheetTest {
 
 
     protected void checkResult(String listName, String etalonFileName) throws IOException, InterruptedException {
+        //fixme: refactor to invoke generic checks from checkResult()
         startCSVDownload();
         Thread.sleep(2000);
-        clickUndo();
+        restoreInitialDocumentState(listName);
         compareFileWithEtalon(getSpreadsheetName(), listName, etalonFileName);
         removeDownloadedListFile(getSpreadsheetName(), listName);
+    }
+
+
+    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+        clickUndo();
     }
 }
