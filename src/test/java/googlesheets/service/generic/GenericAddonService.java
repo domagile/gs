@@ -2,16 +2,17 @@ package googlesheets.service.generic;
 
 import googlesheets.service.GlobalContext;
 import googlesheets.service.WebDriverService;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import static googlesheets.service.GoogleSheetService.sleep;
 
 public abstract class GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
@@ -36,7 +37,6 @@ public abstract class GenericAddonService {
         if (!switched) {
             driver.switchTo().defaultContent();
             reinvokeFunctionWithDelay(GenericAddonService::switchDriverToAddonIframe);
-            switchDriverToAddonIframe();
         }
     }
 
@@ -48,6 +48,28 @@ public abstract class GenericAddonService {
             throw new RuntimeException(e);
         }
         function.run();
+    }
+
+    public static <T> void reinvokeFunctionWithDelay(Consumer<T> function, T parameter)  {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        function.accept(parameter);
+    }
+
+
+    public static <T> void invokeFunctionWithReinvocation(Consumer<T> function, T parameter, Class<? extends WebDriverException>... exceptionTypes)  {
+        try {
+            function.accept(parameter);
+        } catch (WebDriverException e) {
+            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e)))
+                throw e;
+            //todo: replace with reinvoke with multiple params
+            sleep(1000);
+            invokeFunctionWithReinvocation(function, parameter, exceptionTypes);
+        }
     }
 
 

@@ -3,15 +3,20 @@ package googlesheets.service;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 
 import static googlesheets.service.FileService.*;
-//90min
+import static googlesheets.service.generic.GenericAddonService.invokeFunctionWithReinvocation;
+
+//3.5h
 public class GoogleSheetService {
     private static final String LOGIN = "gsheetauto";
     private static final String PASSWORD = "Cfqnktdsq1";
@@ -20,10 +25,31 @@ public class GoogleSheetService {
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
 
-
     public static void openDoc(String link) throws InterruptedException {
+        if (GlobalContext.USE_CUSTOM_LINKS) {
+            link = getCustomLink(link);
+        }
         driver.get(link);
         login();
+    }
+
+
+    private static String getCustomLink(String link) {
+        Properties customLinkMapping = new Properties();
+        String commonPart = link.substring(0, link.indexOf('#'));
+        String propertiesFileName = "\\googlesheets\\test\\custom_links.properties";
+
+        try {
+            customLinkMapping.load(GoogleSheetService.class.getClassLoader().getResourceAsStream(propertiesFileName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Optional<Object> first = customLinkMapping.values().stream()
+                .filter(customLink -> ((String) customLink).contains(commonPart)).findFirst();
+        if (!first.isPresent())
+            throw new RuntimeException("Custom link was not found");
+        return (String) first.get();
     }
 
 
@@ -55,15 +81,17 @@ public class GoogleSheetService {
     }
 
 
-    public static void clickElement(By locator) throws InterruptedException {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(locator));
-            driver.findElement(locator).click();
-        } catch (InvalidElementStateException e) {
-            Thread.sleep(1000);
-            clickElement(locator);
-        }
+    private static void clickElement(By locator) {
+        invokeFunctionWithReinvocation(elementLocator -> {
+            wait.until(ExpectedConditions.elementToBeClickable(elementLocator));
+            driver.findElement(elementLocator).click();
+        }, locator, InvalidElementStateException.class);
+    }
 
+
+    public static void waitElementToBeClickable(By locator) throws InterruptedException {
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
+        driver.findElement(locator).click();
     }
 
 
@@ -73,19 +101,15 @@ public class GoogleSheetService {
     }
 
 
-    public static void openSheetContextMenu(String sheetName) throws InterruptedException {
-        Actions actions = new Actions(driver);
-        By xpath = By.xpath("//*[text()='" + sheetName + "']");
-//        By xpath = By.xpath("//*[text()[contains(.,'" + sheetName + "')]]");
-        wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
-        WebElement element = driver.findElement(xpath);
-        try {
+    public static void openSheetContextMenu(String sheetName) {
+        invokeFunctionWithReinvocation(name -> {
+            Actions actions = new Actions(driver);
+            By xpath = By.xpath("//*[text()='" + name + "']");
+//        By xpath = By.xpath("//*[text()[contains(.,'" + name + "')]]");
+            wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
+            WebElement element = driver.findElement(xpath);
             actions.contextClick(element).perform();
-        }
-        catch (StaleElementReferenceException e) {
-            Thread.sleep(1000);
-            openSheetContextMenu(sheetName);
-        }
+        }, sheetName, StaleElementReferenceException.class);
     }
 
 
@@ -137,9 +161,11 @@ public class GoogleSheetService {
     }
 
 
-    public static void makeSheetActive(String sheetName) {
+    public static void makeSheetActive(String sheetName) throws InterruptedException {
         By xpath = By.xpath("//*[text()='" + sheetName + "']");
         driver.findElement(xpath).click();
+        //todo: replace with some wait
+        Thread.sleep(1000);
     }
 
 
@@ -150,8 +176,7 @@ public class GoogleSheetService {
         }
         //"Working" message prevents from clicking if it's done right after login
         //Dialog popup from previous test can prevent from clicking also
-        catch (ElementClickInterceptedException | UnhandledAlertException e)
-        {
+        catch (ElementClickInterceptedException | UnhandledAlertException e) {
             Thread.sleep(1000);
             clickAddonsMenu();
         }
@@ -159,35 +184,41 @@ public class GoogleSheetService {
 
 
     public static void clickMenuItem(String menuName) throws InterruptedException {
-        String xpath = "//*[text()='" + menuName + "']";
+        clickMenuItem(menuName, true);
+    }
+
+    public static void clickMenuItem(String menuName, boolean exactText) throws InterruptedException {
+        String xpath = exactText ? "//*[text()='" + menuName + "']" : "//*[text()[contains(.,'" + menuName + "')]]";
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
         try {
             driver.findElement(By.xpath(xpath)).click();
-        }
-        catch (ElementNotInteractableException e) {
+        } catch (ElementNotInteractableException e) {
             Thread.sleep(1000);
-            clickMenuItem(menuName);
+            clickMenuItem(menuName, exactText);
         }
     }
 
 
     public static void clickHighLevelMenuItem(String menuName, String nextMenuName) {
-        String xpath = "//*[text()='" + menuName + "']";
+        clickHighLevelMenuItem(menuName, nextMenuName, true);
+    }
+
+    public static void clickHighLevelMenuItem(String menuName, String nextMenuName, boolean exactText) {
+        String xpath = exactText ? "//*[text()='" + menuName + "']" : "//*[text()[contains(.,'" + menuName + "')]]";
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
         driver.findElement(By.xpath(xpath)).click();
         try {
-            xpath = "//*[text()='" + nextMenuName + "']";
-            wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-        }
-        catch (TimeoutException e) {
+            xpath = exactText ? "//*[text()='" + nextMenuName + "']" : "//*[text()[contains(.,'" + nextMenuName + "')]]";
+            //element is not clickable at least at AFR by some reason
+//            wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+            wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        } catch (TimeoutException e) {
             //fixme: repeat invocation only 1 time
-            clickHighLevelMenuItem(menuName, nextMenuName);
-        }
-        finally {
+            clickHighLevelMenuItem(menuName, nextMenuName, exactText);
+        } finally {
             WebDriverService.getInstance().resetWaitTimeout();
         }
     }
-
 
     public static void clickRadioButton(String buttonId) {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id(buttonId)));
@@ -240,7 +271,41 @@ public class GoogleSheetService {
     }
 
 
-    public static void clickButton(String id) throws InterruptedException {
+    public static void clickButton(String id) {
         clickElement(By.id(id));
+    }
+
+
+    public static void selectComboboxValue(String id, String value) {
+        try {
+            WebElement select = driver.findElement(By.id(id));
+            Select combobox = new Select(select);
+            combobox.selectByVisibleText(value);
+        }
+        //fixme: limit of invocations is absolutely mandatory here
+        catch (StaleElementReferenceException
+                //give some time to load list of expected values
+                | NoSuchElementException e) {
+            sleep(1000);
+            selectComboboxValue(id, value);
+        }
+    }
+
+    public static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static void setText(String text, String fieldId) {
+        invokeFunctionWithReinvocation(textValue -> {
+            By fieldLocator = By.id(fieldId);
+            wait.until(ExpectedConditions.presenceOfElementLocated(fieldLocator));
+            driver.findElement(fieldLocator).clear();
+            driver.findElement(fieldLocator).sendKeys(textValue);
+        }, text, ElementNotInteractableException.class);
     }
 }

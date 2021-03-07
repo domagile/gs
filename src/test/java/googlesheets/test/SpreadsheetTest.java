@@ -19,4 +19,11 @@ public abstract class SpreadsheetTest {
     public static void pauseBeforeNextTest() throws InterruptedException {
         Thread.sleep(3000);
     }
+
+
+    protected static String getSpreadsheetName(Class<?> clazz) {
+        String className = clazz.getSimpleName();
+        String rdrXXXString = className.substring(0, className.indexOf("_"));
+        return rdrXXXString.substring(0, 3) + '_' + rdrXXXString.substring(3, 6);
+    }
 }

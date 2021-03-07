@@ -8,11 +8,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.function.Consumer;
+
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
+import static googlesheets.service.generic.GenericAddonService.*;
 
 public class AdvancedFindReplaceService {
     public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Advanced Find and Replace";
+    //   public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Dev Scr";
     public static final String MENU_TEXT_START = "Start";
 
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
@@ -34,38 +37,17 @@ public class AdvancedFindReplaceService {
         switchDriverToAddonIframe();
     }
 
-
-    public static void setSearchString(String searchString) throws InterruptedException {
-        By searchStringLocator = By.id("afrSearchString");
-        wait.until(ExpectedConditions.presenceOfElementLocated(searchStringLocator));
-        try {
-            driver.findElement(searchStringLocator).clear();
-            driver.findElement(searchStringLocator).sendKeys(searchString);
-        }
-        //todo: replace with some generic construction
-        catch (ElementNotInteractableException e) {
-            Thread.sleep(1000);
-            setSearchString(searchString);
-        }
+    public static void setSearchString(String searchString) {
+        setText(searchString, "afrSearchString");
     }
 
     public static void setReplaceString(String replacementString) throws InterruptedException {
-        By replaceWithLocator = By.id("afrReplaceString");
-        wait.until(ExpectedConditions.presenceOfElementLocated(replaceWithLocator));
-        try {
-            driver.findElement(replaceWithLocator).clear();
-            driver.findElement(replaceWithLocator).sendKeys(replacementString);
-        }
-        //todo: replace with some generic construction
-        catch (ElementNotInteractableException e) {
-            Thread.sleep(1000);
-            setReplaceString(replacementString);
-        }
+        setText(replacementString, "afrReplaceString");
     }
 
 
     private static void clickAdvancedFindAndReplaceMenu() {
-        clickHighLevelMenuItem(MENU_TEXT_ADVANCED_FIND_AND_REPLACE, MENU_TEXT_START);
+        clickHighLevelMenuItem(MENU_TEXT_ADVANCED_FIND_AND_REPLACE, MENU_TEXT_START, false);
     }
 
 
@@ -92,6 +74,7 @@ public class AdvancedFindReplaceService {
     public static void clickReplaceAll() throws InterruptedException {
         clickButton(BUTTON_ID_REPLACE_ALL);
     }
+
     public static void clickReplace() throws InterruptedException {
         clickButton(BUTTON_ID_REPLACE);
     }
@@ -132,19 +115,19 @@ public class AdvancedFindReplaceService {
 
 
     public static void setMatchCase(boolean value) {
-        setCheckboxValue(value,"afrMatchCase");
+        setCheckboxValue(value, "afrMatchCase");
     }
 
     public static void setEntireCell(boolean value) {
-        setCheckboxValue(value,"afrEntireCell");
+        setCheckboxValue(value, "afrEntireCell");
     }
 
     public static void setByMask(boolean value) {
-        setCheckboxValue(value,"afrByMask");
+        setCheckboxValue(value, "afrByMask");
     }
 
     public static void setValues(boolean value) {
-        setCheckboxValue(value,"afrValuesCheckbox");
+        setCheckboxValue(value, "afrValuesCheckbox");
     }
 
     public static void setFormulas(boolean value) {
@@ -152,7 +135,7 @@ public class AdvancedFindReplaceService {
     }
 
     public static void setNotes(boolean value) {
-        setCheckboxValue(value,"afrNotesCheckbox");
+        setCheckboxValue(value, "afrNotesCheckbox");
     }
 
     public static void setHyperlinks(boolean value) {
@@ -160,9 +143,6 @@ public class AdvancedFindReplaceService {
     }
 
     public static void setErrors(boolean value) {
-        setCheckboxValue(value,"afrErrorsCheckbox");
+        setCheckboxValue(value, "afrErrorsCheckbox");
     }
-
-
-
 }

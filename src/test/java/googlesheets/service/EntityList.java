@@ -4,6 +4,7 @@ import googlesheets.service.WebDriverService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -26,6 +27,15 @@ public class EntityList {
         if (checkbox.isSelected() != value) {
             td.click();
         }
+    }
+
+
+    public void setComboboxValue(int row, int column, String value, By comboboxLocator)
+    {
+        WebElement td = trs.get(row).findElements(By.tagName("td")).get(column);
+        WebElement select = td.findElement(comboboxLocator);
+        Select combobox = new Select(select);
+        combobox.selectByVisibleText(value);
     }
 
 
