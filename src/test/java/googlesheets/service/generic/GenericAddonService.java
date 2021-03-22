@@ -1,16 +1,13 @@
 package googlesheets.service.generic;
 
-import googlesheets.service.GlobalContext;
 import googlesheets.service.WebDriverService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.Predicate;
 
 import static googlesheets.service.GoogleSheetService.sleep;
 
@@ -18,30 +15,43 @@ public abstract class GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
-    //todo: search for content in all iframes from the end
-    public static void switchDriverToAddonIframe() {
+
+    public static IFrameInfo switchDriverToAddonIframe() {
+        return switchDriverToAddonIframe(iFrame -> true);
+    }
+
+
+    public static IFrameInfo switchDriverToAddonIframe(Predicate<WebElement> iFramePredicate) {
         boolean switched = false;
+        String topIframeSrc = null;
 
         List<WebElement> iFrames = driver.findElements(By.tagName("iframe"));
         for (int i = iFrames.size() - 1; i >= 0; i--) {
             WebElement iFrame = iFrames.get(i);
+
             try {
+                topIframeSrc = iFrame.getAttribute("src");
+                if (!iFramePredicate.test(iFrame)) {
+                    break;
+                }
                 switchToAddonIframe(iFrame);
                 switched = true;
                 break;
-            } catch (NoSuchElementException e) {
+            } catch (NoSuchElementException | StaleElementReferenceException e) {
                 //do nothing
             }
         }
 
         if (!switched) {
             driver.switchTo().defaultContent();
+            //todo: fix reinvocation
             reinvokeFunctionWithDelay(GenericAddonService::switchDriverToAddonIframe);
         }
+        return new IFrameInfo(topIframeSrc);
     }
 
 
-    public static void reinvokeFunctionWithDelay(Runnable function)  {
+    public static void reinvokeFunctionWithDelay(Runnable function) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -50,7 +60,7 @@ public abstract class GenericAddonService {
         function.run();
     }
 
-    public static <T> void reinvokeFunctionWithDelay(Consumer<T> function, T parameter)  {
+    public static <T> void reinvokeFunctionWithDelay(Consumer<T> function, T parameter) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -60,7 +70,7 @@ public abstract class GenericAddonService {
     }
 
 
-    public static <T> void invokeFunctionWithReinvocation(Consumer<T> function, T parameter, Class<? extends WebDriverException>... exceptionTypes)  {
+    public static <T> void invokeFunctionWithReinvocation(Consumer<T> function, T parameter, Class<? extends WebDriverException>... exceptionTypes) {
         try {
             function.accept(parameter);
         } catch (WebDriverException e) {
