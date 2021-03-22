@@ -1,4 +1,4 @@
-package googlesheets.service.comparetwosheets;
+package googlesheets.service.removeduplicates.comparetwosheets;
 
 public class ColumnComparisonPair {
     private int firstTableColumnIndex;

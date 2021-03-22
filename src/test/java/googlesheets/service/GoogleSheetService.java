@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static googlesheets.service.Credentials.LOGIN;
@@ -20,13 +21,13 @@ import static googlesheets.service.Credentials.PASSWORD;
 import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.service.generic.GenericAddonService.invokeFunctionWithReinvocation;
 
-//6.5h
+
 public class GoogleSheetService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
 
-    public static void openDoc(String link) throws InterruptedException {
+    public static void openDoc(String link) {
         if (GlobalContext.USE_CUSTOM_LINKS) {
             link = getCustomLink(link);
         }
@@ -96,9 +97,15 @@ public class GoogleSheetService {
     }
 
 
-    public static void waitElementToBeClickable(By locator) throws InterruptedException {
+    public static void waitElementToBeClickable(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         driver.findElement(locator).click();
+    }
+
+
+    public static void waitText(String text) {
+        By xpath = By.xpath("//*[text()[contains(.,'" + text + "')]]");
+        wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
     }
 
 
@@ -278,7 +285,7 @@ public class GoogleSheetService {
     }
 
 
-    public static void clickButton(String id) {
+    public static void clickElement(String id) {
         clickElement(By.id(id));
     }
 
@@ -324,6 +331,17 @@ public class GoogleSheetService {
         String currentText = driver.findElement(fieldLocator).getAttribute("value");
         if (!currentText.equals(text)) {
             setTextFunction.accept(text);
+        }
+    }
+
+
+    public static void checkText(String text, String fieldId, BiConsumer<String, String> setTextFunction)
+    {
+        By fieldLocator = By.id(fieldId);
+        wait.until(ExpectedConditions.presenceOfElementLocated(fieldLocator));
+        String currentText = driver.findElement(fieldLocator).getAttribute("value");
+        if (!currentText.equals(text)) {
+            setTextFunction.accept(text, fieldId);
         }
     }
 }

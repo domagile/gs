@@ -1,4 +1,4 @@
-package googlesheets.service.removeduplicatecells;
+package googlesheets.service.removeduplicates.removeduplicatecells;
 
 public enum CellType {
     DUPLICATES,
