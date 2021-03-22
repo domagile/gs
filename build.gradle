@@ -18,5 +18,8 @@ dependencies {
 
     testCompile 'org.seleniumhq.selenium:selenium-java:3.141.59'
     testCompile 'junit:junit:4.11'
-
+    testCompile 'org.apache.poi:poi:4.1.2'
+    testCompile 'org.apache.poi:poi-ooxml:4.1.2'
+    testCompile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+    testCompile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
 }

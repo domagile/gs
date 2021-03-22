@@ -1,11 +1,12 @@
 package googlesheets.test.afr.generic;
 
 import googlesheets.service.WebDriverService;
+import googlesheets.service.technical.file.FileType;
 import googlesheets.test.SpreadsheetTest;
 
 import java.io.IOException;
 
-import static googlesheets.service.FileService.*;
+import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.service.GoogleSheetService.*;
 
 public class AFRTest extends SpreadsheetTest {
@@ -18,7 +19,7 @@ public class AFRTest extends SpreadsheetTest {
     //todo: refactor to remove internals as much as possible and use generic method
     protected void checkResult(String resultListName, String etalonFile) throws IOException, InterruptedException {
         String spreadsheetName = getSpreadsheetName();
-        if (fileExists(spreadsheetName, resultListName)) {
+        if (fileExists(spreadsheetName, resultListName, FileType.CSV)) {
             throw new IllegalStateException(String.format("File for list %s already exists", resultListName));
         }
         WebDriverService.getInstance().getDriver().switchTo().defaultContent();
@@ -26,7 +27,7 @@ public class AFRTest extends SpreadsheetTest {
         startCSVDownload();
         restoreInitialDocumentState(resultListName);
         compareFileWithEtalon(spreadsheetName, resultListName, etalonFile);
-        removeDownloadedListFile(spreadsheetName, resultListName);
+        removeDownloadedListFile(spreadsheetName, resultListName, FileType.CSV);
     }
 
     protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {

@@ -137,7 +137,20 @@ public class ExcelComparator {
     }
 
 
+    public static List<String> compare(Workbook wb1, String sheetName1, Workbook wb2, String sheetName2) {
+        Sheet sheet1 = wb1.getSheet(sheetName1);
+        Sheet sheet2 = wb2.getSheet(sheetName2);
+        ExcelComparator excelComparator = new ExcelComparator();
+        Locator loc1 = new Locator();
+        Locator loc2 = new Locator();
+        loc1.workbook = wb1;
+        loc2.workbook = wb2;
+        loc1.sheet = sheet1;
+        loc2.sheet = sheet2;
 
+        excelComparator.compareDataInSheet(loc1, loc2);
+        return excelComparator.listOfDifferences;
+    }
 
 
     /**
@@ -468,7 +481,7 @@ public class ExcelComparator {
     }
 
     private String getCellFillBackground(Locator loc) {
-        Color col = loc.cell.getCellStyle().getFillBackgroundColorColor();
+        Color col = loc.cell.getCellStyle().getFillForegroundColorColor();
         return (col instanceof XSSFColor) ? ((XSSFColor)col).getARGBHex() : "NO COLOR";
     }
 

@@ -1,7 +1,6 @@
 package googlesheets.test.afr;
 
 import googlesheets.service.GoogleSheetService;
-import googlesheets.service.WebDriverService;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
@@ -9,7 +8,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.FileService.*;
 import static googlesheets.service.GoogleSheetService.*;
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 

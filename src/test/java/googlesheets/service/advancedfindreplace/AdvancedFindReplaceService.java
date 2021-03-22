@@ -2,16 +2,11 @@ package googlesheets.service.advancedfindreplace;
 
 import googlesheets.service.WebDriverService;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.function.Consumer;
-
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.generic.GenericAddonService.*;
+import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
 
 public class AdvancedFindReplaceService {
     public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Advanced Find and Replace";
@@ -68,48 +63,48 @@ public class AdvancedFindReplaceService {
     }
 
     public static void clickFindAll() throws InterruptedException {
-        clickButton(BUTTON_ID_FIND_ALL);
+        clickElement(BUTTON_ID_FIND_ALL);
     }
 
     public static void clickReplaceAll() throws InterruptedException {
-        clickButton(BUTTON_ID_REPLACE_ALL);
+        clickElement(BUTTON_ID_REPLACE_ALL);
     }
 
     public static void clickReplace() throws InterruptedException {
-        clickButton(BUTTON_ID_REPLACE);
+        clickElement(BUTTON_ID_REPLACE);
     }
 
     public static void clickNewSearch() throws InterruptedException {
-        clickButton(BUTTON_ID_NEW_SEARCH);
+        clickElement(BUTTON_ID_NEW_SEARCH);
     }
 
     public static void runExportAllFoundEntries() throws InterruptedException {
-        clickButton("afrOptionOfResultMenuWrapper");
+        clickElement("afrOptionOfResultMenuWrapper");
         clickMenuItem("Export all found entries");
     }
 
     public static void runExportRowsWithAllFoundEntries() throws InterruptedException {
-        clickButton("afrOptionOfResultMenuWrapper");
+        clickElement("afrOptionOfResultMenuWrapper");
         clickMenuItem("Export rows with all found entries");
     }
 
     public static void runDeleteRowsWithAllFoundEntries() throws InterruptedException {
-        clickButton("afrOptionOfResultMenuWrapper");
+        clickElement("afrOptionOfResultMenuWrapper");
         clickMenuItem("Delete rows with all found entries");
     }
 
     public static void runExportTheSelectedEntries() throws InterruptedException {
-        clickButton("afrOptionOfResultMenuWrapper");
+        clickElement("afrOptionOfResultMenuWrapper");
         clickMenuItem("Export the selected entries");
     }
 
     public static void runExportRowsWithTheSelectedEntries() throws InterruptedException {
-        clickButton("afrOptionOfResultMenuWrapper");
+        clickElement("afrOptionOfResultMenuWrapper");
         clickMenuItem("Export rows with the selected entries");
     }
 
     public static void runDeleteRowsWithTheSelectedEntries() throws InterruptedException {
-        clickButton("afrOptionOfResultMenuWrapper");
+        clickElement("afrOptionOfResultMenuWrapper");
         clickMenuItem("Delete rows with the selected entries");
     }
 

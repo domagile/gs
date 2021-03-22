@@ -1,7 +1,9 @@
-package googlesheets.service.comparetwosheets;
+package googlesheets.service.removeduplicates.comparetwosheets;
 
 import googlesheets.service.EntityList;
+import googlesheets.service.GoogleSheetService;
 import googlesheets.service.WebDriverService;
+import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,12 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
 
-public class CompareTwoSheetsService {
-
-
-    public static final String MENU_TEXT_REMOVE_DUPLICATES = "Remove Duplicates";
+public class CompareTwoSheetsService extends RemoveDuplicatesService {
     //incorrect symbols in the beginning of naming in released version - skip them
     public static final String MENU_TEXT_COMPARE_COLUMNS_OR_SHEETS = "pare columns or sheets";
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "rdSheetBackupCheckbox";
@@ -28,70 +26,68 @@ public class CompareTwoSheetsService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
-    private static void clickRemoveDuplicatesMenu() {
-        clickHighLevelMenuItem(MENU_TEXT_REMOVE_DUPLICATES, MENU_TEXT_COMPARE_COLUMNS_OR_SHEETS, false);
-    }
 
-    private static void clickCompareColumnsOeSheetsMenu() throws InterruptedException {
+    private static void clickCompareColumnsOrSheetsMenu()  {
         clickMenuItem(MENU_TEXT_COMPARE_COLUMNS_OR_SHEETS, false);
     }
 
-    public static void runCompareColumnsOrSheets() throws InterruptedException {
+    public static void runCompareColumnsOrSheets() {
         clickAddonsMenu();
-        clickRemoveDuplicatesMenu();
-        clickCompareColumnsOeSheetsMenu();
+        clickRemoveDuplicatesMenu(MENU_TEXT_COMPARE_COLUMNS_OR_SHEETS, false);
+        clickCompareColumnsOrSheetsMenu();
         //todo: change to some explicit wait
         //wait for dialog window to be loaded
-        Thread.sleep(5000);
+        sleep(5000);
 
         switchDriverToAddonIframe();
     }
 
-    public static void setCreateBackupCopyOfSheet(boolean value) throws InterruptedException {
+    public static void setCreateBackupCopyOfSheet(boolean value) {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY)));
         setCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
-        Thread.sleep(5000);
+        sleep(5000);
     }
 
-    public static void clickNext() throws InterruptedException {
-        clickButton(BUTTON_ID_NEXT);
+    public static void clickNext() {
+        clickElement(BUTTON_ID_NEXT);
     }
 
     public static void waitNextButtonEnabled() {
 //        wait.until(ExpectedConditions.)
     }
 
-    public static void clickAutoDetect() throws InterruptedException {
-        clickButton(BUTTON_ID_AUTO_DETECT);
+    public static void clickAutoDetect() {
+        clickElement(BUTTON_ID_AUTO_DETECT);
     }
 
-    public static void setStep1Range(String range) throws InterruptedException {
+    public static void setStep1Range(String range) {
         setRange(range, "rdSelectedRange");
     }
 
-    public static void setStep2Range(String range) throws InterruptedException {
+    public static void setStep2Range(String range) {
         //do not set range before loading of field of second sheet to avoid freeze
         waitNextButtonEnabled();
-        Thread.sleep(10000);
+        sleep(10000);
         setRange(range, "ctsSelectedRange");
     }
 
 
-    public static void setRangeExistingSheet(String range) throws InterruptedException {
+    public static void setRangeExistingSheet(String range) {
         setRange(range, "rdExistingSheetRange");
     }
 
-    private static void setRange(String range, String rangeFieldId) throws InterruptedException {
+    private static void setRange(String range, String rangeFieldId) {
         By selectedRangeLocator = By.id(rangeFieldId);
         wait.until(ExpectedConditions.presenceOfElementLocated(selectedRangeLocator));
         try {
             //fixme: replace with some check
-            Thread.sleep(3000);
+            sleep(3000);
             driver.findElement(selectedRangeLocator).clear();
             driver.findElement(selectedRangeLocator).sendKeys(range);
-            Thread.sleep(2000);
+            sleep(2000);
+            checkText(range, rangeFieldId, CompareTwoSheetsService::setRange);
         } catch (ElementNotInteractableException e) {
-            Thread.sleep(1000);
+            sleep(1000);
             setRange(range, rangeFieldId);
         }
     }
@@ -136,7 +132,7 @@ public class CompareTwoSheetsService {
     }
 
 
-    public static void selectColumnsToSearchIn(Integer... indexes) throws InterruptedException {
+    public static void selectColumnsToSearchIn(Integer... indexes) {
         By checkboxLocator = By.className("rd-column-select-checkbox");
         selectRowsInTable("rdColumnsList", checkboxLocator, indexes);
     }
@@ -188,30 +184,30 @@ public class CompareTwoSheetsService {
     }
 
 
-    public static void clickFinishAndClose() throws InterruptedException {
+    public static void clickFinishAndClose() {
         driver.findElement(By.id("nextButton")).click();
         waitForCompletionAndClose();
     }
 
 
-    public static void waitForCompletionAndClose() throws InterruptedException {
+    public static void waitForCompletionAndClose() {
         wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[text()[contains(.,'have been found')]]")));
         //
-        Thread.sleep(5000);
-        clickButton("closeButton");
+        sleep(5000);
+        clickElement("closeButton");
 
         driver.switchTo().defaultContent();
     }
 
 
-    public static void setColumnsToCompare(ColumnComparisonPair... pairs) throws InterruptedException {
+    public static void setColumnsToCompare(ColumnComparisonPair... pairs) {
         By checkboxLocator = By.tagName("input");
         selectPairsInTable("rdColumnsList", checkboxLocator, pairs);
     }
 
 
-    private static void selectPairsInTable(String tableBodyId, By checkboxLocator, ColumnComparisonPair... pairs) throws InterruptedException {
+    private static void selectPairsInTable(String tableBodyId, By checkboxLocator, ColumnComparisonPair... pairs) {
         try {
             By comboboxLocator = By.tagName("select");
             wait.until(ExpectedConditions.presenceOfElementLocated(By.id(tableBodyId)));
@@ -219,7 +215,7 @@ public class CompareTwoSheetsService {
             List<WebElement> trs = tBody.findElements(By.tagName("tr"));
             //if list is loaded during long time
             while (trs.isEmpty()) {
-                Thread.sleep(1000);
+                sleep(1000);
                 trs = tBody.findElements(By.tagName("tr"));
             }
             EntityList columns = new EntityList(trs, 0);
@@ -242,5 +238,18 @@ public class CompareTwoSheetsService {
 
     public static void selectExistingSheet(String sheetName)  {
         selectComboboxValue("rdExistingSheetSelect", sheetName);
+    }
+
+    public static void clickFillWithColor() {
+        clickRadioButton("rdActionFillTheColor");
+    }
+
+
+    //fixme: doesn't work by some reason - chosen color is not applied, displayed color is applied instead. try to change style of the div?
+    public static void setColor(String colorCode)
+    {
+//        WebElement colorInput = driver.findElement(By.id("rdActionFillTheColorInput"));
+        WebElement colorInput = driver.findElement(By.className("choise_color"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='"+ colorCode + "';", colorInput);
     }
 }
