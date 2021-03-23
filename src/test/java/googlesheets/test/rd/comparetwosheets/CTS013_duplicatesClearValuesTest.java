@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.clickUndo;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS013_duplicatesClearValuesTest extends CTSTest {
     @BeforeClass
@@ -41,7 +41,7 @@ public class CTS013_duplicatesClearValuesTest extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo();
     }
 }

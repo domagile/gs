@@ -1,7 +1,7 @@
 package googlesheets.test.rd.comparetwosheets;
 
 import googlesheets.service.GoogleSheetService;
-import googlesheets.service.comparetwosheets.ColumnComparisonPair;
+import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPair;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -9,16 +9,16 @@ import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.clickUndo;
 import static googlesheets.service.GoogleSheetService.getResultListName;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS028_uniqueMatchCaseAddStatusTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1xlRrD_f5irKVN0YRPjbwMKYxvU2rtzTilUEIJe8eVZA/edit#gid=1834627808");
+    public static void openDocument()  {
+        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1xlRrD_f5irKVN0YRPjbwMKYxvU2rtzTilUEIJe8eVZA/edit#gid=1640915989");
     }
 
     @Test
-    public void uniqueCopyToAnotherLocationNewSheet() throws IOException, InterruptedException {
+    public void uniqueCopyToAnotherLocationNewSheet() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -46,7 +46,7 @@ public class CTS028_uniqueMatchCaseAddStatusTest extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo(5);
     }
 }

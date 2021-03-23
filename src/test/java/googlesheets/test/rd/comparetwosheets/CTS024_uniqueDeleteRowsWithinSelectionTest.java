@@ -8,16 +8,16 @@ import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.clickUndo;
 import static googlesheets.service.GoogleSheetService.getResultListName;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS024_uniqueDeleteRowsWithinSelectionTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1gMvIznsnnyBkJliTZIN23sH22zgmzOixB0l9bOldTdI/edit#gid=1937313365");
     }
 
     @Test
-    public void uniqueDeleteRowsWithinSelection() throws IOException, InterruptedException {
+    public void uniqueDeleteRowsWithinSelection() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -43,7 +43,7 @@ public class CTS024_uniqueDeleteRowsWithinSelectionTest extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo(10);
     }
 }

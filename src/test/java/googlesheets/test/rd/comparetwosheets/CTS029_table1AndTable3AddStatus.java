@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS029_table1AndTable3AddStatus extends CTSTest {
     @BeforeClass
@@ -43,7 +43,7 @@ public class CTS029_table1AndTable3AddStatus extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo(5);
     }
 }

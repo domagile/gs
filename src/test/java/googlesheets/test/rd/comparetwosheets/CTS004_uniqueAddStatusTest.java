@@ -6,17 +6,18 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.GoogleSheetService.clickUndo;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS004_uniqueAddStatusTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1fGnUdSBiej8QFm6uiDV30xXn1ExUfXSTdLMAeZhDVbs/edit#gid=1871337593");
     }
 
 
     @Test
-    public void uniqueAddStatusAllColumns() throws IOException, InterruptedException {
+    public void uniqueAddStatusAllColumns() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:G10");
@@ -34,5 +35,10 @@ public class CTS004_uniqueAddStatusTest extends CTSTest {
         clickAddStatusColumnRadioButton();
         clickFinishAndClose();
         checkResult("Table1", "comparetwosheets\\CTS_004_uniqueAddStatus.csv");
+    }
+
+    @Override
+    protected void restoreInitialDocumentState(String resultListName) {
+        clickUndo(2);
     }
 }

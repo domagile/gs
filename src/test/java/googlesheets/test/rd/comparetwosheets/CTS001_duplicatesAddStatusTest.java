@@ -1,23 +1,22 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.GoogleSheetService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS001_duplicatesAddStatusTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         openDoc("https://docs.google.com/spreadsheets/d/1JsgI__dNB1HfF_0HgpzsXM3jedgx3bOmUBUydELJH_4/edit#gid=18691539");
     }
 
 
     @Test
-    public void duplicatesAddStatus() throws IOException, InterruptedException {
+    public void duplicatesAddStatus() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
 
@@ -42,7 +41,7 @@ public class CTS001_duplicatesAddStatusTest extends CTSTest {
 
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo();
     }
 }

@@ -1,25 +1,24 @@
 package googlesheets.test.rd.comparetwosheets;
 
 import googlesheets.service.GoogleSheetService;
-import googlesheets.service.comparetwosheets.ColumnComparisonPair;
+import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPair;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.clickUndo;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS009_uniqueHasNotHeadersTable1AddStatusTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1PRn2WpRc5Qg_ic_heEZ6l6a5snL4F28bPivBuptM5JY/edit#gid=1768414711");
     }
 
 
     @Test
-    public void uniqueHasNotHeadersTable1AddStatus() throws IOException, InterruptedException {
+    public void uniqueHasNotHeadersTable1AddStatus() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I9");
@@ -45,7 +44,7 @@ public class CTS009_uniqueHasNotHeadersTable1AddStatusTest extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo(5);
     }
 }

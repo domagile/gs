@@ -7,16 +7,16 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS022_uniqueAddStatusTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1dakTJ_kyWaVeGcZhqKQle62auViOcPVRejtAM3VE2M8/edit#gid=7025152");
     }
 
     @Test
-    public void uniqueAddStatus() throws IOException, InterruptedException {
+    public void uniqueAddStatus() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -42,7 +42,7 @@ public class CTS022_uniqueAddStatusTest extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo();
     }
 }

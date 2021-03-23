@@ -6,9 +6,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.getResultListName;
-import static googlesheets.service.GoogleSheetService.removeListThroughMenu;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS018_duplicatesMoveNewSheetTest extends CTSTest {
     @BeforeClass
@@ -43,9 +42,14 @@ public class CTS018_duplicatesMoveNewSheetTest extends CTSTest {
         checkResult(getResultListName("Table1 - duplicates"), "comparetwosheets\\CTS_018_duplicatesMoveToNewSheet.csv");
     }
 
-    @Override
+   /* @Override
     protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
         //fixme: replace with undo
         removeListThroughMenu(resultListName);
+    }*/
+
+    @Override
+    protected void restoreInitialDocumentState(String resultListName) {
+        clickUndo(5);
     }
 }

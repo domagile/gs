@@ -7,16 +7,16 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.*;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS017_duplicatesCopyExistingSheetTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1Y1sDf_HUxcFSL6fFjCnsNzMscKEVMqsmkgN-f0JTdrA/edit#gid=117501248");
     }
 
     @Test
-    public void duplicatesCopyToExistingSheet() throws IOException, InterruptedException {
+    public void duplicatesCopyToExistingSheet() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -40,7 +40,7 @@ public class CTS017_duplicatesCopyExistingSheetTest extends CTSTest {
         clickExistingSheet();
         selectExistingSheet("Table1");
         //wait for Table1 list to become active
-        Thread.sleep(1000);
+        sleep(1000);
         setRangeExistingSheet("K1");
 
         clickFinishAndClose();
@@ -48,7 +48,7 @@ public class CTS017_duplicatesCopyExistingSheetTest extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo(5);
     }
 }

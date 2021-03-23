@@ -8,16 +8,16 @@ import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.clickUndo;
 import static googlesheets.service.GoogleSheetService.getResultListName;
-import static googlesheets.service.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS025_uniqueCopyNewSheetTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1PqxB4EB39kbJWntslmyGKVpLHEYO2hDxO5mvPxXfrdw/edit#gid=875607821");
     }
 
     @Test
-    public void uniqueCopyToAnotherLocationNewSheet() throws IOException, InterruptedException {
+    public void uniqueCopyToAnotherLocationNewSheet() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -44,7 +44,7 @@ public class CTS025_uniqueCopyNewSheetTest extends CTSTest {
     }
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         clickUndo(10);
     }
 }
