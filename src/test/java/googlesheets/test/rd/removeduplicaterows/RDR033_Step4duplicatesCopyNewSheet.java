@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.getResultListName;
 import static googlesheets.service.GoogleSheetService.removeListThroughMenu;
-import static googlesheets.service.removeduplicatesrows.RemoveDuplicatesRowsService.*;
+import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR033_Step4duplicatesCopyNewSheet extends RDRTest {
     @BeforeClass
@@ -39,7 +39,7 @@ public class RDR033_Step4duplicatesCopyNewSheet extends RDRTest {
 
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         removeListThroughMenu(resultListName);
     }
 }

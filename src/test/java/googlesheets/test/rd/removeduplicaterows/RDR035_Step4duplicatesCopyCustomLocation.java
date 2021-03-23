@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static googlesheets.service.GoogleSheetService.clickUndo;
-import static googlesheets.service.removeduplicatesrows.RemoveDuplicatesRowsService.*;
+import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR035_Step4duplicatesCopyCustomLocation extends RDRTest {
     @BeforeClass
@@ -39,7 +39,7 @@ public class RDR035_Step4duplicatesCopyCustomLocation extends RDRTest {
 
 
     @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         //todo: replace with some rollback through API
         clickUndo(10);
     }

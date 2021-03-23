@@ -7,17 +7,17 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.removeduplicatesrows.RemoveDuplicatesRowsService.*;
+import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR001_Step2OptionsTest extends RDRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1-jqlPo3FJrwIxiKUBQ81gNOf3kYBaRrlRni5Y4a4Kdk/edit#gid=0");
     }
 
 
     @Test
-    public void duplicates() throws IOException, InterruptedException {
+    public void duplicates() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

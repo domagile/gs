@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.removeduplicatesrows.RemoveDuplicatesRowsService.*;
+import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR032_Step4AddStatusTest extends RDRTest {
     @BeforeClass
