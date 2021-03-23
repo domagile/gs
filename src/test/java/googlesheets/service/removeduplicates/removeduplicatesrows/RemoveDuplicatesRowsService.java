@@ -1,8 +1,14 @@
-package googlesheets.service.removeduplicatesrows;
+package googlesheets.service.removeduplicates.removeduplicatesrows;
 
 import googlesheets.service.GlobalContext;
+import googlesheets.service.GoogleSheetService;
 import googlesheets.service.WebDriverService;
-import googlesheets.service.generic.GenericAddonService;
+import googlesheets.service.generic.IFrameInfo;
+import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
@@ -11,18 +17,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static googlesheets.service.GoogleSheetService.*;
 
-public class RemoveDuplicatesRowsService extends GenericAddonService {
+public class RemoveDuplicatesRowsService extends RemoveDuplicatesService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
     public static final String MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_ROWS = "Find duplicate or unique rows";
-    public static final String MENU_TEXT_REMOVE_DUPLICATES = "Remove Duplicates";
     public static final String BUTTON_ID_NEXT = "nextButton";
     public static final String CHECKBOX_ID_MY_TABLE_HAS_HEADERS = "rdTableHasHeaders";
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "rdSheetBackupCheckbox";
 
 
-    public static void runFindDuplicateOrUniqueRows() throws InterruptedException {
+    public static void runFindDuplicateOrUniqueRows() {
         if (GlobalContext.IS_POWER_TOOLS_MODE) {
             runThroughPowerTools();
         } else {
@@ -31,23 +36,14 @@ public class RemoveDuplicatesRowsService extends GenericAddonService {
     }
 
 
-    public static void selectColumnsToSearchIn(Integer... indexes) throws InterruptedException {
+    public static void selectColumnsToSearchIn(Integer... indexes) {
         By checkboxLocator = By.className("rd-column-select-checkbox");
         selectRowsInTable("rdColumnsList", checkboxLocator, indexes);
     }
 
 
-    private static void clickFindDuplicateOrUniqueRowsMenu() throws InterruptedException {
-        clickMenuItem(MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_ROWS);
-    }
-
-
-    private static void clickRemoveDuplicatesMenu() {
-        clickHighLevelMenuItem(MENU_TEXT_REMOVE_DUPLICATES, MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_ROWS);
-    }
-
-    public static void clickNext() throws InterruptedException {
-        clickButton(BUTTON_ID_NEXT);
+    public static void clickNext() {
+        GoogleSheetService.clickElement(BUTTON_ID_NEXT);
     }
 
     public static void setRange(String range) {
@@ -149,49 +145,53 @@ public class RemoveDuplicatesRowsService extends GenericAddonService {
     }
 
 
-    public static void clickFinishAndClose() throws InterruptedException {
+    public static void clickFinishAndClose() {
         driver.findElement(By.id("nextButton")).click();
         waitForCompletionAndClose();
     }
 
 
-    public static void waitForCompletionAndClose() throws InterruptedException {
+    public static void waitForCompletionAndClose() {
         wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[text()[contains(.,'rows have been found')]]")));
 
-        clickButton("closeButton");
+        GoogleSheetService.clickElement("closeButton");
 
         driver.switchTo().defaultContent();
     }
 
 
-    private static void runThroughPowerTools() throws InterruptedException {
-        runPowerTools();
-
-//        "dedupeTab"
-
-
+    private static void runThroughPowerTools() {
+        IFrameInfo iFrameInfo = runPowerTools();
+        clickElement("imageDedupeTab");
+        //fixme: no reaction to click without this delay
+        sleep(2000);
+        clickElement("power-tools-data-remove-duplicate");
+        final Logger logger = LogManager.getLogger();
+        Configurator.setLevel(logger.getName(), Level.DEBUG);
+        switchDriverToAddonIframe(iFrame -> {
+            logger.debug("!!!!!!!!!!!!!!" + iFrame.getAttribute("src"));
+            logger.debug("!!!!!!!!!!!!!!" + iFrameInfo.getTopIframeSrc());
+            return !iFrame.getAttribute("src").equals(iFrameInfo.getTopIframeSrc());});
     }
 
 
-    private static void runPowerTools() throws InterruptedException {
+    private static IFrameInfo runPowerTools() {
         clickAddonsMenu();
         clickHighLevelMenuItem("Power Tools", "Start");
         clickMenuItem("Start");
         //todo: change to some explicit wait
         //wait for dialog window to be loaded
-        Thread.sleep(5000);
-        switchDriverToAddonIframe();
+        sleep(5000);
+        return switchDriverToAddonIframe();
     }
 
 
-    private static void runAsSeparateAddon() throws InterruptedException {
-        clickAddonsMenu();
-        clickRemoveDuplicatesMenu();
-        clickFindDuplicateOrUniqueRowsMenu();
+    private static void runAsSeparateAddon() {
+        runAddonThroughMenu(MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_ROWS);
         //todo: change to some explicit wait
         //wait for dialog window to be loaded
-        Thread.sleep(5000);
+        sleep(5000);
 
         switchDriverToAddonIframe();
     }
