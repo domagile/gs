@@ -1,11 +1,12 @@
 package googlesheets.test.rd.removeduplicaterows.generic;
 
+import googlesheets.service.technical.file.FileType;
 import googlesheets.test.SpreadsheetTest;
 
 import java.io.IOException;
 
-import static googlesheets.service.FileService.compareFileWithEtalon;
-import static googlesheets.service.FileService.removeDownloadedListFile;
+import static googlesheets.service.technical.file.FileService.compareFileWithEtalon;
+import static googlesheets.service.technical.file.FileService.removeDownloadedListFile;
 import static googlesheets.service.GoogleSheetService.*;
 
 public abstract class RDRTest extends SpreadsheetTest {
@@ -15,17 +16,17 @@ public abstract class RDRTest extends SpreadsheetTest {
     }
 
 
-    protected void checkResult(String listName, String etalonFileName) throws IOException, InterruptedException {
+    protected void checkResult(String listName, String etalonFileName) throws IOException {
         //fixme: refactor to invoke generic checks from checkResult()
         startCSVDownload();
-        Thread.sleep(2000);
+        sleep(2000);
         restoreInitialDocumentState(listName);
         compareFileWithEtalon(getSpreadsheetName(), listName, etalonFileName);
-        removeDownloadedListFile(getSpreadsheetName(), listName);
+        removeDownloadedListFile(getSpreadsheetName(), listName, FileType.CSV);
     }
 
 
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName)  {
         clickUndo();
     }
 }
