@@ -1,5 +1,8 @@
-package googlesheets.service;
+package googlesheets.service.generic.google;
 
+import googlesheets.service.EntityList;
+import googlesheets.service.GlobalContext;
+import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.technical.file.FileType;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -16,8 +19,8 @@ import java.util.Properties;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static googlesheets.service.Credentials.LOGIN;
-import static googlesheets.service.Credentials.PASSWORD;
+import static googlesheets.service.generic.google.Credentials.LOGIN;
+import static googlesheets.service.generic.google.Credentials.PASSWORD;
 import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.service.generic.GenericAddonService.invokeFunctionWithReinvocation;
 
@@ -88,6 +91,10 @@ public class GoogleSheetService {
         clickElement(By.xpath("//*[@aria-label='Microsoft Excel (.xlsx) x']"));
     }
 
+    public static void moveSpreadsheetToTrash() {
+        clickElement(By.xpath("//*[text()='File']"));
+        clickElement(By.xpath("//*[@aria-label='Move to trash t']"));
+    }
 
     private static void clickElement(By locator) {
         invokeFunctionWithReinvocation(elementLocator -> {

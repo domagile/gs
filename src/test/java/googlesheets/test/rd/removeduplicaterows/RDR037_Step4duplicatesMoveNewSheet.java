@@ -1,25 +1,24 @@
 package googlesheets.test.rd.removeduplicaterows;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR037_Step4duplicatesMoveNewSheet extends RDRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1h3HTb9NLZy6CofRdV1ihoms0hRbulq5mZ4fLJc7moM4/edit#gid=1904782437");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1h3HTb9NLZy6CofRdV1ihoms0hRbulq5mZ4fLJc7moM4/edit#gid=1904782437");
 
     }
 
 
     @Test
-    public void duplicatesAllColumnsCopyNewSheet() throws IOException, InterruptedException {
+    public void duplicatesAllColumnsCopyNewSheet() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

@@ -5,7 +5,7 @@ import googlesheets.test.SpreadsheetTest;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.technical.file.FileService.compareFileWithEtalon;
 import static googlesheets.service.technical.file.FileService.removeDownloadedListFile;
 

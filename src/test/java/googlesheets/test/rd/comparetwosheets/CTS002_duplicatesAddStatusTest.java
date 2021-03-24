@@ -1,23 +1,22 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.GoogleSheetService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.clickUndo;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS002_duplicatesAddStatusTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1lT66e8KqR2pMbDpQC5lJqN9G3w5fhvMfkHEqAjsEPXk/edit#gid=1505261968");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1lT66e8KqR2pMbDpQC5lJqN9G3w5fhvMfkHEqAjsEPXk/edit#gid=1505261968");
     }
 
 
     @Test
-    public void duplicatesAddStatus3equalColumns() throws IOException, InterruptedException {
+    public void duplicatesAddStatus3equalColumns() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:G10");

@@ -1,8 +1,8 @@
 package googlesheets.service.removeduplicates.removeduplicatesrows;
 
 import googlesheets.service.GlobalContext;
-import googlesheets.service.GoogleSheetService;
-import googlesheets.service.WebDriverService;
+import googlesheets.service.generic.google.GoogleSheetService;
+import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.generic.IFrameInfo;
 import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
 import org.apache.logging.log4j.Level;
@@ -15,7 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class RemoveDuplicatesRowsService extends RemoveDuplicatesService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
@@ -128,10 +128,10 @@ public class RemoveDuplicatesRowsService extends RemoveDuplicatesService {
         clickRadioButton("rdPlaceNewSpreadsheet");
     }
 
-    public static void clickCustomLocation() throws InterruptedException {
+    public static void clickCustomLocation() {
         clickRadioButton("rdPlaceExistingSheet");
         //wait until dynamic behavior assigns default range
-        Thread.sleep(2000);
+        sleep(2000);
     }
 
     public static void clickMoveToAnotherLocation() {

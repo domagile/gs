@@ -3,7 +3,7 @@ package googlesheets.service;
 public class GlobalContext {
     public static final boolean IS_POWER_TOOLS_MODE = false;
     public static final boolean USE_CUSTOM_LINKS = false;
-    public static final boolean TEST_RC_VERSION = true;
+    public static final boolean TEST_RC_VERSION = false;
 
     private static GlobalContext instance;
     private static boolean isLoggedIn;
@@ -28,7 +28,7 @@ public class GlobalContext {
     }
 
 
-    void setLoggedIn(boolean isLoggedIn) {
+    public void setLoggedIn(boolean isLoggedIn) {
         GlobalContext.isLoggedIn = isLoggedIn;
     }
 }

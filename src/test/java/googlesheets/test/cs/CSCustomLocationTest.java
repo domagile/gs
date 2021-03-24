@@ -1,6 +1,5 @@
 package googlesheets.test.cs;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.service.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.service.combinesheets.CombineSheetsOptions;
 import googlesheets.service.combinesheets.ResultLocation;
@@ -10,13 +9,13 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.duplicateListThroughMenu;
 import static googlesheets.service.combinesheets.CombineSheetsService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.duplicateListThroughMenu;
 
 public class CSCustomLocationTest extends SpreadsheetTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1jwvnvadr1sgQQCvetLFB0qWYfwrTFFGfvMHIoyEgXqM/edit");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1jwvnvadr1sgQQCvetLFB0qWYfwrTFFGfvMHIoyEgXqM/edit");
     }
 
 
@@ -26,7 +25,7 @@ public class CSCustomLocationTest extends SpreadsheetTest {
     }
 
     @Test
-    public void combineToCustomLocation() throws IOException, InterruptedException {
+    public void combineToCustomLocation() throws IOException {
         duplicateListThroughMenu("Sheet2_auto");
         runCombineSheets();
         selectSheetsToCombine(1, 2);

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import static googlesheets.service.technical.file.FileService.compareFileWithEtalon;
 import static googlesheets.service.technical.file.FileService.removeDownloadedListFile;
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public abstract class RDCTest extends SpreadsheetTest {
     @Override

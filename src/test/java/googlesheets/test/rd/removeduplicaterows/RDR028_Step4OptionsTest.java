@@ -1,6 +1,5 @@
 package googlesheets.test.rd.removeduplicaterows;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,13 +10,13 @@ import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveD
 
 public class RDR028_Step4OptionsTest extends RDRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1_XPKRP6VNZt2Kl2e6EY5gFDglsIwDBCIUIED1Nv4wkc/edit#gid=913680745");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1_XPKRP6VNZt2Kl2e6EY5gFDglsIwDBCIUIED1Nv4wkc/edit#gid=913680745");
     }
 
 
     @Test
-    public void duplicatesAllColumnsClearValues() throws IOException, InterruptedException {
+    public void duplicatesAllColumnsClearValues() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

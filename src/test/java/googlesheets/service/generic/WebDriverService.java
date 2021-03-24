@@ -1,4 +1,4 @@
-package googlesheets.service;
+package googlesheets.service.generic;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,8 +16,8 @@ public class WebDriverService {
 
     private WebDriverService()
     {
-       // System.setProperty("webdriver.chrome.driver", "c:\\app\\webdriver\\chromedriver_win32\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", "D:\\app\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "c:\\app\\webdriver\\chromedriver_win32\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "D:\\app\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
         wait = createWait();
     }

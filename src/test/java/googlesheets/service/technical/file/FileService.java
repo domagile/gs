@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static googlesheets.service.GoogleSheetService.sleep;
+import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public class FileService {
     private static void checkCSVFileEquality(String file1Path, String file2Path) throws IOException {

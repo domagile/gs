@@ -1,6 +1,5 @@
 package googlesheets.service.generic;
 
-import googlesheets.service.WebDriverService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -9,7 +8,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static googlesheets.service.GoogleSheetService.sleep;
+import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public abstract class GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();

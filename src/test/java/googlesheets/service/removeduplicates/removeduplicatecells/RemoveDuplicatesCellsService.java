@@ -1,13 +1,17 @@
 package googlesheets.service.removeduplicates.removeduplicatecells;
 
-import googlesheets.service.GoogleSheetService;
-import googlesheets.service.WebDriverService;
+import googlesheets.service.generic.google.GoogleSheetService;
+import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.ResultInfo;
 import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static googlesheets.service.GoogleSheetService.*;
+import java.util.List;
+import java.util.Optional;
+
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class RemoveDuplicatesCellsService extends RemoveDuplicatesService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
@@ -38,6 +42,10 @@ public class RemoveDuplicatesCellsService extends RemoveDuplicatesService {
     }
 
     public static void clickNext() {
+        GoogleSheetService.clickElement(BUTTON_ID_NEXT);
+    }
+
+    public static void clickFinish() {
         GoogleSheetService.clickElement(BUTTON_ID_NEXT);
     }
 
@@ -120,18 +128,32 @@ public class RemoveDuplicatesCellsService extends RemoveDuplicatesService {
 
 
     public static void clickFinishAndClose() {
-        driver.findElement(By.id("nextButton")).click();
+        clickFinish();
         waitForCompletionAndClose();
     }
 
 
     public static void waitForCompletionAndClose() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()[contains(.,'values have been found')]]")));
-
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()[contains(.,'values have been found')]]")));
         GoogleSheetService.clickElement("closeButton");
-
         driver.switchTo().defaultContent();
+    }
+
+
+    public static ResultInfo waitForNewSpreadsheetAndClose() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()='new spreadsheet']")));
+        Optional<String> newSpreadsheetLink = getNewSpreadsheetLink();
+        GoogleSheetService.clickElement("closeButton");
+        driver.switchTo().defaultContent();
+        return new ResultInfo(newSpreadsheetLink.orElse(null));
+    }
+
+
+    private static Optional<String> getNewSpreadsheetLink()
+    {
+        By xpath = By.xpath("//*[text()='new spreadsheet']");
+        List<WebElement> links = driver.findElements(xpath);
+        return !links.isEmpty() ? Optional.of(links.get(0).getAttribute("href")) : Optional.empty();
     }
 
 

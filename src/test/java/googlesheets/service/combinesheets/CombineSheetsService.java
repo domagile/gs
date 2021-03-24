@@ -1,7 +1,7 @@
 package googlesheets.service.combinesheets;
 
 import googlesheets.service.EntityList;
-import googlesheets.service.WebDriverService;
+import googlesheets.service.generic.WebDriverService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Arrays;
 import java.util.List;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
 
 public class CombineSheetsService {
@@ -19,7 +19,7 @@ public class CombineSheetsService {
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
 
-    public static void selectAdditionalOptions(CombineSheetsOptions options) throws InterruptedException {
+    public static void selectAdditionalOptions(CombineSheetsOptions options) {
         setConsiderTableHeaders(options.isConsiderTableHeaders());
         setSeparateByBlankRow(options.isSeparateByBlankRow());
 
@@ -32,27 +32,27 @@ public class CombineSheetsService {
                 chooseStoreToCustomLocation();
                 setCustomLocationValue(options.getLocationValue());
                 //let "Invalid range" message disappear
-                Thread.sleep(1000);
+                sleep(1000);
                 break;
         }
     }
 
 
-    public static void selectSheetsToCombine(int... sheets) throws InterruptedException {
+    public static void selectSheetsToCombine(int... sheets) {
         EntityList sheetList = expandSheetList();
         Arrays.stream(sheets).forEach(sheetList::clickEntity);
         clickNext();
     }
 
 
-    private static EntityList expandSheetList() throws InterruptedException {
+    private static EntityList expandSheetList() {
         switchDriverToAddonIframe();
 
         WebElement tBody = driver.findElement(By.cssSelector(".first-step-table-body"));
         List<WebElement> trs = tBody.findElements(By.tagName("tr"));
         //if list is loaded during long time
         while (trs.isEmpty()) {
-            Thread.sleep(1000);
+            sleep(1000);
             trs = tBody.findElements(By.tagName("tr"));
         }
         WebElement td = trs.get(0).findElements(By.tagName("td")).get(0);
@@ -66,23 +66,23 @@ public class CombineSheetsService {
     }
 
 
-    public static void runCombineSheets() throws InterruptedException {
+    public static void runCombineSheets() {
         clickAddonsMenu();
         clickCombineSheetsMenu();
         clickStartMenu();
         //todo: change to some explicit wait
         //wait for dialog window to be loaded
-        Thread.sleep(5000);
+        sleep(5000);
     }
 
 
 
-    private static void clickStartMenu() throws InterruptedException {
+    private static void clickStartMenu() {
         clickMenuItem("Start");
     }
 
 
-    private static void clickCombineSheetsMenu() throws InterruptedException {
+    private static void clickCombineSheetsMenu() {
         clickMenuItem("Combine Sheets");
     }
 
@@ -115,7 +115,7 @@ public class CombineSheetsService {
     }
 
 
-    private static void setCustomLocationValue(String locationValue) throws InterruptedException {
+    private static void setCustomLocationValue(String locationValue) {
         try {
             WebElement customLocationField = driver.findElement(By.id("txtCustomLocation"));
             customLocationField.clear();
@@ -127,7 +127,7 @@ public class CombineSheetsService {
 //            customLocationField.sendKeys(locationValue);
         }
         catch (InvalidElementStateException e) {
-            Thread.sleep(1000);
+            sleep(1000);
             setCustomLocationValue(locationValue);
         }
     }

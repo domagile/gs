@@ -1,6 +1,5 @@
 package googlesheets.test.rd.removeduplicatecells;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.service.removeduplicates.removeduplicatecells.CellType;
 import googlesheets.test.rd.removeduplicatecells.generic.RDCTest;
 import org.junit.BeforeClass;
@@ -8,14 +7,14 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.clickUndo;
-import static googlesheets.service.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 public class RDC003_step2UniquesColorTest extends RDCTest {
     @BeforeClass
     public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1VPAWrG4MSdeTQWsKp1_geRfP7ReYStfxrQQQJnGuySI/edit#gid=756383450");
+        openDocument("https://docs.google.com/spreadsheets/d/1VPAWrG4MSdeTQWsKp1_geRfP7ReYStfxrQQQJnGuySI/edit#gid=756383450");
     }
 
 

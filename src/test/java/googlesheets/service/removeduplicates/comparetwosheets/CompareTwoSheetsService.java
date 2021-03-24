@@ -1,8 +1,7 @@
 package googlesheets.service.removeduplicates.comparetwosheets;
 
 import googlesheets.service.EntityList;
-import googlesheets.service.GoogleSheetService;
-import googlesheets.service.WebDriverService;
+import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Arrays;
 import java.util.List;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class CompareTwoSheetsService extends RemoveDuplicatesService {
     //incorrect symbols in the beginning of naming in released version - skip them
@@ -167,10 +166,10 @@ public class CompareTwoSheetsService extends RemoveDuplicatesService {
         clickRadioButton("rdPlaceNewSpreadsheet");
     }
 
-    public static void clickCustomLocation() throws InterruptedException {
+    public static void clickCustomLocation() {
         clickRadioButton("rdPlaceExistingSheet");
         //wait until dynamic behavior assigns default range
-        Thread.sleep(2000);
+        sleep(2000);
     }
 
     public static void clickMoveToAnotherLocation() {

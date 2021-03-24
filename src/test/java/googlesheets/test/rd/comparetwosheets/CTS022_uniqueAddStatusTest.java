@@ -1,18 +1,18 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.GoogleSheetService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS022_uniqueAddStatusTest extends CTSTest {
     @BeforeClass
     public static void openDocument() {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1dakTJ_kyWaVeGcZhqKQle62auViOcPVRejtAM3VE2M8/edit#gid=7025152");
+        openDocument("https://docs.google.com/spreadsheets/d/1dakTJ_kyWaVeGcZhqKQle62auViOcPVRejtAM3VE2M8/edit#gid=7025152");
     }
 
     @Test

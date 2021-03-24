@@ -1,5 +1,6 @@
 package googlesheets.test.rd.removeduplicaterows.generic;
 
+import googlesheets.service.generic.ResultInfo;
 import googlesheets.service.technical.file.FileType;
 import googlesheets.test.SpreadsheetTest;
 
@@ -7,7 +8,7 @@ import java.io.IOException;
 
 import static googlesheets.service.technical.file.FileService.compareFileWithEtalon;
 import static googlesheets.service.technical.file.FileService.removeDownloadedListFile;
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public abstract class RDRTest extends SpreadsheetTest {
     @Override
@@ -23,6 +24,18 @@ public abstract class RDRTest extends SpreadsheetTest {
         restoreInitialDocumentState(listName);
         compareFileWithEtalon(getSpreadsheetName(), listName, etalonFileName);
         removeDownloadedListFile(getSpreadsheetName(), listName, FileType.CSV);
+    }
+
+
+    protected void checkNewSpreadsheetResult(String sourceListName, String etalonFileName, ResultInfo resultInfo) throws IOException {
+        openDocument(resultInfo.getNewSpreadsheetLink());
+        startCSVDownload();
+        sleep(2000);
+        String listName = getResultListName(sourceListName);
+        moveSpreadsheetToTrash();
+        String newSpreadsheetName = String.format("%s - %s", getSpreadsheetName(), listName.substring(listName.indexOf('-') + 2));
+        compareFileWithEtalon(newSpreadsheetName, listName, etalonFileName);
+        removeDownloadedListFile(newSpreadsheetName, listName, FileType.CSV);
     }
 
 

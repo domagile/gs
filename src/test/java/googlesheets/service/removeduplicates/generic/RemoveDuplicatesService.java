@@ -3,7 +3,7 @@ package googlesheets.service.removeduplicates.generic;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.GenericAddonService;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public abstract class RemoveDuplicatesService extends GenericAddonService {
     protected static final String MENU_TEXT_REMOVE_DUPLICATES = "Remove Duplicates";

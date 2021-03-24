@@ -1,19 +1,18 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPair;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.clickUndo;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS009_uniqueHasNotHeadersTable1AddStatusTest extends CTSTest {
     @BeforeClass
     public static void openDocument() {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1PRn2WpRc5Qg_ic_heEZ6l6a5snL4F28bPivBuptM5JY/edit#gid=1768414711");
+        openDocument("https://docs.google.com/spreadsheets/d/1PRn2WpRc5Qg_ic_heEZ6l6a5snL4F28bPivBuptM5JY/edit#gid=1768414711");
     }
 
 

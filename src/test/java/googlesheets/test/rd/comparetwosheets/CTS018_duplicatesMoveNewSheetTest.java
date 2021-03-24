@@ -1,22 +1,22 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.GoogleSheetService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS018_duplicatesMoveNewSheetTest extends CTSTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1k2GJ5nf1Bmd9e7q0Nz5MT25xq-o8lB4yLqBPoAOEMoY/edit#gid=935628022");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1k2GJ5nf1Bmd9e7q0Nz5MT25xq-o8lB4yLqBPoAOEMoY/edit#gid=935628022");
     }
 
     @Test
-    public void duplicatesMoveToNewSheet() throws IOException, InterruptedException {
+    public void duplicatesMoveToNewSheet() throws IOException {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -43,7 +43,7 @@ public class CTS018_duplicatesMoveNewSheetTest extends CTSTest {
     }
 
    /* @Override
-    protected void restoreInitialDocumentState(String resultListName) throws InterruptedException {
+    protected void restoreInitialDocumentState(String resultListName) {
         //fixme: replace with undo
         removeListThroughMenu(resultListName);
     }*/

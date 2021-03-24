@@ -1,18 +1,17 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.GoogleSheetService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS017_duplicatesCopyExistingSheetTest extends CTSTest {
     @BeforeClass
     public static void openDocument() {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1Y1sDf_HUxcFSL6fFjCnsNzMscKEVMqsmkgN-f0JTdrA/edit#gid=117501248");
+        openDocument("https://docs.google.com/spreadsheets/d/1Y1sDf_HUxcFSL6fFjCnsNzMscKEVMqsmkgN-f0JTdrA/edit#gid=117501248");
     }
 
     @Test

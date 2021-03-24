@@ -1,27 +1,27 @@
 package googlesheets.test.rd.removeduplicaterows;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 
+import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR013_Step2OptionsTest extends RDRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1gnt3s7FoK9FbNfBOh_fkeNPdKQqDWMtrJdNtoT1WhWk/edit#gid=1868443686");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1gnt3s7FoK9FbNfBOh_fkeNPdKQqDWMtrJdNtoT1WhWk/edit#gid=1868443686");
     }
 
     @Test
-    public void uniques_1stOccurrencesAllColumns() throws IOException, InterruptedException {
+    public void uniques_1stOccurrencesAllColumns() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
-        Thread.sleep(1000);
+        sleep(1000);
         setRange("A1:C41");
-        Thread.sleep(1000);
+        sleep(1000);
         clickNext();
         clickUniquesAnd1stOccurrencesRadioButton();
         clickNext();

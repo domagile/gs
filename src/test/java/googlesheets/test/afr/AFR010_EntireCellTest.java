@@ -1,6 +1,5 @@
 package googlesheets.test.afr;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
@@ -8,17 +7,17 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.getResultListName;
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 
 public class AFR010_EntireCellTest extends AFRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/118xZTIqTU2bHVMmhzJxjwZBX4z7X853gQdeWEI-Eiao/edit#gid=1810214049");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/118xZTIqTU2bHVMmhzJxjwZBX4z7X853gQdeWEI-Eiao/edit#gid=1810214049");
     }
 
     @Test
-    public void valuesEntireCaseAllSheets() throws IOException, InterruptedException {
+    public void valuesEntireCaseAllSheets() throws IOException {
         runAdvancedFindAndReplace();
         setSearchIn(SearchInSelection.SELECTED_LISTS, 2,3);
 

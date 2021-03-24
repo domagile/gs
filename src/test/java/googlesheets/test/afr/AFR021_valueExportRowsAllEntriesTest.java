@@ -1,26 +1,23 @@
 package googlesheets.test.afr;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.clickUndo;
-import static googlesheets.service.GoogleSheetService.getResultListName;
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 
 public class AFR021_valueExportRowsAllEntriesTest extends AFRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1SE-dQAl2bDVBvGd_7LJsRwxmhToRSELDKFkKoA9HlOg/edit#gid=21154533");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1SE-dQAl2bDVBvGd_7LJsRwxmhToRSELDKFkKoA9HlOg/edit#gid=21154533");
     }
 
     @Test
-    public void valuesExportRowsAllEntries() throws IOException, InterruptedException {
+    public void valuesExportRowsAllEntries() throws IOException {
         runAdvancedFindAndReplace();
         setSearchIn(SearchInSelection.SELECTED_LISTS, 2);
 

@@ -563,9 +563,9 @@ public class ExcelComparator {
     }
 
     private boolean hasInvalidFontIndex(Locator loc1, Locator loc2) {
-        int fontIdx1 = loc1.cell.getCellStyle().getFontIndex();
+        int fontIdx1 = loc1.cell.getCellStyle().getFontIndexAsInt();
         int fontCount1 = ((XSSFWorkbook)loc1.workbook).getStylesSource().getFonts().size();
-        int fontIdx2 = loc2.cell.getCellStyle().getFontIndex();
+        int fontIdx2 = loc2.cell.getCellStyle().getFontIndexAsInt();
         int fontCount2 = ((XSSFWorkbook)loc2.workbook).getStylesSource().getFonts().size();
 
         if(fontIdx1 >= fontCount1 || fontIdx2 >= fontCount2) {

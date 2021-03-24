@@ -1,23 +1,30 @@
 package googlesheets.test;
 
-import googlesheets.service.GoogleSheetService;
+import googlesheets.service.generic.google.GoogleSheetService;
 import org.junit.AfterClass;
 
 import java.io.IOException;
+
+import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public abstract class SpreadsheetTest {
     protected abstract String getSpreadsheetName();
 
 
-    protected void checkResult(String listName, String etalonFileName) throws IOException, InterruptedException {
+    protected static void openDocument(String link) {
+        GoogleSheetService.openDoc(link);
+    }
+
+
+    protected void checkResult(String listName, String etalonFileName) throws IOException {
         GoogleSheetService.checkResult(getSpreadsheetName(), listName, etalonFileName);
     }
 
 
     @AfterClass
     //to fix issue that new document is not opened for the next test
-    public static void pauseBeforeNextTest() throws InterruptedException {
-        Thread.sleep(3000);
+    public static void pauseBeforeNextTest() {
+        sleep(3000);
     }
 
 

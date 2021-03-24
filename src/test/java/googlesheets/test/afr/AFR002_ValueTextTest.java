@@ -1,26 +1,24 @@
 package googlesheets.test.afr;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.GoogleSheetService.getResultListName;
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 
 public class AFR002_ValueTextTest extends AFRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1z2ppCCSqI7JR9uCSrqjybSmy3KchM5HdMjVUD88ITYw/edit#gid=1188486544");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1z2ppCCSqI7JR9uCSrqjybSmy3KchM5HdMjVUD88ITYw/edit#gid=1188486544");
     }
 
 
     @Test
-    public void valuesText() throws IOException, InterruptedException {
+    public void valuesText() throws IOException {
         runAdvancedFindAndReplace();
         setSearchIn(SearchInSelection.SELECTED_LISTS, 2);
 

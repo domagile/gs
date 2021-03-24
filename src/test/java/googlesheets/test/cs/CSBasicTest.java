@@ -1,6 +1,5 @@
 package googlesheets.test.cs;
 
-import googlesheets.service.GoogleSheetService;
 import googlesheets.service.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.service.combinesheets.CombineSheetsOptions;
 import googlesheets.service.combinesheets.ResultLocation;
@@ -14,8 +13,8 @@ import static googlesheets.service.combinesheets.CombineSheetsService.*;
 
 public class CSBasicTest extends SpreadsheetTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
-        GoogleSheetService.openDoc("https://docs.google.com/spreadsheets/d/1sGJ6rkqyegcBIyJn1JNIwPTNmtDb1ACsJFRM0hYnAkU/edit#gid=0");
+    public static void openDocument() {
+        openDocument("https://docs.google.com/spreadsheets/d/1sGJ6rkqyegcBIyJn1JNIwPTNmtDb1ACsJFRM0hYnAkU/edit#gid=0");
     }
 
 
@@ -25,7 +24,7 @@ public class CSBasicTest extends SpreadsheetTest {
     }
 
     @Test
-    public void combineByHeader() throws IOException, InterruptedException {
+    public void combineByHeader() throws IOException {
         runCombineSheets();
         selectSheetsToCombine(1, 2);
 
@@ -40,7 +39,7 @@ public class CSBasicTest extends SpreadsheetTest {
 
 
     @Test
-    public void combineWithoutHeader() throws IOException, InterruptedException {
+    public void combineWithoutHeader() throws IOException {
         runCombineSheets();
 
         selectSheetsToCombine(1, 2);
@@ -55,7 +54,7 @@ public class CSBasicTest extends SpreadsheetTest {
     }
 
     @Test
-    public void combineWithoutHeader_SeparateByRow() throws IOException, InterruptedException {
+    public void combineWithoutHeader_SeparateByRow() throws IOException {
         runCombineSheets();
 
         selectSheetsToCombine(1, 2);
@@ -72,7 +71,7 @@ public class CSBasicTest extends SpreadsheetTest {
 
 
     @Test
-    public void combineByHeader_SeparateByRow() throws IOException, InterruptedException {
+    public void combineByHeader_SeparateByRow() throws IOException {
         runCombineSheets();
 
         selectSheetsToCombine(1, 2);
