@@ -17,12 +17,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.BiConsumer;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 import static googlesheets.service.generic.google.Credentials.LOGIN;
 import static googlesheets.service.generic.google.Credentials.PASSWORD;
 import static googlesheets.service.technical.file.FileService.*;
-import static googlesheets.service.generic.GenericAddonService.invokeFunctionWithReinvocation;
+import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
 
 
 public class GoogleSheetService {
@@ -257,6 +258,7 @@ public class GoogleSheetService {
         }
     }
 
+
     public static void clickUndo() {
         driver.findElement(By.id("t-undo")).findElement(By.className("goog-toolbar-button-inner-box")).click();
     }
@@ -350,5 +352,19 @@ public class GoogleSheetService {
         if (!currentText.equals(text)) {
             setTextFunction.accept(text, fieldId);
         }
+    }
+
+
+    public static boolean waitForCondition(BooleanSupplier condition, int checkNumber, int pauseMillis)
+    {
+        for (int i = 0; i < checkNumber; i++) {
+            if (condition.getAsBoolean()) {
+                return true;
+            }
+            else {
+                sleep(pauseMillis);
+            }
+        }
+        return false;
     }
 }

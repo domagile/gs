@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
-import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
+import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
 
 public class AdvancedFindReplaceService {
     public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Advanced Find and Replace";

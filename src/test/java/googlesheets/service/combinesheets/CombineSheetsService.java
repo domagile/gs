@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
-import static googlesheets.service.generic.GenericAddonService.switchDriverToAddonIframe;
+import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
 
 public class CombineSheetsService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();

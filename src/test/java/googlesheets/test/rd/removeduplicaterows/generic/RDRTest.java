@@ -1,6 +1,6 @@
 package googlesheets.test.rd.removeduplicaterows.generic;
 
-import googlesheets.service.generic.ResultInfo;
+import googlesheets.service.generic.addon.ResultInfo;
 import googlesheets.service.technical.file.FileType;
 import googlesheets.test.SpreadsheetTest;
 

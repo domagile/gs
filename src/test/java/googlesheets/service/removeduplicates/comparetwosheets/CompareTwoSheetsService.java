@@ -2,7 +2,7 @@ package googlesheets.service.removeduplicates.comparetwosheets;
 
 import googlesheets.service.EntityList;
 import googlesheets.service.generic.WebDriverService;
-import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
+import googlesheets.service.generic.addon.GenericAddonService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,9 +12,7 @@ import java.util.List;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
-public class CompareTwoSheetsService extends RemoveDuplicatesService {
-    //incorrect symbols in the beginning of naming in released version - skip them
-    public static final String MENU_TEXT_COMPARE_COLUMNS_OR_SHEETS = "pare columns or sheets";
+public class CompareTwoSheetsService extends GenericAddonService {
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "rdSheetBackupCheckbox";
     public static final String BUTTON_ID_NEXT = "nextButton";
     public static final String BUTTON_ID_AUTO_DETECT = "ctsAutoDetectColumnButton";
@@ -26,19 +24,8 @@ public class CompareTwoSheetsService extends RemoveDuplicatesService {
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
 
-    private static void clickCompareColumnsOrSheetsMenu()  {
-        clickMenuItem(MENU_TEXT_COMPARE_COLUMNS_OR_SHEETS, false);
-    }
-
     public static void runCompareColumnsOrSheets() {
-        clickAddonsMenu();
-        clickRemoveDuplicatesMenu(MENU_TEXT_COMPARE_COLUMNS_OR_SHEETS, false);
-        clickCompareColumnsOrSheetsMenu();
-        //todo: change to some explicit wait
-        //wait for dialog window to be loaded
-        sleep(5000);
-
-        switchDriverToAddonIframe();
+        new CompareTwoSheetsRunner().runAddon();
     }
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
@@ -91,20 +78,6 @@ public class CompareTwoSheetsService extends RemoveDuplicatesService {
         }
     }
 
-    public static void clickRadioButton(String buttonId) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(buttonId)));
-        //isDisplayed() returns false by some reason
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
-                driver.findElement(By.id(buttonId)));
-    }
-
-    public static void setCheckboxValue(boolean value, String checkboxId) {
-        WebElement checkbox = driver.findElement(By.id(checkboxId));
-        if (checkbox.isSelected() != value) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
-                    checkbox);
-        }
-    }
 
     public static void clickDuplicateValuesRadioButton() {
         clickRadioButton("rdDuplicateRadio");

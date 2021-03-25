@@ -1,14 +1,8 @@
 package googlesheets.service.removeduplicates.removeduplicatesrows;
 
-import googlesheets.service.GlobalContext;
-import googlesheets.service.generic.google.GoogleSheetService;
 import googlesheets.service.generic.WebDriverService;
-import googlesheets.service.generic.IFrameInfo;
-import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.Configurator;
+import googlesheets.service.generic.addon.GenericAddonService;
+import googlesheets.service.generic.google.GoogleSheetService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
@@ -17,22 +11,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
-public class RemoveDuplicatesRowsService extends RemoveDuplicatesService {
+public class RemoveDuplicatesRowsService extends GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
-    public static final String MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_ROWS = "Find duplicate or unique rows";
     public static final String BUTTON_ID_NEXT = "nextButton";
     public static final String CHECKBOX_ID_MY_TABLE_HAS_HEADERS = "rdTableHasHeaders";
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "rdSheetBackupCheckbox";
 
 
     public static void runFindDuplicateOrUniqueRows() {
-        if (GlobalContext.IS_POWER_TOOLS_MODE) {
-            runThroughPowerTools();
-        } else {
-            runAsSeparateAddon();
-        }
+        new RemoveDuplicatesRowsRunner().runAddon();
     }
 
 
@@ -62,10 +51,6 @@ public class RemoveDuplicatesRowsService extends RemoveDuplicatesService {
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY)));
-//        WebElement checkbox = driver.findElement(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY));
-//        if (checkbox.isSelected() != value) {
-//            checkbox.click();
-//        }
         setCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
     }
 
@@ -158,41 +143,5 @@ public class RemoveDuplicatesRowsService extends RemoveDuplicatesService {
         GoogleSheetService.clickElement("closeButton");
 
         driver.switchTo().defaultContent();
-    }
-
-
-    private static void runThroughPowerTools() {
-        IFrameInfo iFrameInfo = runPowerTools();
-        clickElement("imageDedupeTab");
-        //fixme: no reaction to click without this delay
-        sleep(2000);
-        clickElement("power-tools-data-remove-duplicate");
-        final Logger logger = LogManager.getLogger();
-        Configurator.setLevel(logger.getName(), Level.DEBUG);
-        switchDriverToAddonIframe(iFrame -> {
-            logger.debug("!!!!!!!!!!!!!!" + iFrame.getAttribute("src"));
-            logger.debug("!!!!!!!!!!!!!!" + iFrameInfo.getTopIframeSrc());
-            return !iFrame.getAttribute("src").equals(iFrameInfo.getTopIframeSrc());});
-    }
-
-
-    private static IFrameInfo runPowerTools() {
-        clickAddonsMenu();
-        clickHighLevelMenuItem("Power Tools", "Start");
-        clickMenuItem("Start");
-        //todo: change to some explicit wait
-        //wait for dialog window to be loaded
-        sleep(5000);
-        return switchDriverToAddonIframe();
-    }
-
-
-    private static void runAsSeparateAddon() {
-        runAddonThroughMenu(MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_ROWS);
-        //todo: change to some explicit wait
-        //wait for dialog window to be loaded
-        sleep(5000);
-
-        switchDriverToAddonIframe();
     }
 }

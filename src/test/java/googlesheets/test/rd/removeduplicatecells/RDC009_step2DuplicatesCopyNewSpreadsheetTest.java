@@ -1,6 +1,6 @@
 package googlesheets.test.rd.removeduplicatecells;
 
-import googlesheets.service.generic.ResultInfo;
+import googlesheets.service.generic.addon.ResultInfo;
 import googlesheets.service.removeduplicates.removeduplicatecells.CellType;
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;

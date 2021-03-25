@@ -1,9 +1,9 @@
 package googlesheets.service.removeduplicates.removeduplicatecells;
 
+import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.google.GoogleSheetService;
 import googlesheets.service.generic.WebDriverService;
-import googlesheets.service.generic.ResultInfo;
-import googlesheets.service.removeduplicates.generic.RemoveDuplicatesService;
+import googlesheets.service.generic.addon.ResultInfo;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,23 +13,17 @@ import java.util.Optional;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
-public class RemoveDuplicatesCellsService extends RemoveDuplicatesService {
+public class RemoveDuplicatesCellsService extends GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
-    public static final String MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_CELLS = "Find duplicate or unique cells";
     public static final String BUTTON_ID_NEXT = "nextButton";
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "rdSheetBackupCheckbox";
     public static final String TEXTFIELD_ID_CUSTOM_LOCATION_RANGE = "rdExistingSheetRange";
 
 
     public static void runFindDuplicateOrUniqueCells() {
-        runAddonThroughMenu(MENU_TEXT_FIND_DUPLICATE_OR_UNIQUE_CELLS);
-        //todo: change to some explicit wait
-        //wait for dialog window to be loaded
-        sleep(5000);
-
-        switchDriverToAddonIframe();
+        new RemoveDuplicatesCellsRunner().runAddon();
     }
 
 
