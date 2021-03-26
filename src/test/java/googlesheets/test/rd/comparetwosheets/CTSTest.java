@@ -1,5 +1,6 @@
 package googlesheets.test.rd.comparetwosheets;
 
+import googlesheets.service.generic.addon.ResultInfo;
 import googlesheets.service.technical.file.FileType;
 import googlesheets.test.SpreadsheetTest;
 
@@ -27,5 +28,31 @@ public class CTSTest extends SpreadsheetTest {
 
 
     protected void restoreInitialDocumentState(String resultListName) {
+    }
+
+    protected void checkExcelResult(String listName, String etalonFileName) throws IOException {
+        //fixme: refactor to invoke generic checks from checkResult()
+        startXLSXDownload();
+        sleep(2000);
+        restoreInitialDocumentState(listName);
+        compareFileWithEtalon(getSpreadsheetName(), listName, etalonFileName, FileType.XLSX);
+        removeDownloadedListFile(getSpreadsheetName(), listName, FileType.XLSX);
+    }
+
+    protected void checkNewSpreadsheetResult(String sourceListName, String etalonFileName, ResultInfo resultInfo) throws IOException {
+        restoreInitialStateForNewSpreadsheetOption();
+        sleep(1000);
+        openDocument(resultInfo.getNewSpreadsheetLink());
+        startCSVDownload();
+        sleep(2000);
+        String listName = getResultListName(sourceListName);
+        moveSpreadsheetToTrash();
+        String newSpreadsheetName = String.format("%s - %s", getSpreadsheetName(), listName.substring(listName.indexOf('-') + 2));
+        compareFileWithEtalon(newSpreadsheetName, listName, etalonFileName);
+        removeDownloadedListFile(newSpreadsheetName, listName, FileType.CSV);
+    }
+
+    protected void restoreInitialStateForNewSpreadsheetOption()
+    {
     }
 }

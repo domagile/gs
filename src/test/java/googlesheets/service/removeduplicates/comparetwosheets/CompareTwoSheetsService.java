@@ -3,12 +3,15 @@ package googlesheets.service.removeduplicates.comparetwosheets;
 import googlesheets.service.EntityList;
 import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.generic.addon.GenericAddonService;
+import googlesheets.service.generic.addon.ResultInfo;
+import googlesheets.service.generic.google.GoogleSheetService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
@@ -224,4 +227,23 @@ public class CompareTwoSheetsService extends GenericAddonService {
         WebElement colorInput = driver.findElement(By.className("choise_color"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='"+ colorCode + "';", colorInput);
     }
+
+    public static void clickFinish() {
+        GoogleSheetService.clickElement(BUTTON_ID_NEXT);
+    }
+
+    public static ResultInfo waitForNewSpreadsheetAndClose() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()='new spreadsheet']")));
+        Optional<String> newSpreadsheetLink = getNewSpreadsheetLink();
+        GoogleSheetService.clickElement("closeButton");
+        driver.switchTo().defaultContent();
+        return new ResultInfo(newSpreadsheetLink.orElse(null));
+    }
+
+    private static Optional<String> getNewSpreadsheetLink() {
+        By xpath = By.xpath("//*[text()='new spreadsheet']");
+        List<WebElement> links = driver.findElements(xpath);
+        return !links.isEmpty() ? Optional.of(links.get(0).getAttribute("href")) : Optional.empty();
+    }
+
 }
