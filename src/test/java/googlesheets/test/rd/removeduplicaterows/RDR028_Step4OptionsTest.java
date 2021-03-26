@@ -29,6 +29,6 @@ public class RDR028_Step4OptionsTest extends RDRTest {
         clickNext();
         clickClearValuesRadioButton();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_028_step4duplicatesAllColumnsClearValues.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_028_step4duplicatesAllColumnsClearValues.csv");
     }
 }

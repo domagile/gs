@@ -6,40 +6,37 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickRadioButton;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
-public class RDR035_Step4duplicatesCopyCustomLocation extends RDRTest {
+public class RDR024_Step4DuplicatesColors2and4columnsTest extends RDRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/10M6PgSd7Qd1Sk2EgVnugloW698XWgN2iVuY6ZnnwxC8/edit#gid=1413370339");
+        openDocument("https://docs.google.com/spreadsheets/d/1yuzMLrJllgsOLkEqjhQz-fX26sUP62FrbWNeru5qwsg/edit#gid=218811612");
     }
 
-
     @Test
-    public void duplicatesAllColumnsCopyAnotherLocation() throws IOException {
+    public void duplicates2And4ColumnsColor() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();
+
         clickDuplicatesRadioButton();
         clickNext();
+
         setMyTableHasHeaders(true);
         setMatchCase(false);
         setSkipEmptyCells(false);
-        selectColumnsToSearchIn(1,2,3);
+        selectColumnsToSearchIn(2,4);
         clickNext();
-        clickCopyToAnotherLocation();
-        clickCustomLocation();
 
-        setCustomLocationRange("'Sheet1'!A1");
+        clickFillWithColor();
         clickFinishAndClose();
-        checkResult("Sheet1", "removeduplicaterows\\RDR_035_step4duplicatesCopyAnotherLocationTest.csv");
+        checkExcelResult("Master", "removeduplicaterows\\RDR_024_step4duplicates2And4ColumnsColor.xlsx");
     }
-
-
     @Override
-    protected void restoreInitialDocumentState(String resultListName) {
-        //todo: replace with some rollback through API
-        clickUndo(10);
+    protected void restoreInitialDocumentState(String resultListName)  {
+        clickUndo(5);
     }
 }

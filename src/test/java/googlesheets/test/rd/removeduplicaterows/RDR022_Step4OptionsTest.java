@@ -28,6 +28,6 @@ public class RDR022_Step4OptionsTest extends RDRTest {
         clickNext();
         clickDeleteRowsWithinSelectionRadioButton();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_022_step4duplicates2And4ColumnsDeleteRowsWithinSelection.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_022_step4duplicates2And4ColumnsDeleteRowsWithinSelection.csv");
     }
 }

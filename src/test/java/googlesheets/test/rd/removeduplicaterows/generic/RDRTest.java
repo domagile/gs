@@ -26,8 +26,18 @@ public abstract class RDRTest extends SpreadsheetTest {
         removeDownloadedListFile(getSpreadsheetName(), listName, FileType.CSV);
     }
 
+    protected void checkExcelResult(String listName, String etalonFileName) throws IOException {
+        //fixme: refactor to invoke generic checks from checkResult()
+        startXLSXDownload();
+        sleep(2000);
+        restoreInitialDocumentState(listName);
+        compareFileWithEtalon(getSpreadsheetName(), listName, etalonFileName, FileType.XLSX);
+        removeDownloadedListFile(getSpreadsheetName(), listName, FileType.XLSX);
+    }
 
     protected void checkNewSpreadsheetResult(String sourceListName, String etalonFileName, ResultInfo resultInfo) throws IOException {
+        restoreInitialStateForNewSpreadsheetOption();
+        sleep(1000);
         openDocument(resultInfo.getNewSpreadsheetLink());
         startCSVDownload();
         sleep(2000);
@@ -38,8 +48,14 @@ public abstract class RDRTest extends SpreadsheetTest {
         removeDownloadedListFile(newSpreadsheetName, listName, FileType.CSV);
     }
 
-
     protected void restoreInitialDocumentState(String resultListName)  {
-        clickUndo();
+        clickUndo(2);
+    }
+
+
+    protected void restoreInitialStateForNewSpreadsheetOption()
+    {
     }
 }
+
+

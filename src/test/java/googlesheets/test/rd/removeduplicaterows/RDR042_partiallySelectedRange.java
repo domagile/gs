@@ -35,7 +35,7 @@ public class RDR042_partiallySelectedRange extends RDRTest {
 
         clickFinishAndClose();
         String listName = getResultListName("Master - duplicates");
-        checkResult(listName, "removeduplicates\\RDR_042_duplicatesPartiallySelectedRange.csv");
+        checkResult(listName, "removeduplicaterows\\RDR_042_duplicatesPartiallySelectedRange.csv");
     }
 
     protected void restoreInitialDocumentState(String resultListName) {

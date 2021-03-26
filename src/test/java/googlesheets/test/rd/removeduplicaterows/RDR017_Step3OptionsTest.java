@@ -28,6 +28,6 @@ public class RDR017_Step3OptionsTest extends RDRTest {
         clickNext();
         clickAddStatusColumnRadioButton();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_017_step3uniquesAnd1stOccurrencesSkipEmptyCellsFirstColumns.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_017_step3uniquesAnd1stOccurrencesSkipEmptyCellsFirstColumns.csv");
     }
 }

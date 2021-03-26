@@ -6,29 +6,36 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
-public class RDR031_Step4ClearValuesTest extends RDRTest {
+public class RDR026_Step4UniquesColors2and4columnsTest extends RDRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1_njqTMZcmfysccTNTLLSVsUZU9FpZNvN6WtXPBz3Mr8/edit#gid=799099187");
+        openDocument("https://docs.google.com/spreadsheets/d/1kqLJB-yugH7a7FvOA42XhOrazZ2qY8XzutzKVDRCwow/edit#gid=548035173");
     }
 
-
     @Test
-    public void Uniques1stOccurrencesAllColumnsClearValues() throws IOException {
+    public void uniques2And4ColumnsColor() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();
-        clickUniquesAnd1stOccurrencesRadioButton();
+
+        clickUniquesRadioButton();
         clickNext();
+
         setMyTableHasHeaders(true);
         setMatchCase(false);
         setSkipEmptyCells(false);
-        selectColumnsToSearchIn(1,2,3,4,5);
+        selectColumnsToSearchIn(2,4);
         clickNext();
-        clickClearValuesRadioButton();
+
+        clickFillWithColor();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicaterows\\RDR_031_step4uniquesAnd1thOccurrencsClearValues.csv");
+        checkExcelResult("Master", "removeduplicaterows\\RDR_026_step4Uniques2And4ColumnsColor.xlsx");
+    }
+    @Override
+    protected void restoreInitialDocumentState(String resultListName)  {
+        clickUndo(5);
     }
 }

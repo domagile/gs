@@ -34,7 +34,7 @@ public class RDR039_Step4duplicatesMoveCustomLocation extends RDRTest {
         setCustomLocationRange("'Master'!F1");
 
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_039_step4duplicatesMoveCustomLocation.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_039_step4duplicatesMoveCustomLocation.csv");
     }
 
 

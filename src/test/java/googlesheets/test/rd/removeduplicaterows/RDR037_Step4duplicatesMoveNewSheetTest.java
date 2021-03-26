@@ -6,16 +6,19 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
-public class RDR006_Step2OptionsTest extends RDRTest {
+public class RDR037_Step4duplicatesMoveNewSheetTest extends RDRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1H2LlHEZR0cREwqxtSMPoO1BHV--e5dAHiMokbTPPGt0/edit#gid=1550898978");
+        openDocument("https://docs.google.com/spreadsheets/d/1h3HTb9NLZy6CofRdV1ihoms0hRbulq5mZ4fLJc7moM4/edit#gid=1904782437");
+
     }
 
+
     @Test
-    public void duplicatesFirstLastColumns() throws IOException {
+    public void duplicatesAllColumnsCopyNewSheet() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();
@@ -24,10 +27,18 @@ public class RDR006_Step2OptionsTest extends RDRTest {
         setMyTableHasHeaders(true);
         setMatchCase(false);
         setSkipEmptyCells(false);
-        selectColumnsToSearchIn(1,5);
+        selectColumnsToSearchIn(1,2,3);
         clickNext();
-        clickAddStatusColumnRadioButton();
+        clickMoveToAnotherLocation();
+        clickNewSheet();
+
         clickFinishAndClose();
-        checkResult("Master", "removeduplicaterows\\RDR_006_step2options_duplicates.csv");
+        checkResult(getResultListName("Master - duplicates"), "removeduplicaterows\\RDR_037_step4duplicatesMoveNewSheet.csv");
+    }
+
+
+    @Override
+    protected void restoreInitialDocumentState(String resultListName) {
+        clickUndo(15);
     }
 }

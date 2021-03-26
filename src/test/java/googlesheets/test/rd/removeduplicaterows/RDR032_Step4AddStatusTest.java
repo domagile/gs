@@ -29,6 +29,6 @@ public class RDR032_Step4AddStatusTest extends RDRTest {
         clickNext();
         clickAddStatusColumnRadioButton();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_032_step4duplicatesAllColumnsAddStatus.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_032_step4duplicatesAllColumnsAddStatus.csv");
     }
 }

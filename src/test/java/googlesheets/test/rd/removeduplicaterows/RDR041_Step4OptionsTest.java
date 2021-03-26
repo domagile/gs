@@ -30,7 +30,7 @@ public class RDR041_Step4OptionsTest extends RDRTest {
         clickNext();
         clickAddStatusColumnRadioButton();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_041_step4duplicatesAddStatus.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_041_step4duplicatesAddStatus.csv");
         clickUndo();
 
     }

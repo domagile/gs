@@ -33,7 +33,7 @@ public class RDR043_partiallySelectedRange extends RDRTest {
         clickDeleteRowsWithinSelectionRadioButton();
 
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_043_duplicatesPartiallySelectedRange");
+        checkResult("Master", "removeduplicaterows\\RDR_043_duplicatesPartiallySelectedRange");
     }
 
 }

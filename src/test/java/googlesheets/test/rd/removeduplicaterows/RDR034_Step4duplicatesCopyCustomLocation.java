@@ -34,7 +34,7 @@ public class RDR034_Step4duplicatesCopyCustomLocation extends RDRTest {
         setCustomLocationRange("'Master'!F1");
 
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_034_step4duplicatesAllColumnsCopyCustomLocation.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_034_step4duplicatesAllColumnsCopyCustomLocation.csv");
     }
 
 

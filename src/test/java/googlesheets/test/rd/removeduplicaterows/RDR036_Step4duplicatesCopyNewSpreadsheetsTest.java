@@ -1,5 +1,6 @@
 package googlesheets.test.rd.removeduplicaterows;
 
+import googlesheets.service.generic.addon.ResultInfo;
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,31 +10,35 @@ import java.io.IOException;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
-public class RDR035_Step4duplicatesCopyCustomLocation extends RDRTest {
+public class RDR036_Step4duplicatesCopyNewSpreadsheetsTest extends RDRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/10M6PgSd7Qd1Sk2EgVnugloW698XWgN2iVuY6ZnnwxC8/edit#gid=1413370339");
+        openDocument("https://docs.google.com/spreadsheets/d/1RtPu5P8-JNRqhfs6H4DVlKMAkoAuwd1VPK5ZA7UBlYI/edit#gid=1976388577");
     }
 
 
     @Test
-    public void duplicatesAllColumnsCopyAnotherLocation() throws IOException {
+    public void duplicatesCopyNewSpreadsheets() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();
+
         clickDuplicatesRadioButton();
         clickNext();
+
         setMyTableHasHeaders(true);
         setMatchCase(false);
         setSkipEmptyCells(false);
         selectColumnsToSearchIn(1,2,3);
         clickNext();
-        clickCopyToAnotherLocation();
-        clickCustomLocation();
 
-        setCustomLocationRange("'Sheet1'!A1");
-        clickFinishAndClose();
-        checkResult("Sheet1", "removeduplicaterows\\RDR_035_step4duplicatesCopyAnotherLocationTest.csv");
+        clickCopyToAnotherLocation();
+        clickNewSpreadsheet();
+        clickFinish();
+
+        ResultInfo resultInfo = waitForNewSpreadsheetAndClose();
+
+        checkNewSpreadsheetResult("Master", "removeduplicaterows\\RDR_036 - duplicatesCopyNewSpreadsheet.csv", resultInfo);
     }
 
 

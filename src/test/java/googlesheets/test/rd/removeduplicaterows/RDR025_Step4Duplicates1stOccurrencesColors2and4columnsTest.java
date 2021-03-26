@@ -2,32 +2,41 @@ package googlesheets.test.rd.removeduplicaterows;
 
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
-public class RDR007_Step2OptionsTest extends RDRTest {
+public class RDR025_Step4Duplicates1stOccurrencesColors2and4columnsTest extends RDRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1E_VATIdx8xBZHB-dwcqkwvziOtMGUYErG_p1ozs7pS0/edit#gid=159883587");
+        openDocument("https://docs.google.com/spreadsheets/d/1CjTNj207fA-Fgnn1VAqN1ceWzZxOw2zJ9IXJw5nq-6c/edit#gid=1715489734");
     }
 
     @Test
-    public void duplicates_1stOccurrencesFirstLastColumns() throws IOException {
+    public void duplicatesAnd1stOccurrences2And4ColumnsColor() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();
+
         clickDuplicatesAnd1stOccurrencesRadioButton();
         clickNext();
+
         setMyTableHasHeaders(true);
         setMatchCase(false);
         setSkipEmptyCells(false);
-        selectColumnsToSearchIn(1,5);
+        selectColumnsToSearchIn(2,4);
         clickNext();
-        clickAddStatusColumnRadioButton();
+
+        clickFillWithColor();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicaterows\\RDR_007_step2options_duplicates_1stOccurrences.csv");
+        checkExcelResult("Master", "removeduplicaterows\\RDR_025_step4duplicatesAnd1stOccurrences2And4ColumnsColor.xlsx");
+    }
+    @Override
+    protected void restoreInitialDocumentState(String resultListName)  {
+        clickUndo(5);
     }
 }

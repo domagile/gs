@@ -28,6 +28,6 @@ public class RDR008_Step2OptionsTest extends RDRTest {
         clickNext();
         clickAddStatusColumnRadioButton();
         clickFinishAndClose();
-        checkResult("Master", "removeduplicates\\RDR_008_step2options_uniques.csv");
+        checkResult("Master", "removeduplicaterows\\RDR_008_step2options_uniques.csv");
     }
 }

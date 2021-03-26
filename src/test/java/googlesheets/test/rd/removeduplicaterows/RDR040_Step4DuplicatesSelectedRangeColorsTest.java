@@ -6,39 +6,36 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
-public class RDR037_Step4duplicatesMoveNewSheet extends RDRTest {
+public class RDR040_Step4DuplicatesSelectedRangeColorsTest extends RDRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1h3HTb9NLZy6CofRdV1ihoms0hRbulq5mZ4fLJc7moM4/edit#gid=1904782437");
-
+        openDocument("https://docs.google.com/spreadsheets/d/1owHh_06PYpm7wZlPiX58cx1XXRr5ttD5d0sVsxm40AU/edit#gid=1951119487");
     }
 
-
     @Test
-    public void duplicatesAllColumnsCopyNewSheet() throws IOException {
+    public void duplicatesSelectedRangeColor() throws IOException {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();
+
         clickDuplicatesRadioButton();
         clickNext();
+
         setMyTableHasHeaders(true);
         setMatchCase(false);
         setSkipEmptyCells(false);
-        selectColumnsToSearchIn(1,2,3);
+        selectColumnsToSearchIn(1,2,3,4,5);
         clickNext();
-        clickMoveToAnotherLocation();
-        clickNewSheet();
 
+        clickFillWithColor();
         clickFinishAndClose();
-        checkResult(getResultListName("Master - duplicates"), "removeduplicates\\RDR_037_step4duplicatesMoveNewSheet.csv");
+        checkExcelResult("Master", "removeduplicaterows\\RDR_040_step4duplicatesColor.xlsx");
     }
-
-
     @Override
-    protected void restoreInitialDocumentState(String resultListName) {
-        clickUndo(15);
+    protected void restoreInitialDocumentState(String resultListName)  {
+        clickUndo(5);
     }
 }

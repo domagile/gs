@@ -33,7 +33,7 @@ public class RDR033_Step4duplicatesCopyNewSheet extends RDRTest {
         clickNewSheet();
 
         clickFinishAndClose();
-        checkResult(getResultListName("Master - duplicates"), "removeduplicates\\RDR_033_step4duplicatesAllColumnsCopyNewSheet.csv");
+        checkResult(getResultListName("Master - duplicates"), "removeduplicaterows\\RDR_033_step4duplicatesAllColumnsCopyNewSheet.csv");
     }
 
 
