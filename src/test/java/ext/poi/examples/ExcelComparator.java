@@ -98,6 +98,17 @@ public class ExcelComparator {
 
     List<String> listOfDifferences = new ArrayList<>();
     private final DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ROOT);
+    private boolean ignoreEmptyCellFont;
+
+
+    public ExcelComparator()
+    { }
+
+
+    public ExcelComparator(boolean ignoreEmptyCellFont)
+    {
+        this.ignoreEmptyCellFont = ignoreEmptyCellFont;
+    }
 
 
     public static void main(String[] args) throws Exception {
@@ -140,7 +151,7 @@ public class ExcelComparator {
     public static List<String> compare(Workbook wb1, String sheetName1, Workbook wb2, String sheetName2) {
         Sheet sheet1 = wb1.getSheet(sheetName1);
         Sheet sheet2 = wb2.getSheet(sheetName2);
-        ExcelComparator excelComparator = new ExcelComparator();
+        ExcelComparator excelComparator = new ExcelComparator(true);
         Locator loc1 = new Locator();
         Locator loc2 = new Locator();
         loc1.workbook = wb1;
@@ -234,8 +245,10 @@ public class ExcelComparator {
         isCellAlignmentMatches(loc1,loc2);
         isCellHiddenMatches(loc1,loc2);
         isCellLockedMatches(loc1,loc2);
-        isCellFontFamilyMatches(loc1,loc2);
-        isCellFontSizeMatches(loc1,loc2);
+        if (!ignoreEmptyCellFont) {
+            isCellFontFamilyMatches(loc1, loc2);
+            isCellFontSizeMatches(loc1, loc2);
+        }
         isCellFontBoldMatches(loc1,loc2);
         isCellUnderLineMatches(loc1,loc2);
         isCellFontItalicsMatches(loc1,loc2);
