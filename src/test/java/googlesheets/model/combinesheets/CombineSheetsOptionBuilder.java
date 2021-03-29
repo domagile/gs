@@ -1,13 +1,21 @@
-package googlesheets.service.combinesheets;
+package googlesheets.model.combinesheets;
+
+import googlesheets.model.generic.ResultLocation;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CombineSheetsOptionBuilder {
+    private List<SheetSelection> sheets = new ArrayList<>();
+
     private boolean considerTableHeaders;
     private boolean useFormula;
     private boolean preserveFormatting;
     private boolean separateByBlankRow;
 
     private ResultLocation resultLocation;
-    private String locationValue;
+    private String customLocationValue;
 
 
     public CombineSheetsOptionBuilder considerTableHeaders(boolean considerTableHeaders)
@@ -45,9 +53,22 @@ public class CombineSheetsOptionBuilder {
     }
 
 
-    public CombineSheetsOptionBuilder locationValue(String locationValue)
+    public CombineSheetsOptionBuilder customLocationValue(String locationValue)
     {
-        this.locationValue = locationValue;
+        this.customLocationValue = locationValue;
+        return this;
+    }
+
+    public CombineSheetsOptionBuilder combinedSheet(int index)
+    {
+        sheets.add(new SheetSelection(index, null));
+        return this;
+    }
+
+
+    public CombineSheetsOptionBuilder combinedSheets(int... indexes)
+    {
+        Arrays.stream(indexes).forEach(index -> sheets.add(new SheetSelection(index, null)));
         return this;
     }
 
@@ -55,12 +76,13 @@ public class CombineSheetsOptionBuilder {
     public CombineSheetsOptions build()
     {
         CombineSheetsOptions options = new CombineSheetsOptions();
+        options.setCombinedSheets(sheets);
         options.setConsiderTableHeaders(considerTableHeaders);
         options.setUseFormula(useFormula);
         options.setPreserveFormatting(preserveFormatting);
         options.setSeparateByBlankRow(separateByBlankRow);
         options.setResultLocation(resultLocation);
-        options.setLocationValue(locationValue);
+        options.setCustomLocationValue(customLocationValue);
         return options;
     }
 }

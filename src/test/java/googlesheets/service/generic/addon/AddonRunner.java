@@ -10,13 +10,15 @@ import static googlesheets.service.generic.google.GoogleSheetService.*;
 public class AddonRunner {
     private String powerToolsSectionIconId;
     private String powerToolsAddonIconId;
-    private String addonMenuItemText;
+    private String groupMenuItemText;
+    private String lastMenuItemText;
 
-    public AddonRunner(String powerToolsSectionIconId, String powerToolsAddonIconId,
-                       String addonMenuItemText) {
+    public AddonRunner(String powerToolsSectionIconId, String powerToolsAddonIconId, String groupMenuItemText,
+                       String lastMenuItemText) {
         this.powerToolsSectionIconId = powerToolsSectionIconId;
         this.powerToolsAddonIconId = powerToolsAddonIconId;
-        this.addonMenuItemText = addonMenuItemText;
+        this.groupMenuItemText = groupMenuItemText;
+        this.lastMenuItemText = lastMenuItemText;
     }
 
     public void runAddon() {
@@ -50,7 +52,7 @@ public class AddonRunner {
 
 
     private void runAsSeparateAddon() {
-        runAddonThroughMenu(addonMenuItemText);
+        runAddonThroughMenu(lastMenuItemText);
         //todo: change to some explicit wait
         //wait for dialog window to be loaded
         sleep(5000);
@@ -78,6 +80,7 @@ public class AddonRunner {
 
 
     protected void clickGroupMenu(String addonMenuName) {
+        clickHighLevelMenuItem(groupMenuItemText, lastMenuItemText, isExactMenuItemText());
     }
 
 

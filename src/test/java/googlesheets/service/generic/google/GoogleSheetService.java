@@ -164,11 +164,11 @@ public class GoogleSheetService {
     }
 
 
-    public static void checkResult(String spreadsheetName, String resultListName, String etalonFile) throws IOException {
+    public static void checkResult(String spreadsheetName, String resultListName, String etalonFile) {
         checkResult(spreadsheetName, resultListName, etalonFile, true);
     }
 
-    public static void checkResult(String spreadsheetName, String resultListName, String etalonFile, boolean removeList) throws IOException {
+    public static void checkResult(String spreadsheetName, String resultListName, String etalonFile, boolean removeList) {
         if (fileExists(spreadsheetName, resultListName, FileType.CSV)) {
             throw new IllegalStateException(String.format("File for list %s already exists", resultListName));
         }

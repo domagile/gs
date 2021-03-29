@@ -1,4 +1,4 @@
-package googlesheets.service.combinesheets;
+package googlesheets.model.generic;
 
 public enum ResultLocation {
     NEW_SPREADSHEET,

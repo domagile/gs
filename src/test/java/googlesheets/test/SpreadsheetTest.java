@@ -8,7 +8,15 @@ import java.io.IOException;
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public abstract class SpreadsheetTest {
-    protected abstract String getSpreadsheetName();
+
+    protected String getSpreadsheetName()
+    {
+        String className = getClass().getSimpleName();
+        String testXXXString = className.substring(0, className.indexOf("_"));
+        final int testNumberLength = 3;
+        int codeLength = testXXXString.length() - testNumberLength;
+        return testXXXString.substring(0, codeLength) + '_' + testXXXString.substring(codeLength, codeLength + testNumberLength);
+    }
 
 
     protected static void openDocument(String link) {
@@ -16,7 +24,7 @@ public abstract class SpreadsheetTest {
     }
 
 
-    protected void checkResult(String listName, String etalonFileName) throws IOException {
+    protected void checkResult(String listName, String etalonFileName) {
         GoogleSheetService.checkResult(getSpreadsheetName(), listName, etalonFileName);
     }
 
@@ -25,12 +33,5 @@ public abstract class SpreadsheetTest {
     //to fix issue that new document is not opened for the next test
     public static void pauseBeforeNextTest() {
         sleep(3000);
-    }
-
-
-    protected static String getSpreadsheetName(Class<?> clazz) {
-        String className = clazz.getSimpleName();
-        String rdrXXXString = className.substring(0, className.indexOf("_"));
-        return rdrXXXString.substring(0, 3) + '_' + rdrXXXString.substring(3, 6);
     }
 }

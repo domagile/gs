@@ -1,13 +1,20 @@
-package googlesheets.service.combinesheets;
+package googlesheets.model.combinesheets;
+
+import googlesheets.model.generic.ResultLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CombineSheetsOptions {
+    private List<SheetSelection> sheets = new ArrayList<>();
+
     private boolean considerTableHeaders;
     private boolean useFormula;
     private boolean preserveFormatting;
     private boolean separateByBlankRow;
 
     private ResultLocation resultLocation = ResultLocation.NEW_SHEET;
-    private String locationValue;
+    private String customLocationValue;
 
 
     public boolean isConsiderTableHeaders() {
@@ -50,11 +57,25 @@ public class CombineSheetsOptions {
         this.resultLocation = resultLocation;
     }
 
-    public String getLocationValue() {
-        return locationValue;
+    public String getCustomLocationValue() {
+        return customLocationValue;
     }
 
-    public void setLocationValue(String locationValue) {
-        this.locationValue = locationValue;
+    public void setCustomLocationValue(String locationValue) {
+        this.customLocationValue = locationValue;
+    }
+
+    public List<SheetSelection> getCombinedSheets()
+    {
+        return sheets;
+    }
+
+    public void addSheet(int index) {
+        sheets.add(new SheetSelection(index, null));
+    }
+
+    public void setCombinedSheets(List<SheetSelection> sheets)
+    {
+        this.sheets = sheets;
     }
 }

@@ -10,13 +10,7 @@ import static googlesheets.service.technical.file.FileService.removeDownloadedLi
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public abstract class RDCTest extends SpreadsheetTest {
-    @Override
-    protected String getSpreadsheetName() {
-        return getSpreadsheetName(getClass());
-    }
-
-
-    protected void checkResult(String listName, String etalonFileName) throws IOException {
+    protected void checkResult(String listName, String etalonFileName) {
         //fixme: refactor to invoke generic checks from checkResult()
         startCSVDownload();
         sleep(2000);

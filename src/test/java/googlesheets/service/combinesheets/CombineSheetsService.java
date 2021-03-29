@@ -1,8 +1,12 @@
 package googlesheets.service.combinesheets;
 
+import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.service.EntityList;
 import googlesheets.service.generic.WebDriverService;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,26 +15,34 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Arrays;
 import java.util.List;
 
-import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class CombineSheetsService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
 
-    public static void selectAdditionalOptions(CombineSheetsOptions options) {
+    public static void selectHowToCopyDataOptions(CombineSheetsOptions options) {
         setConsiderTableHeaders(options.isConsiderTableHeaders());
         setSeparateByBlankRow(options.isSeparateByBlankRow());
+        setPreserveFormatting(options.isPreserveFormatting());
+        setUseFormulaToCombineSheets(options.isUseFormula());
+    }
 
-        //todo: add other location options
+
+    public static void selectResultLocation(CombineSheetsOptions options)
+    {
         switch (options.getResultLocation()) {
             case NEW_SHEET:
                 chooseStoreToNewSheet();
                 break;
+            case NEW_SPREADSHEET:
+                chooseStoreToNewSpreadsheet();
+                break;
             case CUSTOM_LOCATION:
                 chooseStoreToCustomLocation();
-                setCustomLocationValue(options.getLocationValue());
+                setCustomLocationValue(options.getCustomLocationValue());
                 //let "Invalid range" message disappear
                 sleep(1000);
                 break;
@@ -41,7 +53,6 @@ public class CombineSheetsService {
     public static void selectSheetsToCombine(int... sheets) {
         EntityList sheetList = expandSheetList();
         Arrays.stream(sheets).forEach(sheetList::clickEntity);
-        clickNext();
     }
 
 
@@ -61,40 +72,13 @@ public class CombineSheetsService {
     }
 
 
-    private static void switchToMainWindow() {
-        driver.switchTo().defaultContent();
-    }
-
-
-    public static void runCombineSheets() {
-        clickAddonsMenu();
-        clickCombineSheetsMenu();
-        clickStartMenu();
-        //todo: change to some explicit wait
-        //wait for dialog window to be loaded
-        sleep(5000);
-    }
-
-
-
-    private static void clickStartMenu() {
-        clickMenuItem("Start");
-    }
-
-
-    private static void clickCombineSheetsMenu() {
-        clickMenuItem("Combine Sheets");
-    }
-
-
     public static void waitForCompletionAndClose() {
-        //todo: change to "contains" to get universal check
         wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()='Ranges from 2 sheets have been successfully combined. ']")));
+                By.xpath("//*[text()[contains(.,'have been successfully combined')]]")));
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("combineSheetsClose")));
         //todo: if banner is shown then press "Return to add-on"
-        driver.findElement(By.id("combineSheetsClose")).click();
+        clickElement("combineSheetsClose");
 
         driver.switchTo().defaultContent();
     }
@@ -154,6 +138,18 @@ public class CombineSheetsService {
     private static void setSeparateByBlankRow(boolean value)
     {
         setCheckboxValue(value, "bSeparate");
+    }
+
+
+    private static void setUseFormulaToCombineSheets(boolean value)
+    {
+        setCheckboxValue(value, "bInsertFormula");
+    }
+
+
+    private static void setPreserveFormatting(boolean value)
+    {
+        setCheckboxValue(value, "bPreserveFormatting");
     }
 }
 

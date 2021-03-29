@@ -57,12 +57,12 @@ public class FileService {
     }
 
 
-    public static void compareFileWithEtalon(String spreadsheetName, String listName, String etalonFileName) throws IOException {
+    public static void compareFileWithEtalon(String spreadsheetName, String listName, String etalonFileName) {
         compareFileWithEtalon(spreadsheetName, listName, etalonFileName, FileType.CSV);
     }
 
 
-    public static void compareFileWithEtalon(String spreadsheetName, String listName, String etalonFileName, FileType fileType) throws IOException {
+    public static void compareFileWithEtalon(String spreadsheetName, String listName, String etalonFileName, FileType fileType) {
         String downloadedFileName = getDownloadedFileName(spreadsheetName, listName, fileType);
         File downloadedFile = new File(downloadedFileName);
         int maxWaitMillis = 10000;
@@ -75,14 +75,18 @@ public class FileService {
             i += checkTimeMillis;
         }
 
-        String etalonPath = "src\\test\\resources\\etalon\\";
-        switch (fileType) {
-            case CSV:
-                checkCSVFileEquality(downloadedFileName, etalonPath + etalonFileName);
-                break;
-            case XLSX:
-                checkExcelFileEquality(downloadedFileName, etalonPath + etalonFileName, listName);
-                break;
+        try {
+            String etalonPath = "src\\test\\resources\\etalon\\";
+            switch (fileType) {
+                case CSV:
+                    checkCSVFileEquality(downloadedFileName, etalonPath + etalonFileName);
+                    break;
+                case XLSX:
+                    checkExcelFileEquality(downloadedFileName, etalonPath + etalonFileName, listName);
+                    break;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
