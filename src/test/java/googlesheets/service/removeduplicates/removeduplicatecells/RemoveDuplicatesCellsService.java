@@ -1,15 +1,11 @@
 package googlesheets.service.removeduplicates.removeduplicatecells;
 
+import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.google.GoogleSheetService;
-import googlesheets.service.generic.WebDriverService;
-import googlesheets.service.generic.addon.ResultInfo;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-import java.util.Optional;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
@@ -77,11 +73,10 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
 
 
     //fixme: doesn't work by some reason - chosen color is not applied, displayed color is applied instead. try to change style of the div?
-    public static void setColor(String colorCode)
-    {
+    public static void setColor(String colorCode) {
 //        WebElement colorInput = driver.findElement(By.id("rdActionFillTheColorInput"));
         WebElement colorInput = driver.findElement(By.className("choise_color"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].value='"+ colorCode + "';", colorInput);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + colorCode + "';", colorInput);
     }
 
     public static void clickNewSheet() {
@@ -92,7 +87,7 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
         clickRadioButton("rdPlaceNewSpreadsheet");
     }
 
-    public static void clickCustomLocation()  {
+    public static void clickCustomLocation() {
         clickRadioButton("rdPlaceExistingSheet");
         //wait until dynamic behavior assigns default range
         sleep(2000);
@@ -134,27 +129,9 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
     }
 
 
-    public static ResultInfo waitForNewSpreadsheetAndClose() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()='new spreadsheet']")));
-        Optional<String> newSpreadsheetLink = getNewSpreadsheetLink();
-        GoogleSheetService.clickElement("closeButton");
-        driver.switchTo().defaultContent();
-        return new ResultInfo(newSpreadsheetLink.orElse(null));
-    }
-
-
-    private static Optional<String> getNewSpreadsheetLink()
-    {
-        By xpath = By.xpath("//*[text()='new spreadsheet']");
-        List<WebElement> links = driver.findElements(xpath);
-        return !links.isEmpty() ? Optional.of(links.get(0).getAttribute("href")) : Optional.empty();
-    }
-
-
-    public static void selectCellType(CellType cellType)
-    {
+    public static void selectCellType(CellType cellType) {
         String typeText;
-        switch (cellType){
+        switch (cellType) {
             case DUPLICATES:
                 typeText = "Duplicates";
                 break;

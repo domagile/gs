@@ -32,9 +32,4 @@ public abstract class RemoveDuplicatesRunner extends AddonRunner
         super.clickGroupMenu(addonMenuName);
         clickRemoveDuplicatesMenu(addonMenuName, isExactMenuItemText());
     }
-
-
-    protected boolean isExactMenuItemText() {
-        return true;
-    }
 }

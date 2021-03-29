@@ -2,17 +2,12 @@ package googlesheets.service.removeduplicates.removeduplicatesrows;
 
 import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.generic.addon.GenericAddonService;
-import googlesheets.service.generic.addon.ResultInfo;
 import googlesheets.service.generic.google.GoogleSheetService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-import java.util.Optional;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
@@ -155,22 +150,8 @@ public class RemoveDuplicatesRowsService extends GenericAddonService {
         clickRadioButton("rdActionFillTheColor");
     }
 
-    public static ResultInfo waitForNewSpreadsheetAndClose() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()='new spreadsheet']")));
-        Optional<String> newSpreadsheetLink = getNewSpreadsheetLink();
-        GoogleSheetService.clickElement("closeButton");
-        driver.switchTo().defaultContent();
-        return new ResultInfo(newSpreadsheetLink.orElse(null));
-    }
-
-    private static Optional<String> getNewSpreadsheetLink() {
-        By xpath = By.xpath("//*[text()='new spreadsheet']");
-        List<WebElement> links = driver.findElements(xpath);
-        return !links.isEmpty() ? Optional.of(links.get(0).getAttribute("href")) : Optional.empty();
-    }
 
     public static void clickFinish() {
         GoogleSheetService.clickElement(BUTTON_ID_NEXT);
     }
-
 }

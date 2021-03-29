@@ -1,11 +1,14 @@
 package googlesheets.service.generic.addon;
 
 import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.google.GoogleSheetService;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -97,5 +100,21 @@ public abstract class GenericAddonService {
         driver.switchTo().frame(sandboxFrame);
         WebElement userHtmlFrame = driver.findElement(By.id("userHtmlFrame"));
         driver.switchTo().frame(userHtmlFrame);
+    }
+
+
+    public static ResultInfo waitForNewSpreadsheetAndClose() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()='new spreadsheet']")));
+        Optional<String> newSpreadsheetLink = getNewSpreadsheetLink();
+        GoogleSheetService.clickElement("closeButton");
+        driver.switchTo().defaultContent();
+        return new ResultInfo(newSpreadsheetLink.orElse(null));
+    }
+
+
+    private static Optional<String> getNewSpreadsheetLink() {
+        By xpath = By.xpath("//*[text()='new spreadsheet']");
+        List<WebElement> links = driver.findElements(xpath);
+        return !links.isEmpty() ? Optional.of(links.get(0).getAttribute("href")) : Optional.empty();
     }
 }

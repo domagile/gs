@@ -73,10 +73,15 @@ public class AddonRunner {
     private void runAddonThroughMenu(String addonMenuName) {
         clickAddonsMenu();
         clickGroupMenu(addonMenuName);
-        clickMenuItem(addonMenuName);
+        clickMenuItem(addonMenuName, isExactMenuItemText());
     }
 
 
     protected void clickGroupMenu(String addonMenuName) {
+    }
+
+
+    protected boolean isExactMenuItemText() {
+        return true;
     }
 }
