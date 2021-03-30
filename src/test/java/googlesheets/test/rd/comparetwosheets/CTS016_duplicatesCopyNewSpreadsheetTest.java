@@ -44,10 +44,4 @@ public class CTS016_duplicatesCopyNewSpreadsheetTest extends CTSTest {
         checkNewSpreadsheetResult("Table1", "comparetwosheets\\CTS_016 - duplicatesCopyNewSpreadsheet.csv", resultInfo);
 
     }
-
-    @Override
-    protected void restoreInitialDocumentState(String resultListName) {
-        //todo: replace with some rollback through API
-        clickUndo(10);
-    }
 }

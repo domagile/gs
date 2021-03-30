@@ -46,9 +46,4 @@ public class CTS026_uniqueCopyNewSpreadsheetTest extends CTSTest {
 
     }
 
-    @Override
-    protected void restoreInitialDocumentState(String resultListName) {
-        //todo: replace with some rollback through API
-        clickUndo(10);
-    }
 }

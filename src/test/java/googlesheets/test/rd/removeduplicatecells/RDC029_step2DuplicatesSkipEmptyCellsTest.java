@@ -30,7 +30,6 @@ public class RDC029_step2DuplicatesSkipEmptyCellsTest extends RDCTest {
         clickNext();
 
         clickFillWithColor();
-
         clickFinishAndClose();
 
         checkExcelResult(getResultListName("Master"), "removeduplicatecells\\RDC_029_duplicatesSkipEmptyCells.xlsx");
