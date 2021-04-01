@@ -22,7 +22,6 @@ public class CDR005_Test extends CDRTest {
         openDocument("https://docs.google.com/spreadsheets/d/10rJ7NXI6JqXCIhN1fyeUUU8Xck5SD3-FAPl7LQzJHIA/edit#gid=155352248");
     }
 
-    @Ignore
     @Test
     public void checkLineBreak() throws IOException {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()
@@ -37,6 +36,7 @@ public class CDR005_Test extends CDRTest {
         execute(options);
 
         checkExcelResult("Master", "combineduplicaterows\\CDR_005_test.xlsx");
+
     }
 
     @Override
