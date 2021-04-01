@@ -1,5 +1,6 @@
 package googlesheets.service.removeduplicates.combineduplicaterows;
 
+import googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.service.EntityList;
 import googlesheets.service.generic.WebDriverService;
@@ -104,13 +105,20 @@ public class CombineDuplicateRowsService {
             for (MergedColumn mergedColumn : mergedColumns) {
                 columns.selectEntity(mergedColumn.getIndex() - 1, true, checkboxLocator);
                 columns.setComboboxValue(mergedColumn.getIndex() - 1, 2, mergedColumn.getAction().getText(), comboboxLocator);
-                columns.setComboboxValue(mergedColumn.getIndex() - 1, 3, mergedColumn.getDelimiterFunction().getText(), comboboxLocator);
+
+                DelimiterFunctionEnumeration delimiterFunction = mergedColumn.getDelimiterFunction();
+                By secondComboboxLocator = getDelimiterFunctionComboboxLocator(delimiterFunction);
+                columns.setComboboxValue(mergedColumn.getIndex() - 1, 3, delimiterFunction.getText(), secondComboboxLocator);
             }
         }
         //when tBody is reloaded by browser and link is not actual
         catch (StaleElementReferenceException e) {
             selectColumnsToMerge(tableBodyId, checkboxLocator, mergedColumns);
         }
+    }
+
+    private static By getDelimiterFunctionComboboxLocator(DelimiterFunctionEnumeration delimiterFunction) {
+        return delimiterFunction.isDelimiter() ? By.tagName("select") : By.xpath("(.//select)[2]");
     }
 
     public static void clickFinishAndClose() {

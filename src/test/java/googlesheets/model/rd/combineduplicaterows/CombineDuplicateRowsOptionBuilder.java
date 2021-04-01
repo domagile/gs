@@ -1,8 +1,5 @@
 package googlesheets.model.rd.combineduplicaterows;
 
-import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
-import googlesheets.model.combinesheets.CombineSheetsOptions;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

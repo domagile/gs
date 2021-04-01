@@ -21,6 +21,21 @@ public enum DelimiterFunctionEnumeration {
     VARP,
     MEDIAN;
 
+
+    public boolean isDelimiter()
+    {
+        switch (this) {
+            case LINE_BREAK:
+            case SPACE:
+            case COMMA:
+            case SEMICOLON:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+
     public String getText() {
         switch (this) {
             case LINE_BREAK:
