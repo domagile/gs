@@ -3,6 +3,7 @@ package googlesheets.test.rd.combineduplicaterows;
 import googlesheets.model.rd.combineduplicaterows.*;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class CDR005_Test extends CDRTest {
         openDocument("https://docs.google.com/spreadsheets/d/10rJ7NXI6JqXCIhN1fyeUUU8Xck5SD3-FAPl7LQzJHIA/edit#gid=155352248");
     }
 
+    @Ignore
     @Test
     public void checkLineBreak() throws IOException {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()
@@ -34,7 +36,7 @@ public class CDR005_Test extends CDRTest {
                 .build();
         execute(options);
 
-        checkExcelResult("Master", "combineduplicaterows\\CDR_0005_test.xlsx");
+        checkExcelResult("Master", "combineduplicaterows\\CDR_005_test.xlsx");
     }
 
     @Override
