@@ -7,32 +7,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
+import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class CombineSheetsService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
+    public static final String BUTTON_ID_CLOSE = "combineSheetsClose";
+    public static final String FIELD_ID_CUSTOM_LOCATION = "txtCustomLocation";
+
 
     public static void selectHowToCopyDataOptions(CombineSheetsOptions options) {
         setConsiderTableHeaders(options.isConsiderTableHeaders());
-        setSeparateByBlankRow(options.isSeparateByBlankRow());
-        setPreserveFormatting(options.isPreserveFormatting());
         setUseFormulaToCombineSheets(options.isUseFormula());
+        setPreserveFormatting(options.isPreserveFormatting());
+        setSeparateByBlankRow(options.isSeparateByBlankRow());
     }
 
 
-    public static void selectResultLocation(CombineSheetsOptions options)
-    {
+    public static void selectResultLocation(CombineSheetsOptions options) {
         switch (options.getResultLocation()) {
             case NEW_SHEET:
                 chooseStoreToNewSheet();
@@ -42,7 +41,8 @@ public class CombineSheetsService {
                 break;
             case CUSTOM_LOCATION:
                 chooseStoreToCustomLocation();
-                setCustomLocationValue(options.getCustomLocationValue());
+                invokeFunctionWithReinvocation(CombineSheetsService::setCustomLocationValue,
+                        options.getCustomLocationValue(), InvalidElementStateException.class);
                 //let "Invalid range" message disappear
                 sleep(1000);
                 break;
@@ -72,18 +72,6 @@ public class CombineSheetsService {
     }
 
 
-    public static void waitForCompletionAndClose() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()[contains(.,'have been successfully combined')]]")));
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("combineSheetsClose")));
-        //todo: if banner is shown then press "Return to add-on"
-        clickElement("combineSheetsClose");
-
-        driver.switchTo().defaultContent();
-    }
-
-
     private static void chooseStoreToNewSpreadsheet() {
         clickRadioButton("place0");
     }
@@ -100,55 +88,50 @@ public class CombineSheetsService {
 
 
     private static void setCustomLocationValue(String locationValue) {
-        try {
-            WebElement customLocationField = driver.findElement(By.id("txtCustomLocation"));
-            customLocationField.clear();
-            Actions builder = new Actions(driver);
-            Action actions = builder
-                    .sendKeys(customLocationField, locationValue).build();
-            actions.perform();
-
-//            customLocationField.sendKeys(locationValue);
-        }
-        catch (InvalidElementStateException e) {
-            sleep(1000);
-            setCustomLocationValue(locationValue);
-        }
+        By customLocationLocator = By.id(FIELD_ID_CUSTOM_LOCATION);
+//        wait.until(ExpectedConditions.presenceOfElementLocated(customLocationLocator));
+        //fixme: replace with some check
+        //dynamic behaviour fills the field with some default value
+        sleep(3000);
+        driver.findElement(customLocationLocator).clear();
+        driver.findElement(customLocationLocator).sendKeys(locationValue);
+        //dynamic behaviour reacts to entered value
+        sleep(2000);
+        checkText(locationValue, FIELD_ID_CUSTOM_LOCATION, CombineSheetsService::setCustomLocationValue);
     }
 
 
-    public static void clickNext()
-    {
-        driver.findElement(By.id("combineSheetsNext")).click();
+    public static void clickNext() {
+        clickElement("combineSheetsNext");
     }
 
 
     public static void clickCombineAndClose() {
-        driver.findElement(By.id("combineSheetsNext")).click();
-        waitForCompletionAndClose();
+        clickCombine();
+        waitForCompletionAndClose("have been successfully combined", BUTTON_ID_CLOSE);
+    }
+
+    public static void clickCombine() {
+        clickElement("combineSheetsNext");
     }
 
 
-    private static void setConsiderTableHeaders(boolean value)
-    {
+    private static void setConsiderTableHeaders(boolean value) {
         setCheckboxValue(value, "bSheetHasHeaders");
     }
 
 
-    private static void setSeparateByBlankRow(boolean value)
-    {
+    private static void setSeparateByBlankRow(boolean value) {
         setCheckboxValue(value, "bSeparate");
     }
 
 
-    private static void setUseFormulaToCombineSheets(boolean value)
-    {
+    private static void setUseFormulaToCombineSheets(boolean value) {
         setCheckboxValue(value, "bInsertFormula");
     }
 
 
-    private static void setPreserveFormatting(boolean value)
-    {
+    private static void setPreserveFormatting(boolean value) {
         setCheckboxValue(value, "bPreserveFormatting");
     }
 }

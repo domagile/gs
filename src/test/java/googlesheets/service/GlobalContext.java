@@ -4,9 +4,13 @@ public class GlobalContext {
     public static final boolean IS_POWER_TOOLS_MODE = false;
     public static final boolean USE_CUSTOM_LINKS = false;
     public static final boolean TEST_RC_VERSION = false;
+    public static final int MAX_REINVOCATION_COUNT = 30;
 
     private static GlobalContext instance;
     private static boolean isLoggedIn;
+    private Object reinvokedFunction;
+    private int reinvocationCount;
+    private String powerToolsTopIFrameSrc = "";
 
     public static synchronized GlobalContext getInstance()
     {
@@ -30,5 +34,29 @@ public class GlobalContext {
 
     public void setLoggedIn(boolean isLoggedIn) {
         GlobalContext.isLoggedIn = isLoggedIn;
+    }
+
+
+    public boolean registerFunctionInvocation(Object function) {
+        if (function == reinvokedFunction) {
+            reinvocationCount++;
+            if (reinvocationCount > MAX_REINVOCATION_COUNT) {
+                return false;
+            }
+        }
+        else {
+            reinvokedFunction = function;
+            reinvocationCount = 0;
+        }
+        return true;
+    }
+
+
+    public String getPowerToolsTopIFrameSrc() {
+        return powerToolsTopIFrameSrc;
+    }
+
+    public void setPowerToolsTopIFrameSrc(String powerToolsTopIFrameSrc) {
+        this.powerToolsTopIFrameSrc = powerToolsTopIFrameSrc;
     }
 }

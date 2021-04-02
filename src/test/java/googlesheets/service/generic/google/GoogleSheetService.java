@@ -3,7 +3,6 @@ package googlesheets.service.generic.google;
 import googlesheets.service.EntityList;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.WebDriverService;
-import googlesheets.service.technical.file.FileType;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,10 +19,10 @@ import java.util.function.BiConsumer;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
+import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.google.Credentials.LOGIN;
 import static googlesheets.service.generic.google.Credentials.PASSWORD;
-import static googlesheets.service.technical.file.FileService.*;
-import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
+import static googlesheets.service.generic.xpath.XPathHelper.*;
 
 
 public class GoogleSheetService {
@@ -81,20 +80,28 @@ public class GoogleSheetService {
 
 
     public static void startCSVDownload() {
-        clickElement(By.xpath("//*[text()='File']"));
-        clickElement(By.xpath("//*[@aria-label='Download d']"));
-        clickElement(By.xpath("//*[@aria-label='Comma-separated values (.csv, current sheet) c']"));
+        clickMenuFile();
+        clickMenuDownload();
+        clickElement(By.xpath(attributeIs("aria-label", "Comma-separated values (.csv, current sheet) c")));
+    }
+
+    private static void clickMenuDownload() {
+        clickElement(By.xpath(attributeIs("aria-label", "Download d")));
+    }
+
+    private static void clickMenuFile() {
+        clickElement(By.xpath(textIs("File")));
     }
 
     public static void startXLSXDownload() {
-        clickElement(By.xpath("//*[text()='File']"));
-        clickElement(By.xpath("//*[@aria-label='Download d']"));
-        clickElement(By.xpath("//*[@aria-label='Microsoft Excel (.xlsx) x']"));
+        clickMenuFile();
+        clickMenuDownload();
+        clickElement(By.xpath(attributeIs("aria-label", "Microsoft Excel (.xlsx) x")));
     }
 
     public static void moveSpreadsheetToTrash() {
-        clickElement(By.xpath("//*[text()='File']"));
-        clickElement(By.xpath("//*[@aria-label='Move to trash t']"));
+        clickMenuFile();
+        clickElement(By.xpath(attributeIs("aria-label", "Move to trash t")));
     }
 
     private static void clickElement(By locator) {
@@ -112,22 +119,20 @@ public class GoogleSheetService {
 
 
     public static void waitText(String text) {
-        By xpath = By.xpath("//*[text()[contains(.,'" + text + "')]]");
+        By xpath = By.xpath(textContains(text));
         wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
     }
 
 
     public static void clickDialogOK() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.name("ok")));
-        driver.findElement(By.name("ok")).click();
+        clickElement(By.name("ok"));
     }
 
 
     public static void openSheetContextMenu(String sheetName) {
         invokeFunctionWithReinvocation(name -> {
             Actions actions = new Actions(driver);
-            By xpath = By.xpath("//*[text()='" + name + "']");
-//        By xpath = By.xpath("//*[text()[contains(.,'" + name + "')]]");
+            By xpath = By.xpath(textIs(name));
             wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
             WebElement element = driver.findElement(xpath);
             actions.contextClick(element).perform();
@@ -138,7 +143,7 @@ public class GoogleSheetService {
     public static String getResultListName(String namePart) {
         driver.switchTo().defaultContent();
 
-        By xpath = By.xpath("//*[text()[contains(.,'" + namePart + "')]]");
+        By xpath = By.xpath(textContains(namePart));
         wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
         WebElement element = driver.findElement(xpath);
         return element.getText().trim();
@@ -146,8 +151,8 @@ public class GoogleSheetService {
 
 
     public static void clickContextMenuByText(String text) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text()='" + text + "']")));
-        driver.findElement(By.xpath("//*[text()='" + text + "']")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(textIs(text))));
+        driver.findElement(By.xpath(textIs(text))).click();
     }
 
 
@@ -164,27 +169,8 @@ public class GoogleSheetService {
     }
 
 
-    public static void checkResult(String spreadsheetName, String resultListName, String etalonFile) {
-        checkResult(spreadsheetName, resultListName, etalonFile, true);
-    }
-
-    public static void checkResult(String spreadsheetName, String resultListName, String etalonFile, boolean removeList) {
-        if (fileExists(spreadsheetName, resultListName, FileType.CSV)) {
-            throw new IllegalStateException(String.format("File for list %s already exists", resultListName));
-        }
-        driver.switchTo().defaultContent();
-        makeSheetActive(resultListName);
-        startCSVDownload();
-        if (removeList) {
-            removeListThroughMenu(resultListName);
-        }
-        compareFileWithEtalon(spreadsheetName, resultListName, etalonFile);
-        removeDownloadedListFile(spreadsheetName, resultListName, FileType.CSV);
-    }
-
-
     public static void makeSheetActive(String sheetName) {
-        By xpath = By.xpath("//*[text()='" + sheetName + "']");
+        By xpath = By.xpath(textIs(sheetName));
         driver.findElement(xpath).click();
         //todo: replace with some wait
         sleep(1000);
@@ -192,16 +178,11 @@ public class GoogleSheetService {
 
 
     public static void clickAddonsMenu() {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text()='Add-ons']")));
-            driver.findElement(By.xpath("//*[text()='Add-ons']")).click();
-        }
-        //"Working" message prevents from clicking if it's done right after login
-        //Dialog popup from previous test can prevent from clicking also
-        catch (ElementClickInterceptedException | UnhandledAlertException e) {
-            sleep(1000);
-            clickAddonsMenu();
-        }
+        invokeFunctionWithReinvocation(() -> {
+            By addonsMenuLocator = By.xpath(textIs("Add-ons"));
+            wait.until(ExpectedConditions.elementToBeClickable(addonsMenuLocator));
+            driver.findElement(addonsMenuLocator).click();
+        }, ElementClickInterceptedException.class, UnhandledAlertException.class);
     }
 
 
@@ -210,14 +191,11 @@ public class GoogleSheetService {
     }
 
     public static void clickMenuItem(String menuName, boolean exactText) {
-        String xpath = exactText ? "//*[text()='" + menuName + "']" : "//*[text()[contains(.,'" + menuName + "')]]";
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-        try {
+        invokeFunctionWithReinvocation((menu, text) -> {
+            String xpath = exactText ? textIs(menuName) : textContains(menuName);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
             driver.findElement(By.xpath(xpath)).click();
-        } catch (ElementNotInteractableException e) {
-            sleep(1000);
-            clickMenuItem(menuName, exactText);
-        }
+        }, menuName, exactText, ElementNotInteractableException.class);
     }
 
 
@@ -253,8 +231,7 @@ public class GoogleSheetService {
     public static void setCheckboxValue(boolean value, String checkboxId) {
         WebElement checkbox = driver.findElement(By.id(checkboxId));
         if (checkbox.isSelected() != value) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
-                    checkbox);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
         }
     }
 
@@ -300,19 +277,14 @@ public class GoogleSheetService {
 
 
     public static void selectComboboxValue(String id, String value) {
-        try {
-            WebElement select = driver.findElement(By.id(id));
-            Select combobox = new Select(select);
-            combobox.selectByVisibleText(value);
-        }
-        //fixme: limit of invocations is absolutely mandatory here
-        catch (StaleElementReferenceException | ElementNotInteractableException
-                //give some time to load list of expected values
-                | NoSuchElementException e) {
-            sleep(1000);
-            selectComboboxValue(id, value);
-        }
+        invokeFunctionWithReinvocation((idParam, valueParam) -> {
+                    WebElement select = driver.findElement(By.id(id));
+                    Select combobox = new Select(select);
+                    combobox.selectByVisibleText(value);
+                }, id, value,
+                StaleElementReferenceException.class, ElementNotInteractableException.class, NoSuchElementException.class);
     }
+
 
     public static void sleep(long millis) {
         try {
@@ -333,8 +305,7 @@ public class GoogleSheetService {
     }
 
 
-    public static void checkText(String text, String fieldId, Consumer<String> setTextFunction)
-    {
+    public static void checkText(String text, String fieldId, Consumer<String> setTextFunction) {
         By fieldLocator = By.id(fieldId);
         wait.until(ExpectedConditions.presenceOfElementLocated(fieldLocator));
         String currentText = driver.findElement(fieldLocator).getAttribute("value");
@@ -344,8 +315,7 @@ public class GoogleSheetService {
     }
 
 
-    public static void checkText(String text, String fieldId, BiConsumer<String, String> setTextFunction)
-    {
+    public static void checkText(String text, String fieldId, BiConsumer<String, String> setTextFunction) {
         By fieldLocator = By.id(fieldId);
         wait.until(ExpectedConditions.presenceOfElementLocated(fieldLocator));
         String currentText = driver.findElement(fieldLocator).getAttribute("value");
@@ -355,13 +325,11 @@ public class GoogleSheetService {
     }
 
 
-    public static boolean waitForCondition(BooleanSupplier condition, int checkNumber, int pauseMillis)
-    {
+    public static boolean waitForCondition(BooleanSupplier condition, int checkNumber, int pauseMillis) {
         for (int i = 0; i < checkNumber; i++) {
             if (condition.getAsBoolean()) {
                 return true;
-            }
-            else {
+            } else {
                 sleep(pauseMillis);
             }
         }

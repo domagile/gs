@@ -20,6 +20,6 @@ public class CS003_copyDataOptionsTest extends CSTest {
                 .useFormula(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkResult("Combined data", "CS_003_useFormula.csv");
+        checkResult("CS_003_useFormula.csv");
     }
 }

@@ -21,6 +21,6 @@ public class CS010_copyDataOptionsTest extends CSTest {
                 .useFormula(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkResult("Combined data", "CS_010_considerHeadersAndUseFormula.csv");
+        checkResult("CS_010_considerHeadersAndUseFormula.csv");
     }
 }

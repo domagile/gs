@@ -132,17 +132,7 @@ public class RemoveDuplicatesRowsService extends GenericAddonService {
 
     public static void clickFinishAndClose() {
         clickFinish();
-        waitForCompletionAndClose();
-    }
-
-
-    public static void waitForCompletionAndClose() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()[contains(.,'rows have been found')]]")));
-
-        GoogleSheetService.clickElement("closeButton");
-
-        driver.switchTo().defaultContent();
+        waitForCompletionAndClose("rows have been found", "closeButton");
     }
 
 

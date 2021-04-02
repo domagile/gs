@@ -21,6 +21,6 @@ public class CS006_copyDataOptionsTest extends CSTest {
                 .preserveFormatting(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkExcelResult("Combined data", "CS_006_considerTableHeadersAndPreserveFormatting.xlsx");
+        checkExcelResult("CS_006_considerTableHeadersAndPreserveFormatting.xlsx");
     }
 }

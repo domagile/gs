@@ -21,6 +21,6 @@ public class CS007_copyDataOptionsTest extends CSTest {
                 .separateByBlankRow(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkResult("Combined data", "CS_007_considerHeadersAndSeparateByBlankRow.csv");
+        checkResult("CS_007_considerHeadersAndSeparateByBlankRow.csv");
     }
 }

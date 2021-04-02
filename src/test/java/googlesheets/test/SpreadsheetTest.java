@@ -24,11 +24,6 @@ public abstract class SpreadsheetTest {
     }
 
 
-    protected void checkResult(String listName, String etalonFileName) {
-        GoogleSheetService.checkResult(getSpreadsheetName(), listName, etalonFileName);
-    }
-
-
     @AfterClass
     //to fix issue that new document is not opened for the next test
     public static void pauseBeforeNextTest() {

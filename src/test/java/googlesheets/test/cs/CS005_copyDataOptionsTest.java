@@ -20,6 +20,6 @@ public class CS005_copyDataOptionsTest extends CSTest {
                 .separateByBlankRow(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkResult("Combined data", "CS_005_separateByBlankRow.csv");
+        checkResult("CS_005_separateByBlankRow.csv");
     }
 }

@@ -22,6 +22,6 @@ public class CS009_copyDataOptionsTest extends CSTest {
                 .preserveFormatting(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkExcelResult("Combined data", "CS_009_considerTableHeadersPreserveFormattingSeparateByBlankRow.xlsx");
+        checkExcelResult("CS_009_considerTableHeadersPreserveFormattingSeparateByBlankRow.xlsx");
     }
 }
