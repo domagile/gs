@@ -32,11 +32,12 @@ public class AddonRunner {
 
     private void runThroughPowerTools() {
         IFrameInfo iFrameInfo = runPowerTools();
+        GlobalContext.getInstance().setPowerToolsTopIFrameSrc(iFrameInfo.getTopIframeSrc());
         clickElement(powerToolsSectionIconId);
         //fixme: no reaction to click without this delay
         sleep(2000);
         invokeFunctionWithReinvocation(this::clickAddonPowerToolsIcon);
-        switchDriverToCheckedAddonIframe(iFrame -> !iFrame.getAttribute("src").equals(iFrameInfo.getTopIframeSrc()));
+        switchDriverToAddonIframe();
     }
 
 
