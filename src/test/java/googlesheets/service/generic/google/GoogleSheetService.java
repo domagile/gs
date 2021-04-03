@@ -249,6 +249,11 @@ public class GoogleSheetService {
 
 
     public static void selectRowsInTable(String tableBodyId, By checkboxLocator, Integer... indexes) {
+        selectRowsInTable(tableBodyId, checkboxLocator, Arrays.asList(indexes));
+    }
+
+
+    public static void selectRowsInTable(String tableBodyId, By checkboxLocator, List<Integer> indexes) {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(By.id(tableBodyId)));
             WebElement tBody = driver.findElement(By.id(tableBodyId));
@@ -259,9 +264,8 @@ public class GoogleSheetService {
                 trs = tBody.findElements(By.tagName("tr"));
             }
             EntityList columns = new EntityList(trs, 0);
-            List indexList = Arrays.asList(indexes);
             for (int i = 0; i < trs.size(); i++) {
-                columns.selectEntity(i, indexList.contains(i + 1), checkboxLocator);
+                columns.selectEntity(i, indexes.contains(i + 1), checkboxLocator);
             }
         }
         //when tBody is reloaded by browser and link is not actual
@@ -277,12 +281,18 @@ public class GoogleSheetService {
 
 
     public static void selectComboboxValue(String id, String value) {
-        invokeFunctionWithReinvocation((idParam, valueParam) -> {
-                    WebElement select = driver.findElement(By.id(id));
-                    Select combobox = new Select(select);
-                    combobox.selectByVisibleText(value);
-                }, id, value,
+            WebElement select = driver.findElement(By.id(id));
+            selectComboboxValue(select, value);
+    }
+
+
+    public static void selectComboboxValue(WebElement select, String value) {
+        invokeFunctionWithReinvocation((selectParam, valueParam) -> {
+                    Select combobox = new Select(selectParam);
+                    combobox.selectByVisibleText(valueParam);
+                }, select, value,
                 StaleElementReferenceException.class, ElementNotInteractableException.class, NoSuchElementException.class);
+
     }
 
 
