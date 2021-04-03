@@ -14,8 +14,7 @@ import java.util.function.*;
 
 import static googlesheets.service.generic.google.GoogleSheetService.setText;
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
-import static googlesheets.service.generic.xpath.XPathHelper.textContains;
-import static googlesheets.service.generic.xpath.XPathHelper.textIs;
+import static googlesheets.service.generic.xpath.XPathHelper.*;
 
 public abstract class GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
@@ -61,11 +60,6 @@ public abstract class GenericAddonService {
             return reinvokeFunctionWithDelay(GenericAddonService::switchDriverToCheckedAddonIframe, iFramePredicate);
         }
         return new IFrameInfo(topIframeSrc);
-    }
-
-
-    private static void switchToDefaultContent() {
-        driver.switchTo().defaultContent();
     }
 
 
