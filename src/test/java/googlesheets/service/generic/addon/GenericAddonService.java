@@ -12,8 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.*;
 
-import static googlesheets.service.generic.google.GoogleSheetService.setText;
-import static googlesheets.service.generic.google.GoogleSheetService.sleep;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.xpath.XPathHelper.*;
 
 public abstract class GenericAddonService {
@@ -55,7 +54,7 @@ public abstract class GenericAddonService {
         }
 
         if (!switched) {
-            switchToDefaultContent();
+            switchDriverToDefaultContent();
             //todo: fix reinvocation
             return reinvokeFunctionWithDelay(GenericAddonService::switchDriverToCheckedAddonIframe, iFramePredicate);
         }
@@ -131,7 +130,7 @@ public abstract class GenericAddonService {
 
 
     private static void switchToAddonIframe(WebElement iFrame) {
-        switchToDefaultContent();
+        switchDriverToDefaultContent();
         driver.switchTo().frame(iFrame);
         WebElement sandboxFrame = driver.findElement(By.id("sandboxFrame"));
         driver.switchTo().frame(sandboxFrame);
@@ -150,7 +149,7 @@ public abstract class GenericAddonService {
         wait.until(ExpectedConditions.presenceOfElementLocated(newSpreadsheetLinkLocator));
         Optional<String> newSpreadsheetLink = getNewSpreadsheetLink(newSpreadsheetLinkLocator);
         GoogleSheetService.clickElement(closeButtonId);
-        switchToDefaultContent();
+        switchDriverToDefaultContent();
         return new ResultInfo(newSpreadsheetLink.orElse(null));
     }
 
@@ -165,15 +164,34 @@ public abstract class GenericAddonService {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(textContains(expectedTextPart))));
         //todo: if banner is shown then press "Return to add-on"
         GoogleSheetService.clickElement(closeButtonId);
-        switchToDefaultContent();
+        switchDriverToDefaultContent();
     }
 
 
-    public void setNameBoxValueFromAddonContext(String value)
+    public static void setNameBoxValueFromAddonContext(String value)
     {
-        switchToDefaultContent();
-//        WebElement nameBox = driver.findElement(By.id(FIELD_ID_NAME_BOX));
-        setText(value, FIELD_ID_NAME_BOX);
+        switchDriverToDefaultContent();
+        setNameBoxValue(value);
+        switchDriverToAddonIframe();
+    }
+
+
+    public static void setNameBoxValue(String value)
+    {
+        setText(value + Keys.ENTER, FIELD_ID_NAME_BOX);
+    }
+
+
+    public static String getNameBoxValue()
+    {
+        return driver.findElement(By.id(FIELD_ID_NAME_BOX)).getText();
+    }
+
+
+    public static void waitNameBoxValue(String text, int checkNumber, int pauseMillis)
+    {
+        switchDriverToDefaultContent();
+        waitForCondition(() -> getNameBoxValue().equals(text), checkNumber, pauseMillis);
         switchDriverToAddonIframe();
     }
 }

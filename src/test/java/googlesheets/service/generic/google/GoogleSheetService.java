@@ -104,11 +104,41 @@ public class GoogleSheetService {
         clickElement(By.xpath(attributeIs("aria-label", "Move to trash t")));
     }
 
-    private static void clickElement(By locator) {
+    public static void clickElement(By locator) {
         invokeFunctionWithReinvocation(elementLocator -> {
             wait.until(ExpectedConditions.elementToBeClickable(elementLocator));
             driver.findElement(elementLocator).click();
         }, locator, InvalidElementStateException.class);
+    }
+
+
+    public static void clearFieldWithCtrlADel(WebElement field) {
+        field.sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+    }
+
+
+    public static void clearFieldWithEndShiftHomeBackspace(WebElement field) {
+        Actions actions = new Actions(driver);
+        actions.click(field)
+                .sendKeys(Keys.END)
+                .keyDown(Keys.SHIFT)
+                .sendKeys(Keys.HOME)
+                .keyUp(Keys.SHIFT)
+                .sendKeys(Keys.BACK_SPACE)
+                .perform();
+    }
+
+
+    public static void replaceTextWith(String text, WebElement field) {
+        String oldText = field.getText();
+        StringBuilder inputString = new StringBuilder(text);
+        for (int i = 0; i < text.length(); i++) {
+            inputString.append(Keys.ARROW_LEFT);
+        }
+        for (int i = 0; i < oldText.length(); i++) {
+            inputString.append(Keys.BACK_SPACE);
+        }
+        field.sendKeys(inputString.toString());
     }
 
 

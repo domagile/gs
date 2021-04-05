@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.xpath.XPathHelper.attributeIs;
 
 public class CombineSheetsService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
@@ -21,6 +23,9 @@ public class CombineSheetsService {
 
     public static final String BUTTON_ID_CLOSE = "combineSheetsClose";
     public static final String FIELD_ID_CUSTOM_LOCATION = "txtCustomLocation";
+    public static final String BUTTON_ID_COMBINE = "combineSheetsNext";
+    public static final String FIELD_ID_CUSTOM_LOCATION_ON_LOCATION_DIALOG = "inputActiveRangeSmall";
+    public static final String BUTTON_ID_OK_ON_LOCATION_DIALOG = "btnSmallOk";
 
 
     public static void selectHowToCopyDataOptions(CombineSheetsOptions options) {
@@ -82,22 +87,71 @@ public class CombineSheetsService {
     }
 
 
-    private static void chooseStoreToCustomLocation() {
+    public static void chooseStoreToCustomLocation() {
         clickRadioButton("place2");
     }
 
 
+    public static void waitForCustomLocationValue(String value)
+    {
+        waitForCondition(() -> getCustomLocationField().getText().equals(value), 10, 1000);
+    }
+
+
+    public static void clickCustomLocationValueField()
+    {
+        getCustomLocationField().click();
+    }
+
+
     private static void setCustomLocationValue(String locationValue) {
-        By customLocationLocator = By.id(FIELD_ID_CUSTOM_LOCATION);
-//        wait.until(ExpectedConditions.presenceOfElementLocated(customLocationLocator));
-        //fixme: replace with some check
-        //dynamic behaviour fills the field with some default value
-        sleep(3000);
-        driver.findElement(customLocationLocator).clear();
-        driver.findElement(customLocationLocator).sendKeys(locationValue);
-        //dynamic behaviour reacts to entered value
-        sleep(2000);
+        WebElement customLocationField = getCustomLocationField();
+        wait.until(ExpectedConditions.elementToBeClickable(customLocationField));
+        customLocationField.clear();
+        customLocationField.sendKeys(locationValue);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(BUTTON_ID_COMBINE)));
         checkText(locationValue, FIELD_ID_CUSTOM_LOCATION, CombineSheetsService::setCustomLocationValue);
+    }
+
+    private static WebElement getCustomLocationField() {
+        return driver.findElement(By.id(FIELD_ID_CUSTOM_LOCATION));
+    }
+
+    /**
+     * clear() method shouldn't be used: it removes focus and corresponding listener of addon is invoked
+     * and we have conflict between behaviour of test and addon
+     *
+     * Finally there is a mess of approaches below what could be used or waited and so on to try to get it work.
+     * For all the cases focus is lost after sendKeys and value is reset to selected cell if the field is clear or
+     * current value of range is incorrect. At least the case of value reset for incorrect range should be fixed in addon.
+     */
+    public static void setCustomLocationValueOnLocationDialog(String locationValue) {
+        By customLocationLocator = By.id(FIELD_ID_CUSTOM_LOCATION_ON_LOCATION_DIALOG);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(BUTTON_ID_OK_ON_LOCATION_DIALOG)));
+        WebElement locationField = driver.findElement(customLocationLocator);
+        replaceTextWith(locationValue, locationField);
+//        clearFieldWithEndShiftHomeBackspace(locationField);
+        sleep(5000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//input[contains(@class, 'adx-input-error') and @id='inputActiveRangeSmall']")));
+        locationField.sendKeys(locationValue);
+        waitNameBoxValue(locationValue, 10, 1000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(BUTTON_ID_OK_ON_LOCATION_DIALOG)));
+//        checkText(locationValue, FIELD_ID_CUSTOM_LOCATION_ON_LOCATION_DIALOG, CombineSheetsService::setCustomLocationValueOnLocationDialog);
+    }
+
+
+
+
+    public static void clickCustomLocationDialogButton()
+    {
+        clickElement(By.xpath(attributeIs("for", "toSmallWindowCustomLocationControl")));
+    }
+
+
+    public static void clickOKOnLocationDialog()
+    {
+        clickElement(BUTTON_ID_OK_ON_LOCATION_DIALOG);
     }
 
 
@@ -112,7 +166,7 @@ public class CombineSheetsService {
     }
 
     public static void clickCombine() {
-        clickElement("combineSheetsNext");
+        clickElement(BUTTON_ID_COMBINE);
     }
 
 
