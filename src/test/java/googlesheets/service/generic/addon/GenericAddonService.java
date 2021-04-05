@@ -62,6 +62,11 @@ public abstract class GenericAddonService {
     }
 
 
+    public static void switchDriverToDefaultContent() {
+        driver.switchTo().defaultContent();
+    }
+
+
     public static void reinvokeFunctionWithDelay(Runnable function) {
         sleep(1000);
         function.run();
@@ -161,7 +166,8 @@ public abstract class GenericAddonService {
 
 
     public static void waitForCompletionAndClose(String expectedTextPart, String closeButtonId) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(textContains(expectedTextPart))));
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(textContainsExceptTag(expectedTextPart, "script"))));
         //todo: if banner is shown then press "Return to add-on"
         GoogleSheetService.clickElement(closeButtonId);
         switchDriverToDefaultContent();
