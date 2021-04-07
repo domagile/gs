@@ -1,12 +1,16 @@
 package googlesheets.model.combinesheets;
 
 import googlesheets.model.generic.ResultLocation;
+import googlesheets.model.generic.sheetselection.SheetSelection;
+import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CombineSheetsOptions {
     private List<SheetSelection> sheets = new ArrayList<>();
+    private List<String> driveSheets = new ArrayList<>();
+    private List<SpreadsheetSelection> spreadsheetSelections = new ArrayList<>();
 
     private boolean considerTableHeaders;
     private boolean useFormula;
@@ -77,5 +81,21 @@ public class CombineSheetsOptions {
     public void setCombinedSheets(List<SheetSelection> sheets)
     {
         this.sheets = sheets;
+    }
+
+    public List<SpreadsheetSelection> getSpreadsheetSelections() {
+        return spreadsheetSelections;
+    }
+
+    public void setCombinedSpreadsheets(List<SpreadsheetSelection> spreadsheetSelections) {
+        this.spreadsheetSelections = spreadsheetSelections;
+    }
+
+    public List<String> getDriveSheets() {
+        return driveSheets;
+    }
+
+    public void setDriveSheets(List<String> driveSheets) {
+        this.driveSheets = driveSheets;
     }
 }

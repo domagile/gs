@@ -1,6 +1,8 @@
 package googlesheets.model.combinesheets;
 
 import googlesheets.model.generic.ResultLocation;
+import googlesheets.model.generic.sheetselection.SheetSelection;
+import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +10,8 @@ import java.util.List;
 
 public class CombineSheetsOptionBuilder {
     private List<SheetSelection> sheets = new ArrayList<>();
+    private List<SpreadsheetSelection> spreadsheetSelections = new ArrayList<>();
+    private List<String> driveSheets = new ArrayList<>();
 
     private boolean considerTableHeaders;
     private boolean useFormula;
@@ -73,10 +77,32 @@ public class CombineSheetsOptionBuilder {
     }
 
 
+    public CombineSheetsOptionBuilder combinedSheets(SheetSelection... sheetSelections)
+    {
+        this.sheets = Arrays.asList(sheetSelections);
+        return this;
+    }
+
+
+    public CombineSheetsOptionBuilder combinedSpreadsheets(SpreadsheetSelection... spreadsheetSelections) {
+        this.spreadsheetSelections = Arrays.asList(spreadsheetSelections);
+        return this;
+    }
+
+
+    public CombineSheetsOptionBuilder driveSheets(String... sheets)
+    {
+        driveSheets = Arrays.asList(sheets);
+        return this;
+    }
+
+
     public CombineSheetsOptions build()
     {
         CombineSheetsOptions options = new CombineSheetsOptions();
         options.setCombinedSheets(sheets);
+        options.setCombinedSpreadsheets(spreadsheetSelections);
+        options.setDriveSheets(driveSheets);
         options.setConsiderTableHeaders(considerTableHeaders);
         options.setUseFormula(useFormula);
         options.setPreserveFormatting(preserveFormatting);

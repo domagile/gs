@@ -1,8 +1,9 @@
 package googlesheets.service.generic.google;
 
-import googlesheets.service.EntityList;
+import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.xpath.XPathHelper;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -307,6 +308,24 @@ public class GoogleSheetService {
 
     public static void clickElement(String id) {
         clickElement(By.id(id));
+    }
+
+
+    public static void clickElementByClass(String className)
+    {
+        clickElement(By.className(className));
+    }
+
+
+    public static void clickElementByAttribute(String attribute, String value)
+    {
+        clickElement(By.xpath(XPathHelper.attributeIs(attribute, value)));
+    }
+
+
+    public static void clickElementByText(String text)
+    {
+        clickElement(By.xpath(XPathHelper.textIs(text)));
     }
 
 

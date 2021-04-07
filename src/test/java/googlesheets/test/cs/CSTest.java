@@ -1,9 +1,10 @@
 package googlesheets.test.cs;
 
 import googlesheets.model.combinesheets.CombineSheetsOptions;
-import googlesheets.model.combinesheets.SheetSelection;
 import googlesheets.model.generic.ResultLocation;
 import googlesheets.service.combinesheets.CombineSheetsRunner;
+import googlesheets.service.combinesheets.CombineSheetsService;
+import googlesheets.service.generic.addon.DriveFileChooser;
 import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.addon.ResultInfo;
 import googlesheets.service.technical.file.FileType;
@@ -22,7 +23,11 @@ public class CSTest extends SpreadsheetTest {
     public ResultInfo execute(CombineSheetsOptions options) {
         this.options = options;
         runCombineSheets();
-        selectSheetsToCombine(options.getCombinedSheets().stream().mapToInt(SheetSelection::getIndex).toArray());
+        if (!options.getDriveSheets().isEmpty()) {
+            DriveFileChooser driveFileChooser = new DriveFileChooser();
+            driveFileChooser.chooseFiles(options.getDriveSheets());
+        }
+        selectSheetsToCombine(options);
         clickNext();
         selectHowToCopyDataOptions(options);
         selectResultLocation(options);
@@ -34,6 +39,12 @@ public class CSTest extends SpreadsheetTest {
             clickCombineAndClose();
             return null;
         }
+    }
+
+
+    protected void selectResultLocation(CombineSheetsOptions options)
+    {
+        CombineSheetsService.selectResultLocation(options);
     }
 
 

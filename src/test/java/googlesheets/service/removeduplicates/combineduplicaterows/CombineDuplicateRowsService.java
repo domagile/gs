@@ -2,7 +2,7 @@ package googlesheets.service.removeduplicates.combineduplicaterows;
 
 import googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
-import googlesheets.service.EntityList;
+import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.generic.WebDriverService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;

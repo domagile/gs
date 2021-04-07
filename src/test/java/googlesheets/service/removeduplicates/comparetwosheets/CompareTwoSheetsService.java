@@ -1,6 +1,6 @@
 package googlesheets.service.removeduplicates.comparetwosheets;
 
-import googlesheets.service.EntityList;
+import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.google.GoogleSheetService;

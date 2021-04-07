@@ -1,8 +1,10 @@
 package googlesheets.service.combinesheets;
 
 import googlesheets.model.combinesheets.CombineSheetsOptions;
-import googlesheets.service.EntityList;
+import googlesheets.model.generic.sheetselection.SheetSelection;
 import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.addon.sheetselection.EntityList;
+import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
@@ -10,12 +12,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.xpath.XPathHelper.attributeIs;
+import static java.util.stream.Collectors.toList;
 
 public class CombineSheetsService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
@@ -55,15 +58,60 @@ public class CombineSheetsService {
     }
 
 
-    public static void selectSheetsToCombine(int... sheets) {
+    public static void selectSheetsToCombine(CombineSheetsOptions options)
+    {
+        if (options.getSpreadsheetSelections().isEmpty()) {
+            selectSheetsFromCurrentSpreadsheet(options.getCombinedSheets());
+        }
+        else {
+            selectSpreadsheetsToCombine(options.getSpreadsheetSelections());
+        }
+    }
+
+
+    private static void selectSheetsFromCurrentSpreadsheet(List<SheetSelection> sheetSelections) {
         EntityList sheetList = expandSheetList();
-        Arrays.stream(sheets).forEach(sheetList::clickEntity);
+        sheetList.selectEntitiesWithRanges(sheetSelections);
+    }
+
+
+    private static void selectSpreadsheetsToCombine(List<SpreadsheetSelection> sheets) {
+        List<WebElement> trs = getSheetListTRs();
+        List<WebElement> spreadsheetTRs = trs.stream()
+                .filter(tr -> isSpreadsheetTR(tr)
+                        && sheets.stream().anyMatch(selection -> selection.getSpreadsheetName().equals(getSpreadsheetNameFromTR(tr))))
+                .collect(toList());
+        spreadsheetTRs.forEach(tr -> tr.findElements(By.tagName("td")).get(0).click());
+        List<Integer> spreadsheetIndexes = spreadsheetTRs.stream().map(trs::indexOf).collect(toList());
+        List<List<WebElement>> spreadsheetTRSets = new ArrayList<>(spreadsheetIndexes.size());
+        for (int i = 0; i < spreadsheetIndexes.size(); i++) {
+            int firstIndex = spreadsheetIndexes.get(i);
+            int lastIndex = spreadsheetIndexes.size() - 1 > i ? spreadsheetIndexes.get(i + 1) : trs.size();
+            spreadsheetTRSets.add(trs.subList(firstIndex, lastIndex));
+        }
+        for (int i = 0; i < spreadsheetTRSets.size(); i++) {
+            new EntityList(spreadsheetTRSets.get(i), 1).selectEntities(sheets.get(i).getSheetIndexes(), true, By.tagName("input"));
+        }
+    }
+
+    private static boolean isSpreadsheetTR(WebElement tr) {
+        return tr.getAttribute("class").contains("spreadsheet");
+    }
+
+    private static String getSpreadsheetNameFromTR(WebElement tr) {
+        return tr.findElements(By.tagName("td")).get(2).getText();
     }
 
 
     private static EntityList expandSheetList() {
-        switchDriverToAddonIframe();
+        List<WebElement> trs = getSheetListTRs();
+        WebElement td = trs.get(0).findElements(By.tagName("td")).get(0);
+        td.click();
+        return new EntityList(trs, 1);
+    }
 
+
+    private static List<WebElement> getSheetListTRs() {
         WebElement tBody = driver.findElement(By.cssSelector(".first-step-table-body"));
         List<WebElement> trs = tBody.findElements(By.tagName("tr"));
         //if list is loaded during long time
@@ -71,9 +119,7 @@ public class CombineSheetsService {
             sleep(1000);
             trs = tBody.findElements(By.tagName("tr"));
         }
-        WebElement td = trs.get(0).findElements(By.tagName("td")).get(0);
-        td.click();
-        return new EntityList(trs, 1);
+        return trs;
     }
 
 
