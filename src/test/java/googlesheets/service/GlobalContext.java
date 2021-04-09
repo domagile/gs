@@ -5,6 +5,7 @@ public class GlobalContext {
     public static final boolean USE_CUSTOM_LINKS = false;
     public static final boolean TEST_RC_VERSION = false;
     public static final int MAX_REINVOCATION_COUNT = 30;
+    public static final int DEFAULT_WORKING_MESSAGE_TIMEOUT = 60;
 
     private static GlobalContext instance;
     private static boolean isLoggedIn;

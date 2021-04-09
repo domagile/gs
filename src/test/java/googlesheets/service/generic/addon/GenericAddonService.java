@@ -13,12 +13,14 @@ import java.util.Optional;
 import java.util.function.*;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
-import static googlesheets.service.generic.xpath.XPathHelper.*;
+import static googlesheets.service.generic.xpath.XPathHelper.textContainsExceptTag;
+import static googlesheets.service.generic.xpath.XPathHelper.textIs;
 
 public abstract class GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
     public static final String FIELD_ID_NAME_BOX = "t-name-box";
+    public static final String FIELD_ID_WORKING_MESSAGE_DIV = "adxPreloader";
 
 
     public static IFrameInfo switchDriverToAddonIframe() {
@@ -199,5 +201,38 @@ public abstract class GenericAddonService {
         switchDriverToDefaultContent();
         waitForCondition(() -> getNameBoxValue().equals(text), checkNumber, pauseMillis);
         switchDriverToAddonIframe();
+    }
+
+
+    public static boolean isWorkingMessageDisplayed() {
+        return WebDriverService.getInstance().getDriver().findElement(By.id(FIELD_ID_WORKING_MESSAGE_DIV)).getCssValue("display").equals("flex");
+    }
+
+
+    public static void waitForWorkingMessageDisplayedAndHidden()
+    {
+        waitForWorkingMessageDisplayedAndHidden(GlobalContext.DEFAULT_WORKING_MESSAGE_TIMEOUT);
+    }
+
+
+    public static void waitForWorkingMessageDisplayedAndHidden(int timeoutSec)
+    {
+        waitForWorkingMessage(true, timeoutSec);
+        waitForWorkingMessage(false, timeoutSec);
+    }
+
+
+    public static void waitForWorkingMessage(boolean isDisplayed)
+    {
+        waitForWorkingMessage(isDisplayed, GlobalContext.DEFAULT_WORKING_MESSAGE_TIMEOUT);
+    }
+
+
+    public static void waitForWorkingMessage(boolean isDisplayed, int timeoutSec)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutSec);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
+                String.format("//div[@id='%s' and @style='display: %s;']", FIELD_ID_WORKING_MESSAGE_DIV,
+                        isDisplayed ? "flex" : "none"))));
     }
 }

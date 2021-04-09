@@ -30,7 +30,7 @@ public class AFR_valueDeleteRowsTest extends AFRTest {
                 .values(true)
                 .build();
         execute(options);
-       runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES);
+        runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES, 120);
 
         sleep(7000);
         checkResult("Master", "advancedfindreplace\\AFR_022_valueDeleteRowsAllFoundEntries.csv");

@@ -43,12 +43,7 @@ public class AddonRunner {
 
     private boolean clickAddonPowerToolsIcon() {
         clickElement(powerToolsAddonIconId);
-        return waitForCondition(AddonRunner::isWorkingMessageDisplayed, 4, 500);
-    }
-
-
-    private static boolean isWorkingMessageDisplayed() {
-        return WebDriverService.getInstance().getDriver().findElement(By.id("adxPreloader")).getCssValue("display").equals("flex");
+        return waitForCondition(GenericAddonService::isWorkingMessageDisplayed, 4, 500);
     }
 
 

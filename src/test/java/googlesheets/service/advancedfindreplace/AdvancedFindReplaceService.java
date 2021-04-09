@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
-import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
 
 public class AdvancedFindReplaceService {
     public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Advanced Find and Replace";
@@ -84,10 +84,19 @@ public class AdvancedFindReplaceService {
 
 
     public static void runMenuAction(AFRActionEnumeration action) {
-        clickElement("afrOptionOfResultMenuWrapper");
-        clickMenuItem(action.getMenuText());
+        runMenuAction(action, -1);
     }
 
+    public static void runMenuAction(AFRActionEnumeration action, int timeoutSec) {
+        clickElement("afrOptionOfResultMenuWrapper");
+        clickMenuItem(action.getMenuText());
+        if (timeoutSec == -1) {
+            waitForWorkingMessageDisplayedAndHidden();
+        }
+        else {
+            waitForWorkingMessageDisplayedAndHidden(timeoutSec);
+        }
+    }
 
     public static void setMatchCase(boolean value) {
         setCheckboxValue(value, "afrMatchCase");
