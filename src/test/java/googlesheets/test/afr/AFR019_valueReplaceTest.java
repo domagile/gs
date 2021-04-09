@@ -1,8 +1,12 @@
 package googlesheets.test.afr;
 
+import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptionBuilder;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,27 +21,21 @@ public class AFR019_valueReplaceTest extends AFRTest {
     }
 
     @Test
-    public void valuesRepleceAllSheets() throws IOException {
-        runAdvancedFindAndReplace();
-        setSearchIn(SearchInSelection.SELECTED_LISTS, 2,3);
+    public void valuesRepleceAllSheets() {
+        AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
+                .searchSheetIndexes(2,3)
+                .searchInType(SearchInSelection.SELECTED_LISTS)
+                .searchString("bill")
+
+                .values(true)
+                .build();
+        execute(options);
 
 
-        setSearchString("bill");
-        setMatchCase(false);
-        setEntireCell(false);
-        setByMask(false);
-
-        setValues(true);
-        setFormulas(false);
-        setNotes(false);
-        setHyperlinks(false);
-        setErrors(false);
-
-        clickFindAll();
         setReplaceString("william");
         clickReplace();
+        runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
 
-        runExportAllFoundEntries();
         checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_019_valueReplace.csv");
     }
 

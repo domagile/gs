@@ -1,11 +1,12 @@
 package googlesheets.test.afr;
 
+import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptionBuilder;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
@@ -17,24 +18,16 @@ public class AFR004_ValueTextTest extends AFRTest {
     }
 
     @Test
-    public void valuesTextAllSheets() throws IOException {
-        runAdvancedFindAndReplace();
-        setSearchIn(SearchInSelection.SELECTED_LISTS, 2, 3);
+    public void valuesTextAllSheets() {
+        AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
+                .searchInType(SearchInSelection.SELECTED_LISTS)
+                .searchSheetIndexes(2, 3)
+                .searchString("David T")
+                .values(true)
+                .build();
+        execute(options);
 
-
-        setSearchString("David T");
-        setMatchCase(false);
-        setEntireCell(false);
-        setByMask(false);
-
-        setValues(true);
-        setFormulas(false);
-        setNotes(false);
-        setHyperlinks(false);
-        setErrors(false);
-
-        clickFindAll();
-        runExportAllFoundEntries();
+        runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
         checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_004_valueTextAllSheets.csv");
     }
 }

@@ -6,36 +6,35 @@ import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.IOException;
+import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
-import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
-import static googlesheets.service.generic.google.GoogleSheetService.*;
-
-public class AFR020_valueReplaceAllTest extends AFRTest {
+public class AFR_valueDeleteRowsTest extends AFRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1nqB-NngVoB08aWqglkBCiv84XoAyTRMV1G1PVacGshM/edit#gid=1264786995");
+        openDocument("https://docs.google.com/spreadsheets/d/1Iklr2mmXFH4WhIW3xaHE-dMjDBXonf29lhRfj5VqS2w/edit#gid=1138814538");
+
     }
 
-    @Test
-    public void valuesRepleceAll() {
-        AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
-                .searchSheetIndexes(2, 3)
-                .searchInType(SearchInSelection.SELECTED_LISTS)
-                .searchString("david james")
 
+    @Test
+    public void valueDeleteRowsAllFoundEntries() {
+
+        AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
+                .searchSheetIndexes(2)
+                .searchInType(SearchInSelection.SELECTED_LISTS)
+                .searchString("CA")
                 .values(true)
                 .build();
         execute(options);
+       runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES);
 
-        setReplaceString("William James");
-        clickReplaceAll();
+        sleep(7000);
+        checkResult("Master", "advancedfindreplace\\AFR_022_valueDeleteRowsAllFoundEntries.csv");
 
-        runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_020_valueReplaceAll.csv");
     }
 
 
@@ -43,8 +42,6 @@ public class AFR020_valueReplaceAllTest extends AFRTest {
         //fixme: restoration of data should be done through API
         //wait after CSV download start
         sleep(2000);
-        clickUndo();
-        clickUndo();
-        clickUndo();
+        clickUndo(20);
     }
 }

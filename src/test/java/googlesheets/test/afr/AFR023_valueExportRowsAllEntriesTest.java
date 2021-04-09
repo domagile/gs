@@ -6,31 +6,35 @@ import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
+import static googlesheets.service.generic.google.GoogleSheetService.*;
 
-public class AFR010_EntireCellTest extends AFRTest {
+public class AFR023_valueExportRowsAllEntriesTest extends AFRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/118xZTIqTU2bHVMmhzJxjwZBX4z7X853gQdeWEI-Eiao/edit#gid=1810214049");
+        openDocument("https://docs.google.com/spreadsheets/d/1JwavDDyUL-dmpeVWoy0_u8aJMjPzh7yg0HZz_6_-3sI/edit#gid=864208606");
+
     }
 
+
     @Test
-    public void valuesEntireCaseAllSheets() {
+    public void valueExportRowsAllEntries() {
+
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
+                .searchSheetIndexes(2)
                 .searchInType(SearchInSelection.SELECTED_LISTS)
-                .searchSheetIndexes(2, 3)
-                .searchString("James Puls")
-                .entireCell(true)
+                .searchString("600")
                 .values(true)
                 .build();
         execute(options);
+       runMenuAction(AFRActionEnumeration.EXPORT_ROWS_WITH_ALL_ENTRIES);
 
-        runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
 
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_010_valueEntireCell.csv");
+        sleep(7000);
+        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_023_valueExportRowsAllEntries.csv");
+
     }
+
 }

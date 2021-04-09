@@ -1,5 +1,8 @@
 package googlesheets.test.afr;
 
+import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptionBuilder;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
@@ -17,24 +20,17 @@ public class AFR007_NotesTest extends AFRTest {
     }
 
     @Test
-    public void notes() throws IOException {
-        runAdvancedFindAndReplace();
-        setSearchIn(SearchInSelection.SELECTED_LISTS, 2);
+    public void notes() {
+        AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
+                .searchInType(SearchInSelection.SELECTED_LISTS)
+                .searchSheetIndexes(2)
+                .searchString("Note")
+                .notes(true)
+                .build();
+        execute(options);
 
+        runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
 
-        setSearchString("Note");
-        setMatchCase(false);
-        setEntireCell(false);
-        setByMask(false);
-
-        setValues(false);
-        setFormulas(false);
-        setNotes(true);
-        setHyperlinks(false);
-        setErrors(false);
-
-        clickFindAll();
-        runExportAllFoundEntries();
         checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_007_Notes.csv");
     }
 }

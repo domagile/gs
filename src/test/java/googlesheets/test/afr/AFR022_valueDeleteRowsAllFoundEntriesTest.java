@@ -1,8 +1,12 @@
 package googlesheets.test.afr;
 
+import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptionBuilder;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,25 +22,20 @@ public class AFR022_valueDeleteRowsAllFoundEntriesTest extends AFRTest {
 
     }
 
+
     @Test
-    public void valueDeleteRowsAllFoundEntries() throws IOException {
-        runAdvancedFindAndReplace();
-        setSearchIn(SearchInSelection.SELECTED_LISTS, 2);
+    public void valueDeleteRowsAllFoundEntries() {
 
-        setSearchString("600");
-        setMatchCase(false);
-        setEntireCell(false);
-        setByMask(false);
+        AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
+                .searchSheetIndexes(2)
+                .searchInType(SearchInSelection.SELECTED_LISTS)
+                .searchString("600")
+                .values(true)
+                .build();
+        execute(options);
+       runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES);
 
-        setValues(true);
-        setFormulas(false);
-        setNotes(false);
-        setHyperlinks(false);
-        setErrors(false);
-
-        clickFindAll();
-
-        runDeleteRowsWithAllFoundEntries();
+        sleep(7000);
         checkResult("Master", "advancedfindreplace\\AFR_022_valueDeleteRowsAllFoundEntries.csv");
 
     }

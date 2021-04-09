@@ -1,5 +1,8 @@
 package googlesheets.test.afr;
 
+import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptionBuilder;
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
@@ -17,23 +20,16 @@ public class AFR005_FormulaTest extends AFRTest {
     }
 
     @Test
-    public void formula() throws IOException {
-        runAdvancedFindAndReplace();
-        setSearchIn(SearchInSelection.SELECTED_LISTS, 2);
+    public void formula() {
+        AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
+                .searchInType(SearchInSelection.SELECTED_LISTS)
+                .searchSheetIndexes(2)
+                .searchString("IFERROR")
+                .formulas(true)
+                .build();
+        execute(options);
 
-        setSearchString("IFERROR");
-        setMatchCase(false);
-        setEntireCell(false);
-        setByMask(false);
-
-        setValues(false);
-        setFormulas(true);
-        setNotes(false);
-        setHyperlinks(false);
-        setErrors(false);
-
-        clickFindAll();
-        runExportAllFoundEntries();
+        runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
         checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_005_Formula.csv");
     }
 }

@@ -1,15 +1,36 @@
 package googlesheets.test.afr.generic;
 
+import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
+import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.technical.file.FileType;
 import googlesheets.test.SpreadsheetTest;
 
-import java.io.IOException;
-
+import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AFRTest extends SpreadsheetTest {
+    public void execute(AdvancedFindReplaceOptions options) {
+        runAdvancedFindAndReplace();
+        setSearchIn(options.getSearchInType(), options.getSearchSheetIndexes());
+
+        setSearchString(options.getSearchString());
+        setMatchCase(options.isMatchCase());
+        setEntireCell(options.isEntireCell());
+        setByMask(options.isByMask());
+
+        setValues(options.isValue());
+        setFormulas(options.isFormulas());
+        setNotes(options.isNotes());
+        setHyperlinks(options.isHyperlinks());
+        setErrors(options.isErrors());
+
+        clickFindAll();
+    }
+
+
     //todo: refactor to remove internals as much as possible and use generic method
     protected void checkResult(String resultListName, String etalonFile) {
         String spreadsheetName = getSpreadsheetName();
@@ -23,6 +44,7 @@ public class AFRTest extends SpreadsheetTest {
         compareFileWithEtalon(spreadsheetName, resultListName, etalonFile);
         removeDownloadedListFile(spreadsheetName, resultListName, FileType.CSV);
     }
+
 
     protected void restoreInitialDocumentState(String resultListName) {
         removeListThroughMenu(resultListName);

@@ -1,9 +1,12 @@
 package googlesheets.service.advancedfindreplace;
 
+import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
 import googlesheets.service.generic.WebDriverService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
@@ -36,6 +39,7 @@ public class AdvancedFindReplaceService {
         setText(searchString, "afrSearchString");
     }
 
+
     public static void setReplaceString(String replacementString) {
         setText(replacementString, "afrReplaceString");
     }
@@ -51,7 +55,7 @@ public class AdvancedFindReplaceService {
     }
 
 
-    public static void setSearchIn(SearchInSelection searchIn, Integer... indexes) {
+    public static void setSearchIn(SearchInSelection searchIn, List<Integer> indexes) {
         switch (searchIn) {
             case SELECTED_LISTS:
                 By checkboxLocator = By.tagName("input");
@@ -78,34 +82,10 @@ public class AdvancedFindReplaceService {
         clickElement(BUTTON_ID_NEW_SEARCH);
     }
 
-    public static void runExportAllFoundEntries() {
-        clickElement("afrOptionOfResultMenuWrapper");
-        clickMenuItem("Export all found entries");
-    }
 
-    public static void runExportRowsWithAllFoundEntries() {
+    public static void runMenuAction(AFRActionEnumeration action) {
         clickElement("afrOptionOfResultMenuWrapper");
-        clickMenuItem("Export rows with all found entries");
-    }
-
-    public static void runDeleteRowsWithAllFoundEntries() {
-        clickElement("afrOptionOfResultMenuWrapper");
-        clickMenuItem("Delete rows with all found entries");
-    }
-
-    public static void runExportTheSelectedEntries() {
-        clickElement("afrOptionOfResultMenuWrapper");
-        clickMenuItem("Export the selected entries");
-    }
-
-    public static void runExportRowsWithTheSelectedEntries() {
-        clickElement("afrOptionOfResultMenuWrapper");
-        clickMenuItem("Export rows with the selected entries");
-    }
-
-    public static void runDeleteRowsWithTheSelectedEntries() {
-        clickElement("afrOptionOfResultMenuWrapper");
-        clickMenuItem("Delete rows with the selected entries");
+        clickMenuItem(action.getMenuText());
     }
 
 
