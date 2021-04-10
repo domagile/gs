@@ -75,11 +75,11 @@ public class CombineSheetsService {
     }
 
 
-    private static void selectSpreadsheetsToCombine(List<SpreadsheetSelection> sheets) {
+    private static void selectSpreadsheetsToCombine(List<SpreadsheetSelection> spreadsheets) {
         List<WebElement> trs = getSheetListTRs();
         List<WebElement> spreadsheetTRs = trs.stream()
-                .filter(tr -> isSpreadsheetTR(tr)
-                        && sheets.stream().anyMatch(selection -> selection.getSpreadsheetName().equals(getSpreadsheetNameFromTR(tr))))
+                .filter(tr -> isSpreadsheetTR(tr) &&
+                        spreadsheets.stream().anyMatch(selection -> selection.getSpreadsheetName().equals(getSpreadsheetNameFromTR(tr))))
                 .collect(toList());
         spreadsheetTRs.forEach(tr -> tr.findElements(By.tagName("td")).get(0).click());
         List<Integer> spreadsheetIndexes = spreadsheetTRs.stream().map(trs::indexOf).collect(toList());
@@ -90,7 +90,7 @@ public class CombineSheetsService {
             spreadsheetTRSets.add(trs.subList(firstIndex, lastIndex));
         }
         for (int i = 0; i < spreadsheetTRSets.size(); i++) {
-            new EntityList(spreadsheetTRSets.get(i), 1).selectEntities(sheets.get(i).getSheetIndexes(), true, By.tagName("input"));
+            new EntityList(spreadsheetTRSets.get(i), 1).selectEntitiesWithRanges(spreadsheets.get(i).getSheetSelections());
         }
     }
 

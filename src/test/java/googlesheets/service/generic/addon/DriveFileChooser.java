@@ -27,7 +27,7 @@ public class DriveFileChooser {
     }
 
 
-    private void clickAddFilesFromDrive()
+    protected void clickAddFilesFromDrive()
     {
         clickElement("btnAddFiles");
     }
