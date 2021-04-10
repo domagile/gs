@@ -1,8 +1,10 @@
 package googlesheets.service.generic.google;
 
-import googlesheets.service.generic.addon.sheetselection.EntityList;
+import googlesheets.model.generic.rowselection.PairSelection;
+import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.generic.xpath.XPathHelper;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -286,14 +288,7 @@ public class GoogleSheetService {
 
     public static void selectRowsInTable(String tableBodyId, By checkboxLocator, List<Integer> indexes) {
         try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.id(tableBodyId)));
-            WebElement tBody = driver.findElement(By.id(tableBodyId));
-            List<WebElement> trs = tBody.findElements(By.tagName("tr"));
-            //if list is loaded during long time
-            while (trs.isEmpty()) {
-                sleep(1000);
-                trs = tBody.findElements(By.tagName("tr"));
-            }
+            List<WebElement> trs = getTableTRs(tableBodyId);
             EntityList columns = new EntityList(trs, 0);
             for (int i = 0; i < trs.size(); i++) {
                 columns.selectEntity(i, indexes.contains(i + 1), checkboxLocator);
@@ -303,6 +298,57 @@ public class GoogleSheetService {
         catch (StaleElementReferenceException e) {
             selectRowsInTable(tableBodyId, checkboxLocator, indexes);
         }
+    }
+
+
+    public static void selectPairsInTable(String tableBodyId, List<PairSelection<Integer, String>> pairs, int stringColumnIndex) {
+        By checkboxLocator = By.tagName("input");
+        try {
+            List<WebElement> trs = getTableTRs(tableBodyId);
+            EntityList columns = new EntityList(trs, 0);
+            By comboboxLocator = By.tagName("select");
+            for (PairSelection<Integer, String> pair : pairs) {
+                columns.selectEntity(pair.getFirst() - 1, true, checkboxLocator);
+                columns.setComboboxValue(pair.getFirst() - 1, stringColumnIndex, pair.getSecond(), comboboxLocator);
+            }
+        }
+        //when tBody is reloaded by browser and link is not actual
+        catch (StaleElementReferenceException e) {
+            selectPairsInTable(tableBodyId, pairs, stringColumnIndex);
+        }
+    }
+
+    public static void selectTriplesInTable(String tableBodyId, List<TripleSelection<Integer, String, String>> triples,
+                                            int firstStringColumnIndex, int secondStringColumnIndex) {
+        By checkboxLocator = By.tagName("input");
+        try {
+            List<WebElement> trs = getTableTRs(tableBodyId);
+            EntityList columns = new EntityList(trs, 0);
+            By comboboxLocator = By.tagName("select");
+            for (TripleSelection<Integer, String, String> triple : triples) {
+                columns.selectEntity(triple.getFirst() - 1, true, checkboxLocator);
+                columns.setComboboxValue(triple.getFirst() - 1, firstStringColumnIndex, triple.getSecond(), comboboxLocator);
+                if (triple.getThird() != null) {
+                    columns.setComboboxValue(triple.getFirst() - 1, secondStringColumnIndex, triple.getThird(), comboboxLocator);
+                }
+            }
+        }
+        //when tBody is reloaded by browser and link is not actual
+        catch (StaleElementReferenceException e) {
+            selectTriplesInTable(tableBodyId, triples, firstStringColumnIndex, secondStringColumnIndex);
+        }
+    }
+
+    private static List<WebElement> getTableTRs(String tableBodyId) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(tableBodyId)));
+        WebElement tBody = driver.findElement(By.id(tableBodyId));
+        List<WebElement> trs = tBody.findElements(By.tagName("tr"));
+        //if list is loaded during long time
+        while (trs.isEmpty()) {
+            sleep(1000);
+            trs = tBody.findElements(By.tagName("tr"));
+        }
+        return trs;
     }
 
 
@@ -393,5 +439,11 @@ public class GoogleSheetService {
             }
         }
         return false;
+    }
+
+
+    public static WebElement getElement(String id)
+    {
+        return driver.findElement(By.id(id));
     }
 }
