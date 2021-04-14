@@ -6,12 +6,6 @@ import googlesheets.model.generic.ResultLocation;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static googlesheets.service.combinesheets.CombineSheetsService.chooseStoreToCustomLocation;
-import static googlesheets.service.combinesheets.CombineSheetsService.clickCustomLocationValueField;
-import static googlesheets.service.generic.addon.GenericAddonService.*;
-import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.makeSheetActive;
-
 public class CS015_sheetSelectionTest extends CSTest {
     @BeforeClass
     public static void openDocument() {

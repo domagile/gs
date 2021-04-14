@@ -25,7 +25,7 @@ public class RDTest extends SpreadsheetTest {
     }
 
 
-    protected void checkExcelResult(String listName, String etalonFileName) throws IOException {
+    protected void checkExcelResult(String listName, String etalonFileName) {
         //fixme: refactor to invoke generic checks from checkResult()
         startXLSXDownload();
         sleep(2000);

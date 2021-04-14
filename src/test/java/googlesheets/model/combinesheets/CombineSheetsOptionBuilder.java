@@ -100,8 +100,8 @@ public class CombineSheetsOptionBuilder {
     public CombineSheetsOptions build()
     {
         CombineSheetsOptions options = new CombineSheetsOptions();
-        options.setCombinedSheets(sheets);
-        options.setCombinedSpreadsheets(spreadsheetSelections);
+        options.setSelectedSheets(sheets);
+        options.setSelectedSpreadsheets(spreadsheetSelections);
         options.setDriveSheets(driveSheets);
         options.setConsiderTableHeaders(considerTableHeaders);
         options.setUseFormula(useFormula);

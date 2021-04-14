@@ -145,12 +145,6 @@ public class GoogleSheetService {
     }
 
 
-    public static void waitElementToBeClickable(By locator) {
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
-        driver.findElement(locator).click();
-    }
-
-
     public static void waitText(String text) {
         By xpath = By.xpath(textContains(text));
         wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
@@ -445,5 +439,21 @@ public class GoogleSheetService {
     public static WebElement getElement(String id)
     {
         return driver.findElement(By.id(id));
+    }
+
+
+    public static WebElement getElementByCssSelector(String cssSelector)
+    {
+        return driver.findElement(By.cssSelector(cssSelector));
+    }
+
+
+    public static void waitElementToBeClickable(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+
+    public static void waitElementToBeClickable(String elementId) {
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(elementId)));
     }
 }

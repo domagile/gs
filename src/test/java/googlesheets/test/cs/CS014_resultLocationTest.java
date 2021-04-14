@@ -9,6 +9,7 @@ import org.junit.Test;
 import static googlesheets.service.combinesheets.CombineSheetsService.*;
 import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.ui.components.ResultLocationPanel.clickCustomLocationValueField;
 
 public class CS014_resultLocationTest extends CSTest {
     @BeforeClass
