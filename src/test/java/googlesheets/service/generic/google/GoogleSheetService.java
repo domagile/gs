@@ -370,8 +370,13 @@ public class GoogleSheetService {
 
 
     public static void selectComboboxValue(String id, String value) {
+        try {
             WebElement select = driver.findElement(By.id(id));
             selectComboboxValue(select, value);
+        } catch (StaleElementReferenceException e) {
+            sleep(1000);
+            selectComboboxValue(id, value);
+        }
     }
 
 
@@ -379,9 +384,7 @@ public class GoogleSheetService {
         invokeFunctionWithReinvocation((selectParam, valueParam) -> {
                     Select combobox = new Select(selectParam);
                     combobox.selectByVisibleText(valueParam);
-                }, select, value,
-                StaleElementReferenceException.class, ElementNotInteractableException.class, NoSuchElementException.class);
-
+                }, select, value, ElementNotInteractableException.class, NoSuchElementException.class);
     }
 
 
