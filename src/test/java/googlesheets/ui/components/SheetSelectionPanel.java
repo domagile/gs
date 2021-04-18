@@ -9,7 +9,9 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import static googlesheets.service.generic.addon.sheetselection.EntityList.BY_TD_TAG;
 import static googlesheets.service.generic.google.GoogleSheetService.getElementByCssSelector;
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 import static java.util.stream.Collectors.toList;
@@ -27,8 +29,9 @@ public class SheetSelectionPanel {
 
 
     private static void selectSheetsFromCurrentSpreadsheet(List<SheetSelection> sheetSelections) {
-        EntityList sheetList = expandSheetList();
-        sheetList.selectEntitiesWithRanges(sheetSelections);
+        List<WebElement> sheetListTRs = getSheetListTRs();
+        expandSheetFunction().accept(sheetListTRs.get(0));
+        selectEntitiesWithRanges(sheetSelections, sheetListTRs);
     }
 
 
@@ -39,7 +42,7 @@ public class SheetSelectionPanel {
                         spreadsheets.stream().anyMatch(selection -> selection.getSpreadsheetName().equals(getSpreadsheetNameFromTR(tr))))
                 .collect(toList());
         checkSpreadsheetPresenceInList(spreadsheets, spreadsheetTRs);
-        spreadsheetTRs.forEach(tr -> tr.findElements(By.tagName("td")).get(0).click());
+        spreadsheetTRs.forEach(expandSheetFunction());
         List<Integer> spreadsheetIndexes = spreadsheetTRs.stream().map(trs::indexOf).collect(toList());
         List<List<WebElement>> spreadsheetTRSets = new ArrayList<>(spreadsheetIndexes.size());
         for (int i = 0; i < spreadsheetIndexes.size(); i++) {
@@ -48,9 +51,33 @@ public class SheetSelectionPanel {
             spreadsheetTRSets.add(trs.subList(firstIndex, lastIndex));
         }
         for (int i = 0; i < spreadsheetTRSets.size(); i++) {
-            new EntityList(spreadsheetTRSets.get(i), 1).selectEntitiesWithRanges(spreadsheets.get(i).getSheetSelections());
+            selectEntitiesWithRanges(spreadsheets.get(i).getSheetSelections(), spreadsheetTRSets.get(i));
         }
     }
+
+    private static Consumer<WebElement> expandSheetFunction() {
+        return tr -> tr.findElements(By.tagName("td")).get(0).click();
+    }
+
+
+    private static void selectEntitiesWithRanges(List<SheetSelection> selections, List<WebElement> trs)
+    {
+        By checkboxLocator = By.tagName("input");
+        selections.forEach(selection -> {
+            if (selection.getRange() != null) {
+                WebElement rangeTD = trs.get(selection.getIndex()).findElements(BY_TD_TAG).get(3);
+                WebElement input = rangeTD.findElement(By.tagName("input"));
+                input.sendKeys(selection.getRange());
+                //unstable error of range validation without this delay
+                sleep(1000);
+            }
+            else {
+                new EntityList(trs, 1).selectEntity(selection.getIndex(), true, checkboxLocator);
+            }
+        });
+    }
+
+//<div class="text">The entered range is incorrect</div>
 
     private static void checkSpreadsheetPresenceInList(List<SpreadsheetSelection> spreadsheets, List<WebElement> spreadsheetTRs) {
         if (spreadsheetTRs.size() != spreadsheets.size())
@@ -63,14 +90,6 @@ public class SheetSelectionPanel {
 
     private static String getSpreadsheetNameFromTR(WebElement tr) {
         return tr.findElements(By.tagName("td")).get(2).getText();
-    }
-
-
-    private static EntityList expandSheetList() {
-        List<WebElement> trs = getSheetListTRs();
-        WebElement td = trs.get(0).findElements(By.tagName("td")).get(0);
-        td.click();
-        return new EntityList(trs, 1);
     }
 
 
