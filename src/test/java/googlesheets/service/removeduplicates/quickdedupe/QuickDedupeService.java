@@ -1,28 +1,24 @@
 package googlesheets.service.removeduplicates.quickdedupe;
 
 import googlesheets.model.rd.quickdedupe.QuickDedupeActionEnumeration;
-import googlesheets.service.generic.WebDriverService;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElementByClassName;
+import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
 
 public class QuickDedupeService {
     public static final String CHECKBOX_ID_MY_TABLE_HAS_HEADRRS = "qdTableHasHeaders";
     public static final String CHECKBOX_ID_SKIP_EMPTY_CELLS = "qdSkipEmptyCells";
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "qdSheetBackupCheckbox";
 
-    private static final WebDriver driver = WebDriverService.getInstance().getDriver();
-    private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY)));
-        setCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
         sleep(5000);
     }
 
@@ -46,19 +42,18 @@ public class QuickDedupeService {
 
 
     public static void clickFinishAndClose() {
-        driver.findElement(By.id("nextButton")).click();
+        getElement("nextButton").click();
         waitForCompletionAndClose();
     }
 
 
     public static void waitForCompletionAndClose() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()[contains(.,'have been found')]]")));
+        waitText("have been found");
 
         sleep(5000);
         clickElement("closeButton");
 
-        driver.switchTo().defaultContent();
+        switchDriverToDefaultContent();
     }
 
 
@@ -89,7 +84,7 @@ public class QuickDedupeService {
             default:
                 throw new IllegalArgumentException("Unknown cell type: " + action);
         }
-        WebElement combobox = driver.findElement(By.className("action-select"));
+        WebElement combobox = getElementByClassName("action-select");
         selectComboboxValue(combobox, typeText);
     }
 

@@ -1,20 +1,19 @@
 package googlesheets.test.cons;
 
-import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
-import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.model.consolidatesheets.ConsolidateSheetsOptionBuilder;
 import googlesheets.model.consolidatesheets.ConsolidateSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
-import googlesheets.test.cs.CSTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.consolidatesheets.ConsolidationFunctionEnumeration.SUM;
 import static googlesheets.model.consolidatesheets.ConsolidationTypeEnumeration.BY_LABEL;
 import static googlesheets.service.combinesheets.CombineSheetsService.chooseStoreToCustomLocation;
-import static googlesheets.service.generic.addon.GenericAddonService.*;
+import static googlesheets.service.generic.addon.GenericAddonService.setNameBoxValue;
+import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.generic.google.GoogleSheetService.makeSheetActive;
+import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
 import static googlesheets.ui.components.ResultLocationPanel.clickCustomLocationValueField;
 
 public class CONS046_resultLocationTest extends CONSTest {

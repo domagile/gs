@@ -1,8 +1,6 @@
 package googlesheets.service.generic.addon;
 
 import googlesheets.service.GlobalContext;
-import googlesheets.service.generic.WebDriverService;
-import org.openqa.selenium.By;
 
 import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;

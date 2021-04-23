@@ -1,7 +1,7 @@
 package googlesheets.service.generic.addon;
 
 import googlesheets.service.GlobalContext;
-import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.google.GoogleSheetService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,11 +13,14 @@ import java.util.Optional;
 import java.util.function.*;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElements;
+import static googlesheets.service.generic.webdriver.Locators.TAG_IFRAME;
+import static googlesheets.service.generic.webdriver.WebDriverService.*;
 import static googlesheets.service.generic.xpath.XPathHelper.textContainsExceptTag;
 import static googlesheets.service.generic.xpath.XPathHelper.textIs;
 
 public abstract class GenericAddonService {
-    private static final WebDriver driver = WebDriverService.getInstance().getDriver();
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
     public static final String FIELD_ID_NAME_BOX = "t-name-box";
     public static final String FIELD_ID_WORKING_MESSAGE_DIV = "adxPreloader";
@@ -38,7 +41,7 @@ public abstract class GenericAddonService {
         boolean switched = false;
         String topIframeSrc = null;
 
-        List<WebElement> iFrames = driver.findElements(By.tagName("iframe"));
+        List<WebElement> iFrames = getElements(TAG_IFRAME);
         for (int i = iFrames.size() - 1; i >= 0; i--) {
             WebElement iFrame = iFrames.get(i);
 
@@ -61,11 +64,6 @@ public abstract class GenericAddonService {
             return reinvokeFunctionWithDelay(GenericAddonService::switchDriverToCheckedAddonIframe, iFramePredicate);
         }
         return new IFrameInfo(topIframeSrc);
-    }
-
-
-    public static void switchDriverToDefaultContent() {
-        driver.switchTo().defaultContent();
     }
 
 
@@ -103,8 +101,9 @@ public abstract class GenericAddonService {
                                                              Class<? extends WebDriverException>... exceptionTypes) {
         try {
             function.accept(parameter1, parameter2);
-        } catch (WebDriverException e) {
-            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e)))
+        } catch (WebDriverException | FunctionInvocationException e) {
+            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e))
+                    && !(e instanceof FunctionInvocationException))
                 throw e;
             if (GlobalContext.getInstance().registerFunctionInvocation(function)) {
                 sleep(1000);
@@ -138,11 +137,11 @@ public abstract class GenericAddonService {
 
     private static void switchToAddonIframe(WebElement iFrame) {
         switchDriverToDefaultContent();
-        driver.switchTo().frame(iFrame);
-        WebElement sandboxFrame = driver.findElement(By.id("sandboxFrame"));
-        driver.switchTo().frame(sandboxFrame);
-        WebElement userHtmlFrame = driver.findElement(By.id("userHtmlFrame"));
-        driver.switchTo().frame(userHtmlFrame);
+        switchDriverToFrame(iFrame);
+        WebElement sandboxFrame = getElement("sandboxFrame");
+        switchDriverToFrame(sandboxFrame);
+        WebElement userHtmlFrame = getElement("userHtmlFrame");
+        switchDriverToFrame(userHtmlFrame);
     }
 
 
@@ -162,13 +161,13 @@ public abstract class GenericAddonService {
 
 
     private static Optional<String> getNewSpreadsheetLink(By newSpreadsheetLinkLocator) {
-        List<WebElement> links = driver.findElements(newSpreadsheetLinkLocator);
+        List<WebElement> links = getElements(newSpreadsheetLinkLocator);
         return !links.isEmpty() ? Optional.of(links.get(0).getAttribute("href")) : Optional.empty();
     }
 
 
     public static void waitForCompletionAndClose(String expectedTextPart, String closeButtonId) {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebDriverWait wait = getWaitWithTimeout(60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(textContainsExceptTag(expectedTextPart, "script"))));
         //todo: if banner is shown then press "Return to add-on"
         GoogleSheetService.clickElement(closeButtonId);
@@ -192,7 +191,15 @@ public abstract class GenericAddonService {
 
     public static String getNameBoxValue()
     {
-        return driver.findElement(By.id(FIELD_ID_NAME_BOX)).getText();
+        return getElement(FIELD_ID_NAME_BOX).getAttribute("value");
+    }
+
+
+    public static String getNameBoxValueFromAddonContext() {
+        switchDriverToDefaultContent();
+        String value = getNameBoxValue();
+        switchDriverToAddonIframe();
+        return value;
     }
 
 
@@ -205,7 +212,7 @@ public abstract class GenericAddonService {
 
 
     public static boolean isWorkingMessageDisplayed() {
-        return WebDriverService.getInstance().getDriver().findElement(By.id(FIELD_ID_WORKING_MESSAGE_DIV)).getCssValue("display").equals("flex");
+        return getElement(FIELD_ID_WORKING_MESSAGE_DIV).getCssValue("display").equals("flex");
     }
 
 
@@ -230,7 +237,7 @@ public abstract class GenericAddonService {
 
     public static void waitForWorkingMessage(boolean isDisplayed, int timeoutSec)
     {
-        WebDriverWait wait = new WebDriverWait(driver, timeoutSec);
+        WebDriverWait wait = getWaitWithTimeout(timeoutSec);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
                 String.format("//div[@id='%s' and @style='display: %s;']", FIELD_ID_WORKING_MESSAGE_DIV,
                         isDisplayed ? "flex" : "none"))));

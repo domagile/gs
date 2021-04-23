@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 
 import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
+import static googlesheets.service.generic.webdriver.FieldHelper.waitElementClickable;
 import static googlesheets.service.generic.xpath.XPathHelper.attributeIs;
 
 public class ResultLocationPanel {
@@ -70,10 +72,10 @@ public class ResultLocationPanel {
 
     private void setCustomLocationValue(String locationValue) {
         WebElement customLocationField = getCustomLocationField();
-        waitElementToBeClickable(customLocationField);
+        waitElementClickable(customLocationField);
         customLocationField.clear();
         customLocationField.sendKeys(locationValue);
-        waitElementToBeClickable(nextButtonId);
+        waitElementClickable(nextButtonId);
         checkText(locationValue, FIELD_ID_CUSTOM_LOCATION, this::setCustomLocationValue);
     }
 

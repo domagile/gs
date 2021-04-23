@@ -4,16 +4,15 @@ import googlesheets.model.generic.sheetselection.SheetSelection;
 import googlesheets.model.generic.sheetselection.SheetSelectionProvider;
 import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
 import googlesheets.service.generic.addon.sheetselection.EntityList;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static googlesheets.service.generic.addon.sheetselection.EntityList.BY_TD_TAG;
-import static googlesheets.service.generic.google.GoogleSheetService.getElementByCssSelector;
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElementByCssSelector;
+import static googlesheets.service.generic.webdriver.Locators.*;
 import static java.util.stream.Collectors.toList;
 
 public class SheetSelectionPanel {
@@ -56,28 +55,26 @@ public class SheetSelectionPanel {
     }
 
     private static Consumer<WebElement> expandSheetFunction() {
-        return tr -> tr.findElements(By.tagName("td")).get(0).click();
+        return tr -> tr.findElements(TAG_TD).get(0).click();
     }
 
 
     private static void selectEntitiesWithRanges(List<SheetSelection> selections, List<WebElement> trs)
     {
-        By checkboxLocator = By.tagName("input");
         selections.forEach(selection -> {
             if (selection.getRange() != null) {
-                WebElement rangeTD = trs.get(selection.getIndex()).findElements(BY_TD_TAG).get(3);
-                WebElement input = rangeTD.findElement(By.tagName("input"));
+                WebElement rangeTD = trs.get(selection.getIndex()).findElements(TAG_TD).get(3);
+                WebElement input = rangeTD.findElement(TAG_INPUT);
                 input.sendKeys(selection.getRange());
                 //unstable error of range validation without this delay
                 sleep(1000);
             }
             else {
-                new EntityList(trs, 1).selectEntity(selection.getIndex(), true, checkboxLocator);
+                new EntityList(trs, 1).selectEntity(selection.getIndex(), true, TAG_INPUT);
             }
         });
     }
 
-//<div class="text">The entered range is incorrect</div>
 
     private static void checkSpreadsheetPresenceInList(List<SpreadsheetSelection> spreadsheets, List<WebElement> spreadsheetTRs) {
         if (spreadsheetTRs.size() != spreadsheets.size())
@@ -89,17 +86,17 @@ public class SheetSelectionPanel {
     }
 
     private static String getSpreadsheetNameFromTR(WebElement tr) {
-        return tr.findElements(By.tagName("td")).get(2).getText();
+        return tr.findElements(TAG_TD).get(2).getText();
     }
 
 
     private static List<WebElement> getSheetListTRs() {
         WebElement tBody = getElementByCssSelector(".first-step-table-body");
-        List<WebElement> trs = tBody.findElements(By.tagName("tr"));
+        List<WebElement> trs = tBody.findElements(TAG_TR);
         //if list is loaded during long time
         while (trs.isEmpty()) {
             sleep(1000);
-            trs = tBody.findElements(By.tagName("tr"));
+            trs = tBody.findElements(TAG_TR);
         }
         return trs;
     }

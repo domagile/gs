@@ -3,7 +3,7 @@ package googlesheets.service.generic.google;
 import googlesheets.model.generic.rowselection.PairSelection;
 import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.service.GlobalContext;
-import googlesheets.service.generic.WebDriverService;
+import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.generic.xpath.XPathHelper;
 import org.openqa.selenium.*;
@@ -25,6 +25,10 @@ import java.util.function.Consumer;
 import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.google.Credentials.LOGIN;
 import static googlesheets.service.generic.google.Credentials.PASSWORD;
+import static googlesheets.service.generic.webdriver.FieldHelper.*;
+import static googlesheets.service.generic.webdriver.Locators.*;
+import static googlesheets.service.generic.webdriver.WebDriverService.openLink;
+import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
 import static googlesheets.service.generic.xpath.XPathHelper.*;
 
 
@@ -37,7 +41,7 @@ public class GoogleSheetService {
         if (GlobalContext.USE_CUSTOM_LINKS) {
             link = getCustomLink(link);
         }
-        driver.get(link);
+        openLink(link);
         login();
     }
 
@@ -65,13 +69,13 @@ public class GoogleSheetService {
         if (GlobalContext.getInstance().isLoggedIn())
             return;
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("identifierId")));
-        driver.findElement(By.id("identifierId")).sendKeys(LOGIN);
-        driver.findElement(By.id("identifierNext")).click();
+        waitElementPresent("identifierId");
+        getElement("identifierId").sendKeys(LOGIN);
+        getElement("identifierNext").click();
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.name("password")));
-        driver.findElement(By.name("password")).sendKeys(PASSWORD);
-        driver.findElement(By.id("passwordNext")).click();
+        waitElementClickableByName("password");
+        getElementByName("password").sendKeys(PASSWORD);
+        getElement("passwordNext").click();
         //todo: if window with second authorization then: choose confirmation with second mail, enter second mail
         //todo: if "Protect your account" window then press Confirm
 
@@ -109,8 +113,7 @@ public class GoogleSheetService {
 
     public static void clickElement(By locator) {
         invokeFunctionWithReinvocation(elementLocator -> {
-            wait.until(ExpectedConditions.elementToBeClickable(elementLocator));
-            driver.findElement(elementLocator).click();
+            getClickableElement(elementLocator).click();
         }, locator, InvalidElementStateException.class);
     }
 
@@ -146,8 +149,7 @@ public class GoogleSheetService {
 
 
     public static void waitText(String text) {
-        By xpath = By.xpath(textContains(text));
-        wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
+        waitElementPresentByXpath(textContains(text));
     }
 
 
@@ -159,27 +161,21 @@ public class GoogleSheetService {
     public static void openSheetContextMenu(String sheetName) {
         invokeFunctionWithReinvocation(name -> {
             Actions actions = new Actions(driver);
-            By xpath = By.xpath(textIs(name));
-            wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
-            WebElement element = driver.findElement(xpath);
+            WebElement element = getPresentElementByXpath(textIs(name));
             actions.contextClick(element).perform();
         }, sheetName, StaleElementReferenceException.class);
     }
 
 
     public static String getResultListName(String namePart) {
-        driver.switchTo().defaultContent();
-
-        By xpath = By.xpath(textContains(namePart));
-        wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
-        WebElement element = driver.findElement(xpath);
+        switchDriverToDefaultContent();
+        WebElement element = getPresentElementByXpath(textContains(namePart));
         return element.getText().trim();
     }
 
 
     public static void clickContextMenuByText(String text) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(textIs(text))));
-        driver.findElement(By.xpath(textIs(text))).click();
+        getPresentElementByXpath(textIs(text)).click();
     }
 
 
@@ -197,8 +193,7 @@ public class GoogleSheetService {
 
 
     public static void makeSheetActive(String sheetName) {
-        By xpath = By.xpath(textIs(sheetName));
-        driver.findElement(xpath).click();
+        getElementByXpath(textIs(sheetName)).click();
         //todo: replace with some wait
         sleep(1000);
     }
@@ -206,9 +201,7 @@ public class GoogleSheetService {
 
     public static void clickAddonsMenu() {
         invokeFunctionWithReinvocation(() -> {
-            By addonsMenuLocator = By.xpath(textIs("Add-ons"));
-            wait.until(ExpectedConditions.elementToBeClickable(addonsMenuLocator));
-            driver.findElement(addonsMenuLocator).click();
+            getClickableElementByXpath(textIs("Add-ons")).click();
         }, ElementClickInterceptedException.class, UnhandledAlertException.class);
     }
 
@@ -220,8 +213,7 @@ public class GoogleSheetService {
     public static void clickMenuItem(String menuName, boolean exactText) {
         invokeFunctionWithReinvocation((menu, text) -> {
             String xpath = exactText ? textIs(menuName) : textContains(menuName);
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-            driver.findElement(By.xpath(xpath)).click();
+            getClickableElementByXpath(xpath).click();
         }, menuName, exactText, ElementNotInteractableException.class);
     }
 
@@ -232,8 +224,7 @@ public class GoogleSheetService {
 
     public static void clickHighLevelMenuItem(String menuName, String nextMenuName, boolean exactText) {
         String xpath = exactText ? "//*[text()='" + menuName + "']" : "//*[text()[contains(.,'" + menuName + "')]]";
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-        driver.findElement(By.xpath(xpath)).click();
+        getClickableElementByXpath(xpath).click();
         try {
             xpath = exactText ? "//*[text()='" + nextMenuName + "']" : "//*[text()[contains(.,'" + nextMenuName + "')]]";
             //element is not clickable at least at AFR by some reason
@@ -248,23 +239,38 @@ public class GoogleSheetService {
     }
 
     public static void clickRadioButton(String buttonId) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(buttonId)));
+        waitElementPresent(buttonId);
         //isDisplayed() returns false by some reason
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();",
-                driver.findElement(By.id(buttonId)));
+                getElement(buttonId));
+    }
+
+
+    public static void setPresentCheckboxValue(boolean value, String checkboxId) {
+        waitElementPresent(checkboxId);
+        setCheckboxValue(value, checkboxId);
     }
 
 
     public static void setCheckboxValue(boolean value, String checkboxId) {
-        WebElement checkbox = driver.findElement(By.id(checkboxId));
+        WebElement checkbox = getElement(checkboxId);
         if (checkbox.isSelected() != value) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
         }
     }
 
 
+    public static void setCheckboxValueByLabelClick(boolean value, String checkboxId) {
+        WebElement checkbox = getElement(checkboxId);
+        if (checkbox.isSelected() != value) {
+            WebElement label = getClickableElementByAttribute("for", checkboxId);
+            label.click();
+        }
+    }
+
+
     public static void clickUndo() {
-        driver.findElement(By.id("t-undo")).findElement(By.className("goog-toolbar-button-inner-box")).click();
+        getElement("t-undo").findElement(By.className("goog-toolbar-button-inner-box")).click();
     }
 
 
@@ -296,13 +302,12 @@ public class GoogleSheetService {
 
 
     public static void selectPairsInTable(String tableBodyId, List<PairSelection<Integer, String>> pairs, int stringColumnIndex) {
-        By checkboxLocator = By.tagName("input");
         try {
             List<WebElement> trs = getTableTRs(tableBodyId);
             EntityList columns = new EntityList(trs, 0);
-            By comboboxLocator = By.tagName("select");
+            By comboboxLocator = TAG_SELECT;
             for (PairSelection<Integer, String> pair : pairs) {
-                columns.selectEntity(pair.getFirst() - 1, true, checkboxLocator);
+                columns.selectEntity(pair.getFirst() - 1, true, TAG_INPUT);
                 columns.setComboboxValue(pair.getFirst() - 1, stringColumnIndex, pair.getSecond(), comboboxLocator);
             }
         }
@@ -314,13 +319,13 @@ public class GoogleSheetService {
 
     public static void selectTriplesInTable(String tableBodyId, List<TripleSelection<Integer, String, String>> triples,
                                             int firstStringColumnIndex, int secondStringColumnIndex) {
-        By checkboxLocator = By.tagName("input");
         try {
             List<WebElement> trs = getTableTRs(tableBodyId);
+            clearSelection(triples, trs);
+            By comboboxLocator = TAG_SELECT;
             EntityList columns = new EntityList(trs, 0);
-            By comboboxLocator = By.tagName("select");
             for (TripleSelection<Integer, String, String> triple : triples) {
-                columns.selectEntity(triple.getFirst() - 1, true, checkboxLocator);
+                columns.selectEntity(triple.getFirst() - 1, true, TAG_INPUT);
                 columns.setComboboxValue(triple.getFirst() - 1, firstStringColumnIndex, triple.getSecond(), comboboxLocator);
                 if (triple.getThird() != null) {
                     columns.setComboboxValue(triple.getFirst() - 1, secondStringColumnIndex, triple.getThird(), comboboxLocator);
@@ -333,14 +338,32 @@ public class GoogleSheetService {
         }
     }
 
+    private static void clearSelection(List<TripleSelection<Integer, String, String>> triples, List<WebElement> trs) {
+        for (int i = 0; i < trs.size(); i++) {
+            List<WebElement> inputs = trs.get(i).findElements(TAG_TD).get(0).findElements(TAG_INPUT);
+            if (!inputs.isEmpty()) {
+                WebElement checkbox = inputs.get(0);
+                if (checkbox.isSelected() && !isTripleWithIndexPresent(triples, i)) {
+                    //checkbox isDisplayed is false and its not interactable here
+                    List<WebElement> clickableCheckboxImages = trs.get(i).findElements(TAG_TD).get(0).findElements(
+                            By.className("adx-checkbox-square-image"));
+                    clickableCheckboxImages.get(0).click();
+                }
+            }
+        }
+    }
+
+    private static boolean isTripleWithIndexPresent(List<TripleSelection<Integer, String, String>> triples, int index) {
+        return triples.stream().map(TripleSelection::getFirst).anyMatch(i -> i - 1 == index);
+    }
+
     private static List<WebElement> getTableTRs(String tableBodyId) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(tableBodyId)));
-        WebElement tBody = driver.findElement(By.id(tableBodyId));
-        List<WebElement> trs = tBody.findElements(By.tagName("tr"));
+        WebElement tBody = getPresentElement(tableBodyId);
+        List<WebElement> trs = tBody.findElements(TAG_TR);
         //if list is loaded during long time
         while (trs.isEmpty()) {
             sleep(1000);
-            trs = tBody.findElements(By.tagName("tr"));
+            trs = tBody.findElements(TAG_TR);
         }
         return trs;
     }
@@ -351,27 +374,24 @@ public class GoogleSheetService {
     }
 
 
-    public static void clickElementByClass(String className)
-    {
+    public static void clickElementByClass(String className) {
         clickElement(By.className(className));
     }
 
 
-    public static void clickElementByAttribute(String attribute, String value)
-    {
+    public static void clickElementByAttribute(String attribute, String value) {
         clickElement(By.xpath(XPathHelper.attributeIs(attribute, value)));
     }
 
 
-    public static void clickElementByText(String text)
-    {
+    public static void clickElementByText(String text) {
         clickElement(By.xpath(XPathHelper.textIs(text)));
     }
 
 
     public static void selectComboboxValue(String id, String value) {
         try {
-            WebElement select = driver.findElement(By.id(id));
+            WebElement select = getElement(id);
             selectComboboxValue(select, value);
         } catch (StaleElementReferenceException e) {
             sleep(1000);
@@ -382,9 +402,9 @@ public class GoogleSheetService {
 
     public static void selectComboboxValue(WebElement select, String value) {
         invokeFunctionWithReinvocation((selectParam, valueParam) -> {
-                    Select combobox = new Select(selectParam);
-                    combobox.selectByVisibleText(valueParam);
-                }, select, value, ElementNotInteractableException.class, NoSuchElementException.class);
+            Select combobox = new Select(selectParam);
+            combobox.selectByVisibleText(valueParam);
+        }, select, value, ElementNotInteractableException.class, NoSuchElementException.class);
     }
 
 
@@ -397,20 +417,22 @@ public class GoogleSheetService {
     }
 
 
+    public static boolean isText(String text, String fieldId) {
+        return getPresentElement(fieldId).getAttribute("value").equals(text);
+    }
+
+
     public static void setText(String text, String fieldId) {
         invokeFunctionWithReinvocation(textValue -> {
-            By fieldLocator = By.id(fieldId);
-            wait.until(ExpectedConditions.presenceOfElementLocated(fieldLocator));
-            driver.findElement(fieldLocator).clear();
-            driver.findElement(fieldLocator).sendKeys(textValue);
+            WebElement field = getPresentElement(fieldId);
+            field.clear();
+            field.sendKeys(textValue);
         }, text, ElementNotInteractableException.class);
     }
 
 
     public static void checkText(String text, String fieldId, Consumer<String> setTextFunction) {
-        By fieldLocator = By.id(fieldId);
-        wait.until(ExpectedConditions.presenceOfElementLocated(fieldLocator));
-        String currentText = driver.findElement(fieldLocator).getAttribute("value");
+        String currentText = getPresentElement(fieldId).getAttribute("value");
         if (!currentText.equals(text)) {
             setTextFunction.accept(text);
         }
@@ -418,9 +440,7 @@ public class GoogleSheetService {
 
 
     public static void checkText(String text, String fieldId, BiConsumer<String, String> setTextFunction) {
-        By fieldLocator = By.id(fieldId);
-        wait.until(ExpectedConditions.presenceOfElementLocated(fieldLocator));
-        String currentText = driver.findElement(fieldLocator).getAttribute("value");
+        String currentText = getPresentElement(fieldId).getAttribute("value");
         if (!currentText.equals(text)) {
             setTextFunction.accept(text, fieldId);
         }
@@ -436,27 +456,5 @@ public class GoogleSheetService {
             }
         }
         return false;
-    }
-
-
-    public static WebElement getElement(String id)
-    {
-        return driver.findElement(By.id(id));
-    }
-
-
-    public static WebElement getElementByCssSelector(String cssSelector)
-    {
-        return driver.findElement(By.cssSelector(cssSelector));
-    }
-
-
-    public static void waitElementToBeClickable(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-
-    public static void waitElementToBeClickable(String elementId) {
-        wait.until(ExpectedConditions.elementToBeClickable(By.id(elementId)));
     }
 }

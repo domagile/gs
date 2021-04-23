@@ -1,6 +1,7 @@
-package googlesheets.service.generic;
+package googlesheets.service.generic.webdriver;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,8 +15,7 @@ public class WebDriverService {
     private WebDriverWait wait;
 
 
-    private WebDriverService()
-    {
+    private WebDriverService() {
         System.setProperty("webdriver.chrome.driver", "c:\\app\\webdriver\\chromedriver_win32\\chromedriver.exe");
 //        System.setProperty("webdriver.chrome.driver", "D:\\app\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -45,8 +45,27 @@ public class WebDriverService {
     }
 
 
-    public void resetWaitTimeout()
-    {
+    public void resetWaitTimeout() {
         wait.withTimeout(Duration.ofSeconds(DEFAULT_TIMEOUT));
+    }
+
+
+    public static void switchDriverToDefaultContent() {
+        getInstance().getDriver().switchTo().defaultContent();
+    }
+
+
+    public static void switchDriverToFrame(WebElement iFrame) {
+        getInstance().getDriver().switchTo().frame(iFrame);
+    }
+
+
+    public static WebDriverWait getWaitWithTimeout(int sec) {
+        return new WebDriverWait(getInstance().getDriver(), sec);
+    }
+
+
+    public static void openLink(String link) {
+        getInstance().getDriver().get(link);
     }
 }

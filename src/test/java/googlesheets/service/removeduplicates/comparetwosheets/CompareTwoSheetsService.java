@@ -1,17 +1,18 @@
 package googlesheets.service.removeduplicates.comparetwosheets;
 
-import googlesheets.service.generic.addon.sheetselection.EntityList;
-import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.generic.addon.GenericAddonService;
+import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.generic.google.GoogleSheetService;
+import googlesheets.service.generic.webdriver.WebDriverService;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.webdriver.FieldHelper.*;
+import static googlesheets.service.generic.webdriver.Locators.*;
+import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
 
 public class CompareTwoSheetsService extends GenericAddonService {
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "rdSheetBackupCheckbox";
@@ -22,7 +23,6 @@ public class CompareTwoSheetsService extends GenericAddonService {
 
 
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
-    private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
 
     public static void runCompareColumnsOrSheets() {
@@ -30,8 +30,7 @@ public class CompareTwoSheetsService extends GenericAddonService {
     }
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY)));
-        setCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
         sleep(5000);
     }
 
@@ -64,13 +63,12 @@ public class CompareTwoSheetsService extends GenericAddonService {
     }
 
     private static void setRange(String range, String rangeFieldId) {
-        By selectedRangeLocator = By.id(rangeFieldId);
-        wait.until(ExpectedConditions.presenceOfElementLocated(selectedRangeLocator));
         try {
+            WebElement field = getPresentElement(rangeFieldId);
             //fixme: replace with some check
             sleep(3000);
-            driver.findElement(selectedRangeLocator).clear();
-            driver.findElement(selectedRangeLocator).sendKeys(range);
+            field.clear();
+            field.sendKeys(range);
             sleep(2000);
             checkText(range, rangeFieldId, CompareTwoSheetsService::setRange);
         } catch (ElementNotInteractableException e) {
@@ -158,44 +156,39 @@ public class CompareTwoSheetsService extends GenericAddonService {
 
 
     public static void clickFinishAndClose() {
-        driver.findElement(By.id("nextButton")).click();
+        getElement("nextButton").click();
         waitForCompletionAndClose();
     }
 
 
     public static void waitForCompletionAndClose() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()[contains(.,'have been found')]]")));
-        //
+        waitText("have been found");
         sleep(5000);
         clickElement("closeButton");
-
-        driver.switchTo().defaultContent();
+        switchDriverToDefaultContent();
     }
 
 
     public static void setColumnsToCompare(ColumnComparisonPair... pairs) {
-        By checkboxLocator = By.tagName("input");
-        selectPairsInTable("rdColumnsList", checkboxLocator, pairs);
+        selectPairsInTable("rdColumnsList", TAG_INPUT, pairs);
     }
 
 
     private static void selectPairsInTable(String tableBodyId, By checkboxLocator, ColumnComparisonPair... pairs) {
         try {
-            By comboboxLocator = By.tagName("select");
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.id(tableBodyId)));
-            WebElement tBody = driver.findElement(By.id(tableBodyId));
-            List<WebElement> trs = tBody.findElements(By.tagName("tr"));
+            waitElementPresent(tableBodyId);
+            WebElement tBody = getElement(tableBodyId);
+            List<WebElement> trs = tBody.findElements(TAG_TR);
             //if list is loaded during long time
             while (trs.isEmpty()) {
                 sleep(1000);
-                trs = tBody.findElements(By.tagName("tr"));
+                trs = tBody.findElements(TAG_TR);
             }
             EntityList columns = new EntityList(trs, 0);
             List<ColumnComparisonPair> pairList = Arrays.asList(pairs);
             for (ColumnComparisonPair pair : pairList) {
                 columns.selectEntity(pair.getFirstTableColumnIndex() - 1, true, checkboxLocator);
-                columns.setComboboxValue(pair.getFirstTableColumnIndex() - 1, 3, pair.getSecondTableColumnName(), comboboxLocator);
+                columns.setComboboxValue(pair.getFirstTableColumnIndex() - 1, 3, pair.getSecondTableColumnName(), TAG_SELECT);
             }
         }
         //when tBody is reloaded by browser and link is not actual
@@ -222,7 +215,7 @@ public class CompareTwoSheetsService extends GenericAddonService {
     public static void setColor(String colorCode)
     {
 //        WebElement colorInput = driver.findElement(By.id("rdActionFillTheColorInput"));
-        WebElement colorInput = driver.findElement(By.className("choise_color"));
+        WebElement colorInput = getElementByClassName("choise_color");
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='"+ colorCode + "';", colorInput);
     }
 

@@ -1,17 +1,16 @@
 package googlesheets.service.removeduplicates.removeduplicatecells;
 
-import googlesheets.service.generic.WebDriverService;
 import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.google.GoogleSheetService;
+import googlesheets.service.generic.webdriver.WebDriverService;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElementByClassName;
+import static googlesheets.service.generic.webdriver.FieldHelper.getPresentElement;
 
 public class RemoveDuplicatesCellsService extends GenericAddonService {
     private static final WebDriver driver = WebDriverService.getInstance().getDriver();
-    private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
     public static final String BUTTON_ID_NEXT = "nextButton";
     public static final String CHECKBOX_ID_CREATE_BACKUP_COPY = "rdSheetBackupCheckbox";
@@ -40,13 +39,12 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
     }
 
     public static void setRange(String range) {
-        By selectedRangeLocator = By.id("rdSelectedRange");
-        wait.until(ExpectedConditions.presenceOfElementLocated(selectedRangeLocator));
         try {
+            WebElement field = getPresentElement("rdSelectedRange");
             //fixme: replace with some check
             sleep(3000);
-            driver.findElement(selectedRangeLocator).clear();
-            driver.findElement(selectedRangeLocator).sendKeys(range);
+            field.clear();
+            field.sendKeys(range);
             sleep(2000);
         } catch (ElementNotInteractableException e) {
             reinvokeFunctionWithDelay(RemoveDuplicatesCellsService::setRange, range);
@@ -54,12 +52,7 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
     }
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY)));
-//        WebElement checkbox = driver.findElement(By.id(CHECKBOX_ID_CREATE_BACKUP_COPY));
-//        if (checkbox.isSelected() != value) {
-//            checkbox.click();
-//        }
-        setCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
     }
 
 
@@ -75,7 +68,7 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
     //fixme: doesn't work by some reason - chosen color is not applied, displayed color is applied instead. try to change style of the div?
     public static void setColor(String colorCode) {
 //        WebElement colorInput = driver.findElement(By.id("rdActionFillTheColorInput"));
-        WebElement colorInput = driver.findElement(By.className("choise_color"));
+        WebElement colorInput = getElementByClassName("choise_color");
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + colorCode + "';", colorInput);
     }
 
@@ -142,5 +135,4 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
         }
         selectComboboxValue("fdcFindSelectInternal", typeText);
     }
-
 }

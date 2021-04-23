@@ -4,14 +4,9 @@ import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
 import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptionBuilder;
 import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
-import googlesheets.service.generic.WebDriverService;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.time.Duration;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;

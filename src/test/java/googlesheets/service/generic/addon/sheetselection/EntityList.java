@@ -6,8 +6,9 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static googlesheets.service.generic.webdriver.Locators.TAG_TD;
+
 public class EntityList {
-    public static final By BY_TD_TAG = By.tagName("td");
     private List<WebElement> trs;
     private int checkboxColumn;
 
@@ -21,7 +22,7 @@ public class EntityList {
 
     public void selectEntity(int position, boolean value, By checkboxLocator)
     {
-        WebElement td = trs.get(position).findElements(BY_TD_TAG).get(checkboxColumn);
+        WebElement td = trs.get(position).findElements(TAG_TD).get(checkboxColumn);
         WebElement checkbox = td.findElement(checkboxLocator);
         if (checkbox.isSelected() != value) {
             td.click();
@@ -37,7 +38,7 @@ public class EntityList {
 
     public void setComboboxValue(int row, int column, String value, By comboboxLocator)
     {
-        WebElement td = trs.get(row).findElements(BY_TD_TAG).get(column);
+        WebElement td = trs.get(row).findElements(TAG_TD).get(column);
         WebElement select = td.findElement(comboboxLocator);
         Select combobox = new Select(select);
         combobox.selectByVisibleText(value);
@@ -46,6 +47,6 @@ public class EntityList {
 
     public void clickEntity(int position)
     {
-        trs.get(position).findElements(BY_TD_TAG).get(checkboxColumn).click();
+        trs.get(position).findElements(TAG_TD).get(checkboxColumn).click();
     }
 }

@@ -1,9 +1,7 @@
 package googlesheets.test.afr.generic;
 
 import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
-import googlesheets.service.advancedfindreplace.SearchInSelection;
-import googlesheets.service.generic.WebDriverService;
-import googlesheets.service.generic.addon.GenericAddonService;
+import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.technical.file.FileType;
 import googlesheets.test.SpreadsheetTest;
 

@@ -1,14 +1,12 @@
 package googlesheets.service.advancedfindreplace;
 
 import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
-import googlesheets.service.generic.WebDriverService;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static googlesheets.service.generic.addon.GenericAddonService.*;
+import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
+import static googlesheets.service.generic.addon.GenericAddonService.waitForWorkingMessageDisplayedAndHidden;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AdvancedFindReplaceService {
@@ -16,8 +14,6 @@ public class AdvancedFindReplaceService {
     //   public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Dev Scr";
     public static final String MENU_TEXT_START = "Start";
 
-    private static final WebDriver driver = WebDriverService.getInstance().getDriver();
-    private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
     public static final String BUTTON_ID_FIND_ALL = "afrFindActionButtonBottom";
     public static final String BUTTON_ID_REPLACE_ALL = "afrReplaceAllActionButton";
     public static final String BUTTON_ID_REPLACE = "afrReplaceActionButton";

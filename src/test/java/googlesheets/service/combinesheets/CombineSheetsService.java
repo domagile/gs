@@ -1,23 +1,18 @@
 package googlesheets.service.combinesheets;
 
 import googlesheets.model.combinesheets.CombineSheetsOptions;
-import googlesheets.service.generic.WebDriverService;
 import googlesheets.ui.components.ResultLocationPanel;
 import googlesheets.ui.components.SheetSelectionPanel;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static googlesheets.service.generic.addon.GenericAddonService.waitForCompletionAndClose;
 import static googlesheets.service.generic.addon.GenericAddonService.waitNameBoxValue;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.webdriver.FieldHelper.*;
 import static googlesheets.service.generic.xpath.XPathHelper.attributeIs;
 
 public class CombineSheetsService {
-    private static final WebDriver driver = WebDriverService.getInstance().getDriver();
-    private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
 
     public static final String BUTTON_ID_CLOSE = "combineSheetsClose";
     public static final String BUTTON_ID_COMBINE = "combineSheetsNext";
@@ -59,17 +54,14 @@ public class CombineSheetsService {
      * current value of range is incorrect. At least the case of value reset for incorrect range should be fixed in addon.
      */
     public static void setCustomLocationValueOnLocationDialog(String locationValue) {
-        By customLocationLocator = By.id(FIELD_ID_CUSTOM_LOCATION_ON_LOCATION_DIALOG);
-        wait.until(ExpectedConditions.elementToBeClickable(By.id(BUTTON_ID_OK_ON_LOCATION_DIALOG)));
-        WebElement locationField = driver.findElement(customLocationLocator);
+        WebElement locationField = getClickableElement(FIELD_ID_CUSTOM_LOCATION_ON_LOCATION_DIALOG);
         replaceTextWith(locationValue, locationField);
 //        clearFieldWithEndShiftHomeBackspace(locationField);
         sleep(5000);
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//input[contains(@class, 'adx-input-error') and @id='inputActiveRangeSmall']")));
+        waitElementPresentByXpath("//input[contains(@class, 'adx-input-error') and @id='inputActiveRangeSmall']");
         locationField.sendKeys(locationValue);
         waitNameBoxValue(locationValue, 10, 1000);
-        wait.until(ExpectedConditions.elementToBeClickable(By.id(BUTTON_ID_OK_ON_LOCATION_DIALOG)));
+        waitElementClickable(BUTTON_ID_OK_ON_LOCATION_DIALOG);
 //        checkText(locationValue, FIELD_ID_CUSTOM_LOCATION_ON_LOCATION_DIALOG, CombineSheetsService::setCustomLocationValueOnLocationDialog);
     }
 
