@@ -8,6 +8,8 @@ import googlesheets.model.mergesheets.MergeSheetsOptions;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+
 public class MS003_twoFieldsTest extends MSTest {
     @BeforeClass
     public static void openDocument() {
@@ -33,5 +35,11 @@ public class MS003_twoFieldsTest extends MSTest {
                 .build();
         execute(options);
         checkResult();
+    }
+
+
+    @Override
+    protected void restoreInitialDocumentState(String resultListName) {
+        clickUndo(2);
     }
 }

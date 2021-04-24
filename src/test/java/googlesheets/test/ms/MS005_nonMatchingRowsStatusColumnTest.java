@@ -8,6 +8,8 @@ import googlesheets.model.mergesheets.MergeSheetsOptions;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+
 public class MS005_nonMatchingRowsStatusColumnTest extends MSTest {
     @BeforeClass
     public static void openDocument() {
@@ -34,5 +36,11 @@ public class MS005_nonMatchingRowsStatusColumnTest extends MSTest {
                 .build();
         execute(options);
         checkResult();
+    }
+
+
+    @Override
+    protected void restoreInitialDocumentState(String resultListName) {
+        clickUndo(3);
     }
 }
