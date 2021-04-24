@@ -1,9 +1,7 @@
 package googlesheets.test.ms;
 
-import googlesheets.model.generic.ResultLocation;
 import googlesheets.model.mergesheets.MergeSheetsOptions;
 import googlesheets.model.mergesheets.MergeSheetsResultLocationEnumeration;
-import googlesheets.service.consolidatesheets.ConsolidateSheetsRunner;
 import googlesheets.service.generic.addon.ResultInfo;
 import googlesheets.service.mergesheets.MergeSheetsRunner;
 import googlesheets.service.technical.file.FileType;
@@ -12,8 +10,7 @@ import org.junit.After;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.mergesheets.MergeSheetsService.*;
-import static googlesheets.service.technical.file.FileService.compareFileWithEtalon;
-import static googlesheets.service.technical.file.FileService.removeDownloadedListFile;
+import static googlesheets.service.technical.file.FileService.*;
 
 public class MSTest extends SpreadsheetTest {
     private static final String MERGE_SHEETS_ETALON_DIR = "mergesheets\\";
@@ -36,11 +33,11 @@ public class MSTest extends SpreadsheetTest {
         setLookupTableRange(options.getLookupTableRange());
         clickNext();
 
+        setMainTableHasHeaders(options.isMainTableHasHeaders());
+        setLookupTableHasHeaders(options.isLookupTableHasHeaders());
         //Issue with Skip empty cells checkbox is present - probably fields are reloaded at some point and value is lost.
         //Therefore checkboxes are set after matching columns to avoid the issue.
         setMatchingColumns(options.getMatchingColumns());
-        setMainTableHasHeaders(options.isMainTableHasHeaders());
-        setLookupTableHasHeaders(options.isLookupTableHasHeaders());
         setSkipEmptyCells(options.isSkipEmptyCells());
         setMatchCase(options.isMatchCase());
         clickNext();
@@ -77,6 +74,18 @@ public class MSTest extends SpreadsheetTest {
         String spreadsheetName = getSpreadsheetName();
         compareFileWithEtalon(spreadsheetName, getUpdatedSheetName(), getEtalonFileName(FileType.CSV));
         removeDownloadedListFile(spreadsheetName, getUpdatedSheetName(), FileType.CSV);
+    }
+
+
+    protected void checkExcelResult() {
+        String listName = getUpdatedSheetName();
+        if (fileExists(getSpreadsheetName(), listName, FileType.XLSX)) {
+            throw new IllegalStateException(String.format("File for list %s already exists", listName));
+        }
+        startXLSXDownload();
+        sleep(2000);
+        compareFileWithEtalon(getSpreadsheetName(), listName, getEtalonFileName(FileType.XLSX), FileType.XLSX);
+        removeDownloadedListFile(getSpreadsheetName(), listName, FileType.XLSX);
     }
 
 
