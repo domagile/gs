@@ -64,7 +64,8 @@ public class MergeSheetsService {
     }
 
     public static void setMainTableHasHeaders(boolean value) {
-        setCheckboxValue(value, "cbMasterHasHeadersInternal");
+        //checkbox is not updated if we do not wait for some time for clickable label
+        setCheckboxValueByLabelClick(value, "cbMasterHasHeadersInternal");
     }
 
     public static void setLookupTableHasHeaders(boolean value) {
