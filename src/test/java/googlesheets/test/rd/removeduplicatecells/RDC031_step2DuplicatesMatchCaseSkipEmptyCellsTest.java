@@ -19,7 +19,7 @@ public class RDC031_step2DuplicatesMatchCaseSkipEmptyCellsTest extends RDCTest {
 
 
     @Test
-    public void duplicatesMatchCase() throws IOException {
+    public void duplicatesMatchCase() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

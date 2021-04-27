@@ -19,7 +19,7 @@ public class RDC034_uniquesPartiallySelectedRangeTest extends RDCTest {
 
 
     @Test
-    public void uniquesMatchCase() throws IOException {
+    public void uniquesMatchCase() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         setRange("A1:C35");

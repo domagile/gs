@@ -34,7 +34,7 @@ public class RDTest extends SpreadsheetTest {
         removeDownloadedListFile(getSpreadsheetName(), listName, FileType.XLSX);
     }
 
-    protected void checkNewSpreadsheetResult(String sourceListName, String etalonFileName, ResultInfo resultInfo) throws IOException {
+    protected void checkNewSpreadsheetResult(String sourceListName, String etalonFileName, ResultInfo resultInfo) {
         restoreInitialStateForNewSpreadsheetOption();
         sleep(1000);
         openDocument(resultInfo.getNewSpreadsheetLink());

@@ -223,4 +223,11 @@ public class CompareTwoSheetsService extends GenericAddonService {
     public static void clickFinish() {
         GoogleSheetService.clickElement(BUTTON_ID_NEXT);
     }
+
+    public static void setCustomLocationRange(String range) {
+        setText(range, "rdExistingSheetRange");
+        sleep(2000);
+    }
+
+
 }
