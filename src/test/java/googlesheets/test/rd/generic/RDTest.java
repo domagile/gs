@@ -1,8 +1,8 @@
 package googlesheets.test.rd.generic;
 
-import googlesheets.service.generic.addon.ResultInfo;
+import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.service.technical.file.FileType;
-import googlesheets.test.SpreadsheetTest;
+import googlesheets.test.generic.SpreadsheetTest;
 
 import java.io.IOException;
 

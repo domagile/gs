@@ -1,6 +1,7 @@
 package googlesheets.model.combinesheets;
 
 import googlesheets.model.generic.ResultLocation;
+import googlesheets.model.generic.ResultLocationProvider;
 import googlesheets.model.generic.sheetselection.SheetSelection;
 import googlesheets.model.generic.sheetselection.SheetSelectionProvider;
 import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
@@ -8,7 +9,7 @@ import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombineSheetsOptions implements SheetSelectionProvider {
+public class CombineSheetsOptions implements SheetSelectionProvider, ResultLocationProvider {
     private List<SheetSelection> sheets = new ArrayList<>();
     private List<String> driveSheets = new ArrayList<>();
     private List<SpreadsheetSelection> selectedSpreadsheets = new ArrayList<>();
@@ -98,5 +99,11 @@ public class CombineSheetsOptions implements SheetSelectionProvider {
 
     public void setDriveSheets(List<String> driveSheets) {
         this.driveSheets = driveSheets;
+    }
+
+
+    @Override
+    public boolean isNewSpreadsheet() {
+        return resultLocation == ResultLocation.NEW_SPREADSHEET;
     }
 }

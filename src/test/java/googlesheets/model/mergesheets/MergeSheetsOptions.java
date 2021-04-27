@@ -1,12 +1,13 @@
 package googlesheets.model.mergesheets;
 
+import googlesheets.model.generic.ResultLocationProvider;
 import googlesheets.model.generic.rowselection.PairSelection;
 import googlesheets.model.generic.rowselection.TripleSelection;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MergeSheetsOptions {
+public class MergeSheetsOptions implements ResultLocationProvider {
     private String mainSheet;
     private String mainTableRange;
     private boolean createBackupCopy;
@@ -188,5 +189,11 @@ public class MergeSheetsOptions {
 
     public void setResultLocation(MergeSheetsResultLocationEnumeration resultLocation) {
         this.resultLocation = resultLocation;
+    }
+
+
+    @Override
+    public boolean isNewSpreadsheet() {
+        return resultLocation == MergeSheetsResultLocationEnumeration.NEW_SPREADSHEET;
     }
 }

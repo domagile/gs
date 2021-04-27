@@ -1,6 +1,6 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.generic.addon.ResultInfo;
+import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

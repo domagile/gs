@@ -1,4 +1,4 @@
-package googlesheets.service.generic.addon;
+package googlesheets.service.generic.addon.resultchecker;
 
 public class ResultInfo {
     private String newSpreadsheetLink;

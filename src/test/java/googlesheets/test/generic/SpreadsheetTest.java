@@ -1,4 +1,4 @@
-package googlesheets.test;
+package googlesheets.test.generic;
 
 import googlesheets.service.generic.google.GoogleSheetService;
 import org.junit.AfterClass;

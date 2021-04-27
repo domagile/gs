@@ -1,6 +1,7 @@
 package googlesheets.model.consolidatesheets;
 
 import googlesheets.model.generic.ResultLocation;
+import googlesheets.model.generic.ResultLocationProvider;
 import googlesheets.model.generic.sheetselection.SheetSelection;
 import googlesheets.model.generic.sheetselection.SheetSelectionProvider;
 import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
@@ -8,7 +9,7 @@ import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsolidateSheetsOptions implements SheetSelectionProvider {
+public class ConsolidateSheetsOptions implements SheetSelectionProvider, ResultLocationProvider {
     private List<SheetSelection> sheets = new ArrayList<>();
     private List<String> driveSheets = new ArrayList<>();
     private List<SpreadsheetSelection> spreadsheetSelections = new ArrayList<>();
@@ -108,5 +109,10 @@ public class ConsolidateSheetsOptions implements SheetSelectionProvider {
 
     public void setUseLeftColumnLabel(boolean useLeftColumnLabel) {
         this.useLeftColumnLabel = useLeftColumnLabel;
+    }
+
+    @Override
+    public boolean isNewSpreadsheet() {
+        return resultLocation == ResultLocation.NEW_SPREADSHEET;
     }
 }

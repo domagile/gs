@@ -1,6 +1,7 @@
 package googlesheets.service.generic.addon;
 
 import googlesheets.service.GlobalContext;
+import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.google.GoogleSheetService;
 import org.openqa.selenium.*;
