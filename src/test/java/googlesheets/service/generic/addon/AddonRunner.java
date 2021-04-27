@@ -57,12 +57,16 @@ public class AddonRunner {
 
     private static IFrameInfo runPowerTools() {
         clickAddonsMenu();
-        clickHighLevelMenuItem("Power Tools", "Start");
+        clickHighLevelMenuItem(getPowerToolsMenuText(), "Start");
         clickMenuItem("Start");
         //todo: change to some explicit wait
         //wait for dialog window to be loaded
         sleep(5000);
         return switchDriverToAddonIframe();
+    }
+
+    private static String getPowerToolsMenuText() {
+        return "Power Tools" + (GlobalContext.TEST_RC_VERSION ? " RC" : "");
     }
 
 
@@ -74,7 +78,13 @@ public class AddonRunner {
 
 
     protected void clickGroupMenu(String addonMenuName) {
-        clickHighLevelMenuItem(groupMenuItemText, lastMenuItemText, isExactMenuItemText());
+        clickHighLevelMenuItem(getGroupMenuItemText(), lastMenuItemText, isExactMenuItemText());
+    }
+
+
+    private String getGroupMenuItemText()
+    {
+        return GlobalContext.TEST_RC_VERSION ? groupMenuItemText + " RC" : groupMenuItemText;
     }
 
 

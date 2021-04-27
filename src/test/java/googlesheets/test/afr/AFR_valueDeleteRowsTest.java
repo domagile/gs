@@ -6,6 +6,7 @@ import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
@@ -19,7 +20,7 @@ public class AFR_valueDeleteRowsTest extends AFRTest {
 
     }
 
-
+@Ignore
     @Test
     public void valueDeleteRowsAllFoundEntries() {
 

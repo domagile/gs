@@ -1,6 +1,7 @@
 package googlesheets.service.advancedfindreplace;
 
 import googlesheets.model.advancedfindreplace.AFRActionEnumeration;
+import googlesheets.service.generic.xpath.XPathHelper;
 import org.openqa.selenium.By;
 
 import java.util.List;
@@ -78,6 +79,10 @@ public class AdvancedFindReplaceService {
         clickElement(BUTTON_ID_NEW_SEARCH);
     }
 
+    public static void selectedEntries(String text) {
+        clickElement(By.xpath(XPathHelper.textContains("Master", "td")));
+    }
+
 
     public static void runMenuAction(AFRActionEnumeration action) {
         runMenuAction(action, -1);
@@ -125,4 +130,6 @@ public class AdvancedFindReplaceService {
     public static void setErrors(boolean value) {
         setCheckboxValue(value, "afrErrorsCheckbox");
     }
+
+
 }
