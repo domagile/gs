@@ -19,7 +19,7 @@ public class RDC004_step2Uniques1stOccurrencesColorTest extends RDCTest {
 
 
     @Test
-    public void uniques1stOccurrencesColor() throws IOException {
+    public void uniques1stOccurrencesColor() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

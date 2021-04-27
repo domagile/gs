@@ -14,13 +14,14 @@ import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveD
 public class RDC001_step2DuplicatesColorTest extends RDCTest {
     @BeforeClass
     public static void openDocument() {
-       openDocument("https://docs.google.com/spreadsheets/d/1c_5vVrPUfznnJeqUqVXpa1bbTF60B57L3eDNuvVe-vU/edit#gid=1125282730");
+      openDocument("https://docs.google.com/spreadsheets/d/1c_5vVrPUfznnJeqUqVXpa1bbTF60B57L3eDNuvVe-vU/edit#gid=1125282730");
+
 
     }
 
 
     @Test
-    public void duplicatesColor() throws IOException {
+    public void duplicatesColor() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

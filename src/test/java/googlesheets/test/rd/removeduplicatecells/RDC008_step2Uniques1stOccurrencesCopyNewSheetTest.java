@@ -18,7 +18,7 @@ public class RDC008_step2Uniques1stOccurrencesCopyNewSheetTest extends RDRTest {
 
 
     @Test
-    public void uniques1stOccurrencesCopyNewSheet() throws IOException {
+    public void uniques1stOccurrencesCopyNewSheet() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();
