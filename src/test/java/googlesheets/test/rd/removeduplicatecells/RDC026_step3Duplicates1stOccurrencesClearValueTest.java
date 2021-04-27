@@ -19,7 +19,7 @@ public class RDC026_step3Duplicates1stOccurrencesClearValueTest extends RDRTest 
 
 
     @Test
-    public void duplicates1stOccurrencesClearValue() throws IOException {
+    public void duplicates1stOccurrencesClearValue() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

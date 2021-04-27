@@ -19,7 +19,7 @@ public class RDC022_step3Duplicates1stOccurrencesMoveNewSpreadsheetTest extends 
 
 
     @Test
-    public void duplicates1stOccurrencesMoveNewSpreadsheet() throws IOException {
+    public void duplicates1stOccurrencesMoveNewSpreadsheet() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         setRange("A1:C35");

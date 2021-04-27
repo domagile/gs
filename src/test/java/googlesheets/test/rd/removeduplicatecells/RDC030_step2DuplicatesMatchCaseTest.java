@@ -19,7 +19,7 @@ public class RDC030_step2DuplicatesMatchCaseTest extends RDCTest {
 
 
     @Test
-    public void duplicatesMatchCase() throws IOException {
+    public void duplicatesMatchCase() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

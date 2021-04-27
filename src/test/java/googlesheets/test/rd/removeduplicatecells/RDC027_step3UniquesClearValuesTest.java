@@ -19,7 +19,7 @@ public class RDC027_step3UniquesClearValuesTest extends RDRTest {
 
 
     @Test
-    public void uniquesClearValues() throws IOException {
+    public void uniquesClearValues() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

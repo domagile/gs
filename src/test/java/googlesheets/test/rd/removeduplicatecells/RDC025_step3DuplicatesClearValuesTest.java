@@ -13,13 +13,13 @@ import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveD
 
 public class RDC025_step3DuplicatesClearValuesTest extends RDRTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         openDocument("https://docs.google.com/spreadsheets/d/1k1-Wlc3mOeRDFtBtIVz23uxpVim3sbScl1p6-JB2pG0/edit#gid=1538338207");
     }
 
 
     @Test
-    public void duplicatesClearValues() throws IOException {
+    public void duplicatesClearValues() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();
