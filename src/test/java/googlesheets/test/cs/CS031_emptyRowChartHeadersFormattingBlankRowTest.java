@@ -15,7 +15,7 @@ public class CS031_emptyRowChartHeadersFormattingBlankRowTest extends CSTest {
     @Test
     public void emptyRowChartHeadersFormattingBlankRow() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()
-                .combinedSheets(1, 2, 3)
+                .combinedSheets(1, 2)
                 .considerTableHeaders(true)
                 .preserveFormatting(true)
                 .separateByBlankRow(true)

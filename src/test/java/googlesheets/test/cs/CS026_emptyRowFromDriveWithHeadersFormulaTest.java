@@ -10,7 +10,8 @@ import org.junit.Test;
 public class CS026_emptyRowFromDriveWithHeadersFormulaTest extends CSTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1t4GwzhzzBXx1kkM4VxO5wjkxv5jbYu-3KWg7HB8txE0/edit#gid=192334885");
+        //openDocument("https://docs.google.com/spreadsheets/d/1t4GwzhzzBXx1kkM4VxO5wjkxv5jbYu-3KWg7HB8txE0/edit#gid=192334885");
+        openDocument("https://docs.google.com/spreadsheets/d/1JNLBJjHdKIHZVMOISTIeDi9UjD21oD425L3Bep8SReA/edit#gid=192334885");
     }
 
     @Test

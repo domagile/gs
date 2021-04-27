@@ -15,7 +15,7 @@ public class CS027_chartTest extends CSTest {
     @Test
     public void chart() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()
-                .combinedSheets(1, 2, 3)
+                .combinedSheets(1, 2)
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);

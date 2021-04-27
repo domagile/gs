@@ -15,7 +15,7 @@ public class CS029_chartConsiderHeadersUseFormulaTest extends CSTest {
     @Test
     public void chartConsiderHeadersUseFormula() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()
-                .combinedSheets(1, 2, 3)
+                .combinedSheets(1, 2)
                 .considerTableHeaders(true)
                 .useFormula(true)
                 .resultLocation(ResultLocation.NEW_SHEET)

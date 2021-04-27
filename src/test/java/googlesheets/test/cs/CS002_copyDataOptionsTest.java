@@ -20,6 +20,7 @@ public class CS002_copyDataOptionsTest extends CSTest {
                 .considerTableHeaders(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
+
         checkResult("CS_002_considerTableHeaders.csv");
     }
 }
