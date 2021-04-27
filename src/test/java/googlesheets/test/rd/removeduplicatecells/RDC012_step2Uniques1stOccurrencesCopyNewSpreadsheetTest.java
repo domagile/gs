@@ -20,7 +20,7 @@ public class RDC012_step2Uniques1stOccurrencesCopyNewSpreadsheetTest extends RDR
 
 
     @Test
-    public void uniques1stOccurrencesCopyNewSpreadsheet() throws IOException {
+    public void uniques1stOccurrencesCopyNewSpreadsheet() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

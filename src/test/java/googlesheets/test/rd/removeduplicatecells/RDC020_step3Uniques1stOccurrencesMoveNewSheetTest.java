@@ -19,7 +19,7 @@ public class RDC020_step3Uniques1stOccurrencesMoveNewSheetTest extends RDRTest {
 
 
     @Test
-    public void uniques1stOccurrencesMoveNewSheet() throws IOException {
+    public void uniques1stOccurrencesMoveNewSheet() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         // freezes without sleep

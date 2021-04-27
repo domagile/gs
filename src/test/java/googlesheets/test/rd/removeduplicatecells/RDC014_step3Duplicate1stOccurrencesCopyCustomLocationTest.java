@@ -20,7 +20,7 @@ public class RDC014_step3Duplicate1stOccurrencesCopyCustomLocationTest extends R
 
 
     @Test
-    public void duplicate1stOccurrencesCopyCustomLocation() throws IOException{
+    public void duplicate1stOccurrencesCopyCustomLocation() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

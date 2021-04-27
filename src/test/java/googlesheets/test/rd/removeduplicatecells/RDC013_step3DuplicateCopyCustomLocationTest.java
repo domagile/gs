@@ -14,13 +14,13 @@ import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveD
 
 public class RDC013_step3DuplicateCopyCustomLocationTest extends RDCTest {
     @BeforeClass
-    public static void openDocument() throws InterruptedException {
+    public static void openDocument() {
         openDocument("https://docs.google.com/spreadsheets/d/10PiV_zZBs2BbkK7klfBnatGHGTishkQz8jci6d0xsTI/edit#gid=917760029");
     }
 
 
     @Test
-    public void duplicateCopyCustomLocation() throws IOException{
+    public void duplicateCopyCustomLocation() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

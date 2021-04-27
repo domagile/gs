@@ -20,7 +20,7 @@ public class RDC016_step3Uniques1stOccurrencesCopyCustomLocationTest extends RDC
 
 
     @Test
-    public void uniques1stOccurrencesCopyCustomLocation() throws IOException{
+    public void uniques1stOccurrencesCopyCustomLocation() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();

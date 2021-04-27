@@ -20,7 +20,7 @@ public class RDC019_step3UniquesMoveNewSheetTest extends RDRTest {
 
 
     @Test
-    public void uniquesMoveNewSheet() throws IOException {
+    public void uniquesMoveNewSheet() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         setRange("A1:C25");

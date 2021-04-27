@@ -20,7 +20,7 @@ public class RDC011_step2UniquesCopyNewSpreadsheetTest extends RDRTest {
 
 
     @Test
-    public void uniquesCopyNewSpreadsheet() throws IOException {
+    public void uniquesCopyNewSpreadsheet() {
         runFindDuplicateOrUniqueCells();
         setCreateBackupCopyOfSheet(false);
         clickNext();
