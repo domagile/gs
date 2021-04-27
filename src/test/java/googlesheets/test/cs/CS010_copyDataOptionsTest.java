@@ -25,6 +25,6 @@ public class CS010_copyDataOptionsTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
         sleep(5000);
-        checkResult("CS_010_considerHeadersAndUseFormula.csv");
+        checkResult();
     }
 }

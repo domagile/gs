@@ -19,6 +19,6 @@ public class CS027_chartTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_027_chart.csv");
+        checkResult();
     }
 }

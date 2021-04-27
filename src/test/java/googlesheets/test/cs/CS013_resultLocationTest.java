@@ -25,7 +25,7 @@ public class CS013_resultLocationTest extends CSTest {
                 .resultLocation(ResultLocation.CUSTOM_LOCATION)
                 .build();
         execute(options);
-        checkResult("CS_013_customLocationDialogInput.csv");
+        checkResult();
     }
 
 

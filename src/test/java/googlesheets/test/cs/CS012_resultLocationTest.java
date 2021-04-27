@@ -3,7 +3,6 @@ package googlesheets.test.cs;
 import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
-import googlesheets.service.generic.addon.ResultInfo;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,7 +24,7 @@ public class CS012_resultLocationTest extends CSTest {
                 .customLocationValue("Table2!B15")
                 .build();
         execute(options);
-        checkResult("CS_012_customLocationFieldInput.csv");
+        checkResult();
     }
 
 

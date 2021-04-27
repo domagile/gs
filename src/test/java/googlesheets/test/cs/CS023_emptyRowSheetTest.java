@@ -19,6 +19,6 @@ public class CS023_emptyRowSheetTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_023_emptyRowSheet.csv");
+        checkResult();
     }
 }

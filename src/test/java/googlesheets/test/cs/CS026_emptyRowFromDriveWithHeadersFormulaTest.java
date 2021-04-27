@@ -25,6 +25,6 @@ public class CS026_emptyRowFromDriveWithHeadersFormulaTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_026_emptyRowFromDriveWithHeadersFormula.csv");
+        checkResult();
     }
 }

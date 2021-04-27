@@ -21,6 +21,6 @@ public class CS008_copyDataOptionsTest extends CSTest {
                 .preserveFormatting(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkExcelResult("CS_008_preserveFormattingAndSeparateByBlankRow.xlsx");
+        checkExcelResult();
     }
 }

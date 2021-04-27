@@ -20,6 +20,6 @@ public class CS024_emptyRowConsiderTableHeadersTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_024_emptyRowConsiderTableHeaders.csv");
+        checkResult();
     }
 }

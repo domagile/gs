@@ -20,6 +20,6 @@ public class CS004_copyDataOptionsTest extends CSTest {
                 .preserveFormatting(true)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkExcelResult("CS_004_preserveFormatting.xlsx");
+        checkExcelResult();
     }
 }

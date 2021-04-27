@@ -22,6 +22,6 @@ public class CS030_emptyRowHeadersFormattingBlankRowTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkExcelResult("CS_030_emptyRowHeadersFormattingBlankRow.xlsx");
+        checkExcelResult();
     }
 }

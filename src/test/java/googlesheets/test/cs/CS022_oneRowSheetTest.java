@@ -19,6 +19,6 @@ public class CS022_oneRowSheetTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_022_oneRowSheet.csv");
+        checkResult();
     }
 }

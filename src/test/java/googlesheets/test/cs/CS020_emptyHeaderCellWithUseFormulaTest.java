@@ -23,6 +23,6 @@ public class CS020_emptyHeaderCellWithUseFormulaTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_020_emptyHeaderCellWithUseFormula.csv");
+        checkResult();
     }
 }

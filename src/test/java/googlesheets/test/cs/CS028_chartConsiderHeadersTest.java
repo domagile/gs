@@ -20,6 +20,6 @@ public class CS028_chartConsiderHeadersTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_028_chartConsiderHeaders.csv");
+        checkResult();
     }
 }

@@ -21,6 +21,6 @@ public class CS029_chartConsiderHeadersUseFormulaTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_029_chartConsiderHeadersUseFormula.csv");
+        checkResult();
     }
 }

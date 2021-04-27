@@ -19,6 +19,6 @@ public class CS001_copyDataOptionsTest extends CSTest {
                 .combinedSheets(1, 2, 3)
                 .resultLocation(ResultLocation.NEW_SHEET).build();
         execute(options);
-        checkResult("CS_001_copyDataOptionsDeselected.csv");
+        checkResult();
     }
 }

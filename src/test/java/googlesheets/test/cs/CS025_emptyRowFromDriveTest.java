@@ -23,6 +23,6 @@ public class CS025_emptyRowFromDriveTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_025_emptyRowFromDrive.csv");
+        checkResult();
     }
 }

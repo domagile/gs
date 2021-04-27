@@ -22,6 +22,6 @@ public class CS019_sheetSelectionTest extends CSTest {
                 .resultLocation(ResultLocation.NEW_SHEET)
                 .build();
         execute(options);
-        checkResult("CS_019_twoSheetsWithRange.csv");
+        checkResult();
     }
 }
