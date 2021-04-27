@@ -16,7 +16,7 @@ public class CTS001_duplicatesAddStatusTest extends CTSTest {
 
 
     @Test
-    public void duplicatesAddStatus() throws IOException {
+    public void duplicatesAddStatus() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
 

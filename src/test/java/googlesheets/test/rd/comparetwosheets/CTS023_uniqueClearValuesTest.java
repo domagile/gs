@@ -16,7 +16,7 @@ public class CTS023_uniqueClearValuesTest extends CTSTest {
     }
 
     @Test
-    public void uniqueClearValues() throws IOException {
+    public void uniqueClearValues() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

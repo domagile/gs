@@ -16,7 +16,7 @@ public class CTS024_uniqueDeleteRowsWithinSelectionTest extends CTSTest {
     }
 
     @Test
-    public void uniqueDeleteRowsWithinSelection() throws IOException {
+    public void uniqueDeleteRowsWithinSelection() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

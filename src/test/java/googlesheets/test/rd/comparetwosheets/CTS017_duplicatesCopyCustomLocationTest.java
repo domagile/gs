@@ -7,15 +7,16 @@ import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
+import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.setCustomLocationRange;
 
-public class CTS017_duplicatesCopyExistingSheetTest extends CTSTest {
+public class CTS017_duplicatesCopyCustomLocationTest extends CTSTest {
     @BeforeClass
     public static void openDocument() {
         openDocument("https://docs.google.com/spreadsheets/d/1Y1sDf_HUxcFSL6fFjCnsNzMscKEVMqsmkgN-f0JTdrA/edit#gid=117501248");
     }
 
     @Test
-    public void duplicatesCopyToExistingSheet() throws IOException {
+    public void duplicatesCopyCustomLocation() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -36,14 +37,11 @@ public class CTS017_duplicatesCopyExistingSheetTest extends CTSTest {
         clickNext();
 
         clickCopyToAnotherLocation();
-        clickExistingSheet();
-        selectExistingSheet("Table1");
-        //wait for Table1 list to become active
-        sleep(1000);
-        setRangeExistingSheet("K1");
+        clickCustomLocation();
+        setCustomLocationRange("'Table1'!K1");
 
         clickFinishAndClose();
-        checkResult(getResultListName("Table1"), "comparetwosheets\\CTS_017_duplicatesCopyToExistingSheet.csv");
+        checkResult(getResultListName("Table1"), "comparetwosheets\\CTS_017_duplicatesCopyCustomLocation.csv");
     }
 
     @Override

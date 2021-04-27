@@ -15,7 +15,7 @@ public class CTS029_table1AndTable3AddStatusTest extends CTSTest {
     }
 
     @Test
-    public void uniqueTable1AndTable3AddStatus() throws IOException {
+    public void uniqueTable1AndTable3AddStatus() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

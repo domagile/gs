@@ -16,7 +16,7 @@ public class CTS015_duplicatesCopyNewSheetTest extends CTSTest {
     }
 
     @Test
-    public void duplicatesCopyNewSheet() throws IOException {
+    public void duplicatesCopyNewSheet() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
@@ -39,7 +39,7 @@ public class CTS015_duplicatesCopyNewSheetTest extends CTSTest {
         clickNewSheet();
 
         clickFinishAndClose();
-         checkResult(getResultListName("Table1 - duplicates"), "comparetwosheets\\CTS_015_duplicatesCopyNewSheet.csv");;
+         checkResult(getResultListName("Table1 - duplicates"), "comparetwosheets\\CTS_015_duplicatesCopyNewSheet.csv");
     }
 
     @Override

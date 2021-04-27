@@ -17,7 +17,7 @@ public class CTS005_duplicatesHasNotHeadersTable1ColorTest extends CTSTest {
     }
 
     @Test
-    public void duplicatesHasNotHeadersTable1FillWithColor() throws IOException {
+    public void duplicatesHasNotHeadersTable1FillWithColor() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C4:I10");

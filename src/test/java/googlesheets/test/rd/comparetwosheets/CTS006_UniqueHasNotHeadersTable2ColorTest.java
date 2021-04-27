@@ -2,7 +2,6 @@ package googlesheets.test.rd.comparetwosheets;
 
 import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPair;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class CTS006_UniqueHasNotHeadersTable2ColorTest extends CTSTest {
     }
 
     @Test
-    public void uniqueFillWithColor() throws IOException {
+    public void uniqueFillWithColor() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

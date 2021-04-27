@@ -16,7 +16,7 @@ public class CTS025_uniqueCopyNewSheetTest extends CTSTest {
     }
 
     @Test
-    public void uniqueCopyToAnotherLocationNewSheet() throws IOException {
+    public void uniqueCopyToAnotherLocationNewSheet() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

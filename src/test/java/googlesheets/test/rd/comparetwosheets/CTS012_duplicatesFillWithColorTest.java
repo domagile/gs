@@ -1,6 +1,5 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPair;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class CTS012_duplicatesFillWithColorTest extends CTSTest {
     }
 
     @Test
-    public void duplicatesFillWithColor() throws IOException {
+    public void duplicatesFillWithColor() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

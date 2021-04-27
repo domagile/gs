@@ -16,7 +16,7 @@ public class CTS011_duplicatesDeleteRowsWithinSelectionTest extends CTSTest {
 
 
     @Test
-    public void duplicatesDeleteRowsWithinSelection() throws IOException {
+    public void duplicatesDeleteRowsWithinSelection() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

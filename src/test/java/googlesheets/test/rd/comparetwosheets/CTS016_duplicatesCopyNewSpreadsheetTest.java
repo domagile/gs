@@ -6,9 +6,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
-import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.waitForNewSpreadsheetAndClose;
 
 public class CTS016_duplicatesCopyNewSpreadsheetTest extends CTSTest {
     @BeforeClass
@@ -17,7 +15,7 @@ public class CTS016_duplicatesCopyNewSpreadsheetTest extends CTSTest {
     }
 
     @Test
-    public void duplicatesCopyNewSpreadsheet() throws IOException {
+    public void duplicatesCopyNewSpreadsheet() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

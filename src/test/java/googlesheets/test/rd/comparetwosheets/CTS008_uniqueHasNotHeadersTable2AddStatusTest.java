@@ -16,7 +16,7 @@ public class CTS008_uniqueHasNotHeadersTable2AddStatusTest extends CTSTest {
     }
 
     @Test
-    public void uniqueAddStatusAllColumns() throws IOException {
+    public void uniqueAddStatusAllColumns() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:G10");

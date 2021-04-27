@@ -15,7 +15,7 @@ public class CTS013_duplicatesClearValuesTest extends CTSTest {
     }
 
     @Test
-    public void duplicatesClearValues() throws IOException {
+    public void duplicatesClearValues() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

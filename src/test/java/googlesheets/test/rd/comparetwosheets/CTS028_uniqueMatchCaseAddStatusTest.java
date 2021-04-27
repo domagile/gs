@@ -17,7 +17,7 @@ public class CTS028_uniqueMatchCaseAddStatusTest extends CTSTest {
     }
 
     @Test
-    public void uniqueCopyToAnotherLocationNewSheet() throws IOException {
+    public void uniqueCopyToAnotherLocationNewSheet() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");

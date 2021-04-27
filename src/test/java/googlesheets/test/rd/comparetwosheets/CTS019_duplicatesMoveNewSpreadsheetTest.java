@@ -16,7 +16,7 @@ public class CTS019_duplicatesMoveNewSpreadsheetTest extends CTSTest {
     }
 
     @Test
-    public void duplicatesMoveToNewSpreadsheet() throws IOException {
+    public void duplicatesMoveToNewSpreadsheet() {
         runCompareColumnsOrSheets();
         setCreateBackupCopyOfSheet(false);
         setStep1Range("C3:I10");
