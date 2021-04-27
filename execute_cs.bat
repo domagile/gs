@@ -1,0 +1,1 @@
+gradle test --tests googlesheets.test.cs*
