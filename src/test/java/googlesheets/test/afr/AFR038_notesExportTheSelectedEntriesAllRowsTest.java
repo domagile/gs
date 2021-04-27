@@ -8,30 +8,29 @@ import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
+import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
+import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.selectedEntries;
 import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 
-public class AFR021_valueExportRowsAllEntriesTest extends AFRTest {
+public class AFR038_notesExportTheSelectedEntriesAllRowsTest extends AFRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1SE-dQAl2bDVBvGd_7LJsRwxmhToRSELDKFkKoA9HlOg/edit#gid=21154533");
+        openDocument("https://docs.google.com/spreadsheets/d/1hyg31YxdVAgWxIXTKtWslE0k3zZN9SyRWTqQuRMDgLY/edit#gid=125546058");
     }
 
     @Test
-    public void valuesExportRowsAllEntries() {
-
+    public void formulaExportTheSelectedEntriesAllRows() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
-                .searchSheetIndexes(2)
                 .searchInType(SearchInSelection.SELECTED_LISTS)
-                .searchString("600")
-                .values(true)
+                .searchSheetIndexes(2,3)
+                .searchString("note")
+                .notes(true)
                 .build();
         execute(options);
-        runMenuAction(AFRActionEnumeration.EXPORT_ROWS_WITH_ALL_ENTRIES);
 
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_021_valueExportRowsAllEntries.csv");
+        selectedEntries("Master");
+        runMenuAction(AFRActionEnumeration.EXPORT_SELECTED_ENTRIES);
+        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_038_notesExportTheSelectedEntriesAllRows.csv");
     }
-
 
 }

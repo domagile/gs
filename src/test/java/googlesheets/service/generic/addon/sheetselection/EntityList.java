@@ -40,8 +40,7 @@ public class EntityList {
     {
         WebElement td = trs.get(row).findElements(TAG_TD).get(column);
         WebElement select = td.findElement(comboboxLocator);
-        Select combobox = new Select(select);
-        combobox.selectByVisibleText(value);
+        selectComboboxValue(select, value);
     }
 
 

@@ -8,30 +8,26 @@ import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
+import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
 import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 
-public class AFR021_valueExportRowsAllEntriesTest extends AFRTest {
+public class AFR028_FormulaExportRowsWithAllFoundEntriesTest extends AFRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1SE-dQAl2bDVBvGd_7LJsRwxmhToRSELDKFkKoA9HlOg/edit#gid=21154533");
+        openDocument("https://docs.google.com/spreadsheets/d/1fsoP8iKzxYKDjJZ9sZTkAHhKjF3fZI8iEi3ThR0nTbg/edit#gid=134980356");
     }
 
     @Test
-    public void valuesExportRowsAllEntries() {
-
+    public void formulaExportRowsWithAllFoundEntries() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
-                .searchSheetIndexes(2)
                 .searchInType(SearchInSelection.SELECTED_LISTS)
-                .searchString("600")
-                .values(true)
+                .searchSheetIndexes(2)
+                .searchString("SUM")
+                .formulas(true)
                 .build();
         execute(options);
+
         runMenuAction(AFRActionEnumeration.EXPORT_ROWS_WITH_ALL_ENTRIES);
-
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_021_valueExportRowsAllEntries.csv");
+        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_028_formulaExportRowsWithAllFoundEntries.csv");
     }
-
-
 }

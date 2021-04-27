@@ -8,30 +8,28 @@ import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
+import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
 import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
 
-public class AFR021_valueExportRowsAllEntriesTest extends AFRTest {
+public class AFR047_hyperlinksExportRowsWithSelectedEntriesOneRowTest extends AFRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1SE-dQAl2bDVBvGd_7LJsRwxmhToRSELDKFkKoA9HlOg/edit#gid=21154533");
+        openDocument("https://docs.google.com/spreadsheets/d/1EDRftukJkHBIygR9uSVGSjr7e5ROXjnq34Ai7v6_7rI/edit#gid=23700143");
     }
 
     @Test
-    public void valuesExportRowsAllEntries() {
-
+    public void hyperlinksExportRowsWithSelectedEntriesOneRow() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
-                .searchSheetIndexes(2)
                 .searchInType(SearchInSelection.SELECTED_LISTS)
-                .searchString("600")
-                .values(true)
+                .searchSheetIndexes(2,3)
+                .searchString("com")
+                .hyperlinks(true)
                 .build();
         execute(options);
-        runMenuAction(AFRActionEnumeration.EXPORT_ROWS_WITH_ALL_ENTRIES);
 
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_021_valueExportRowsAllEntries.csv");
+
+        runMenuAction(AFRActionEnumeration.EXPORT_ROWS_WITH_SELECTED_ENTRIES);
+        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_047_hyperlinksExportRowsWithSelectedEntriesOneRow.csv");
     }
-
 
 }

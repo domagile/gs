@@ -11,30 +11,30 @@ import org.junit.Test;
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
-public class AFR023_valueExportRowsAllEntriesTest extends AFRTest {
+public class AFR044_hyperlinksDeleteRowsWithAllFoundEntriesTest extends AFRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1JwavDDyUL-dmpeVWoy0_u8aJMjPzh7yg0HZz_6_-3sI/edit#gid=864208606");
-
+        openDocument("https://docs.google.com/spreadsheets/d/1N3DAbIjGLZ3Gyi-yO4rXtcxUQgP8i87VEZO0FxK9m5s/edit#gid=23700143");
     }
-
 
     @Test
-    public void valueExportRowsAllEntries() {
-
+    public void hyperlinksDeleteRowsWithAllFoundEntries() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()
-                .searchSheetIndexes(2)
                 .searchInType(SearchInSelection.SELECTED_LISTS)
-                .searchString("600")
-                .values(true)
+                .searchSheetIndexes(2)
+                .searchString("com")
+                .hyperlinks(true)
                 .build();
         execute(options);
-       runMenuAction(AFRActionEnumeration.EXPORT_ROWS_WITH_ALL_ENTRIES);
 
-
-        sleep(7000);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_023_valueExportRowsAllEntries.csv");
-
+        runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES);
+        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_044_hyperlinksDeleteRowsWithAllFoundEntries.csv");
     }
 
+    protected void restoreInitialDocumentState(String resultListName) {
+        //fixme: restoration of data should be done through API
+        //wait after CSV download start
+        sleep(2000);
+        clickUndo(5);
+    }
 }

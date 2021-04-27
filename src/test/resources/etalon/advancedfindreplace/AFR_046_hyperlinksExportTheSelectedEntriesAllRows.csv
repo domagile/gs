@@ -1,0 +1,25 @@
+Sheet,Cell,Type,Value
+Master,C8,Hyperlink,https://www.att.com/
+Master,C18,Hyperlink,www.verizon.com
+Master,C26,Hyperlink,www.yahoo.com
+Master,C32,Hyperlink,https://www.xfinity.com/
+Master,C35,Hyperlink,https://currently.att.yahoo.com/
+Master,C41,Hyperlink,www.apple.com
+Master,C84,Hyperlink,Apple
+Master,C95,Hyperlink,www.apple.com
+Master,C100,Hyperlink,Apple
+Master,C110,Hyperlink,xfinity
+Master,C118,Hyperlink,https://www.xfinity.com/
+Master,C126,Hyperlink,xfinity
+Master,C217,Hyperlink,https://www.laredoute.com/
+Master,C226,Hyperlink,laredoute
+Master,C230,Hyperlink,https://www.laredoute.com/
+Master,C232,Hyperlink,laredoute
+Master,C236,Hyperlink,https://www.laredoute.com/
+Master,C8,Hyperlink,"=HYPERLINK(""https://www.att.com/"")"
+Master,C18,Hyperlink,"=HYPERLINK(""www.verizon.com"")"
+Master,C84,Hyperlink,"=HYPERLINK(""www.apple.com"",""Apple"")"
+Master,C118,Hyperlink,"=HYPERLINK(""https://www.xfinity.com/"")"
+Master,C126,Hyperlink,"=HYPERLINK(""https://www.xfinity.com"", ""xfinity"")"
+Master,C230,Hyperlink,"=HYPERLINK(""https://www.laredoute.com/"")"
+Master,C232,Hyperlink,"=HYPERLINK(""https://www.laredoute.com"", ""laredoute"")"

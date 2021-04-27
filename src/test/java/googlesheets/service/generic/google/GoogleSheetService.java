@@ -117,6 +117,13 @@ public class GoogleSheetService {
         }, locator, InvalidElementStateException.class);
     }
 
+    public static void clickElement(WebElement webElement) {
+        invokeFunctionWithReinvocation(element -> {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+            element.click();
+        }, webElement, InvalidElementStateException.class);
+    }
+
 
     public static void clearFieldWithCtrlADel(WebElement field) {
         field.sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
@@ -443,6 +450,16 @@ public class GoogleSheetService {
         String currentText = getPresentElement(fieldId).getAttribute("value");
         if (!currentText.equals(text)) {
             setTextFunction.accept(text, fieldId);
+        }
+    }
+
+
+    public static void checkText(String text, WebElement element, BiConsumer<WebElement, String> setTextFunction) {
+        String currentText = element.getAttribute("value");
+        if (!currentText.equals(text)) {
+            //todo: throw exception to trigger reinvocation
+            sleep(1000);
+            setTextFunction.accept(element, text);
         }
     }
 
