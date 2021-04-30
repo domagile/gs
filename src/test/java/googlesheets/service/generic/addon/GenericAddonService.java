@@ -31,8 +31,7 @@ public abstract class GenericAddonService {
         if (GlobalContext.IS_POWER_TOOLS_MODE) {
             return switchDriverToCheckedAddonIframe(iFrame -> !iFrame.getAttribute("src").equals(
                     GlobalContext.getInstance().getPowerToolsTopIFrameSrc()));
-        }
-        else {
+        } else {
             return switchDriverToCheckedAddonIframe(iFrame -> true);
         }
     }
@@ -117,8 +116,9 @@ public abstract class GenericAddonService {
     public static <T> void invokeFunctionWithReinvocation(Runnable function, Class<? extends WebDriverException>... exceptionTypes) {
         try {
             function.run();
-        } catch (WebDriverException e) {
-            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e)))
+        } catch (WebDriverException | FunctionInvocationException e) {
+            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e))
+                    && !(e instanceof FunctionInvocationException))
                 throw e;
             if (GlobalContext.getInstance().registerFunctionInvocation(function)) {
                 sleep(1000);
@@ -176,22 +176,19 @@ public abstract class GenericAddonService {
     }
 
 
-    public static void setNameBoxValueFromAddonContext(String value)
-    {
+    public static void setNameBoxValueFromAddonContext(String value) {
         switchDriverToDefaultContent();
         setNameBoxValue(value);
         switchDriverToAddonIframe();
     }
 
 
-    public static void setNameBoxValue(String value)
-    {
+    public static void setNameBoxValue(String value) {
         setText(value + Keys.ENTER, FIELD_ID_NAME_BOX);
     }
 
 
-    public static String getNameBoxValue()
-    {
+    public static String getNameBoxValue() {
         return getElement(FIELD_ID_NAME_BOX).getAttribute("value");
     }
 
@@ -204,8 +201,7 @@ public abstract class GenericAddonService {
     }
 
 
-    public static void waitNameBoxValue(String text, int checkNumber, int pauseMillis)
-    {
+    public static void waitNameBoxValue(String text, int checkNumber, int pauseMillis) {
         switchDriverToDefaultContent();
         waitForCondition(() -> getNameBoxValue().equals(text), checkNumber, pauseMillis);
         switchDriverToAddonIframe();
@@ -217,27 +213,23 @@ public abstract class GenericAddonService {
     }
 
 
-    public static void waitForWorkingMessageDisplayedAndHidden()
-    {
+    public static void waitForWorkingMessageDisplayedAndHidden() {
         waitForWorkingMessageDisplayedAndHidden(GlobalContext.DEFAULT_WORKING_MESSAGE_TIMEOUT);
     }
 
 
-    public static void waitForWorkingMessageDisplayedAndHidden(int timeoutSec)
-    {
+    public static void waitForWorkingMessageDisplayedAndHidden(int timeoutSec) {
         waitForWorkingMessage(true, timeoutSec);
         waitForWorkingMessage(false, timeoutSec);
     }
 
 
-    public static void waitForWorkingMessage(boolean isDisplayed)
-    {
+    public static void waitForWorkingMessage(boolean isDisplayed) {
         waitForWorkingMessage(isDisplayed, GlobalContext.DEFAULT_WORKING_MESSAGE_TIMEOUT);
     }
 
 
-    public static void waitForWorkingMessage(boolean isDisplayed, int timeoutSec)
-    {
+    public static void waitForWorkingMessage(boolean isDisplayed, int timeoutSec) {
         WebDriverWait wait = getWaitWithTimeout(timeoutSec);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
                 String.format("//div[@id='%s' and @style='display: %s;']", FIELD_ID_WORKING_MESSAGE_DIV,

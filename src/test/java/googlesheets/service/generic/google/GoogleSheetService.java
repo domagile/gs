@@ -3,6 +3,7 @@ package googlesheets.service.generic.google;
 import googlesheets.model.generic.rowselection.PairSelection;
 import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.service.GlobalContext;
+import googlesheets.service.generic.addon.FunctionInvocationException;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.generic.xpath.XPathHelper;
@@ -27,8 +28,7 @@ import static googlesheets.service.generic.google.Credentials.LOGIN;
 import static googlesheets.service.generic.google.Credentials.PASSWORD;
 import static googlesheets.service.generic.webdriver.FieldHelper.*;
 import static googlesheets.service.generic.webdriver.Locators.*;
-import static googlesheets.service.generic.webdriver.WebDriverService.openLink;
-import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
+import static googlesheets.service.generic.webdriver.WebDriverService.*;
 import static googlesheets.service.generic.xpath.XPathHelper.*;
 
 
@@ -230,19 +230,12 @@ public class GoogleSheetService {
     }
 
     public static void clickHighLevelMenuItem(String menuName, String nextMenuName, boolean exactText) {
-        String xpath = exactText ? "//*[text()='" + menuName + "']" : "//*[text()[contains(.,'" + menuName + "')]]";
-        getClickableElementByXpath(xpath).click();
-        try {
-            xpath = exactText ? "//*[text()='" + nextMenuName + "']" : "//*[text()[contains(.,'" + nextMenuName + "')]]";
-            //element is not clickable at least at AFR by some reason
-//            wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-            wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-        } catch (TimeoutException e) {
-            //fixme: repeat invocation only 1 time
-            clickHighLevelMenuItem(menuName, nextMenuName, exactText);
-        } finally {
-            WebDriverService.getInstance().resetWaitTimeout();
-        }
+        invokeFunctionWithReinvocation(() -> {
+            String xpath = exactText ? textIs(menuName) : textContains(menuName);
+            getPresentElementByXpath(xpath).click();
+            xpath = exactText ? textIs(nextMenuName) : textContains(nextMenuName);
+            getWaitWithTimeout(2).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        }, TimeoutException.class);
     }
 
     public static void clickRadioButton(String buttonId) {
@@ -408,10 +401,24 @@ public class GoogleSheetService {
 
 
     public static void selectComboboxValue(WebElement select, String value) {
-        invokeFunctionWithReinvocation((selectParam, valueParam) -> {
-            Select combobox = new Select(selectParam);
-            combobox.selectByVisibleText(valueParam);
-        }, select, value, ElementNotInteractableException.class, NoSuchElementException.class);
+        invokeFunctionWithReinvocation(() -> {
+            Select combobox = new Select(select);
+            combobox.selectByVisibleText(value);
+        }, ElementNotInteractableException.class, NoSuchElementException.class);
+    }
+
+
+    public static void selectAdxComboboxValue(String id, String value) {
+        invokeFunctionWithReinvocation(() -> {
+            WebElement adxCombobox = getElement(id);
+            clickElement(adxCombobox.findElement(By.className("adx-custom-select-button")));
+            if (!waitForCondition(
+                    () -> adxCombobox.findElement(By.className("adx-custom-select-menu")).getCssValue("display").equals("block"),
+                    2, 500)) {
+                throw new FunctionInvocationException();
+            }
+            clickElement(adxCombobox.findElement(By.xpath(textIs(value))));
+        }, StaleElementReferenceException.class);
     }
 
 
@@ -434,7 +441,7 @@ public class GoogleSheetService {
             WebElement field = getPresentElement(fieldId);
             field.clear();
             field.sendKeys(textValue);
-        }, text, ElementNotInteractableException.class);
+        }, text, InvalidElementStateException.class);
     }
 
 

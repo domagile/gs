@@ -2,10 +2,10 @@ package googlesheets.service.generic.addon.sheetselection;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static googlesheets.service.generic.google.GoogleSheetService.selectComboboxValue;
 import static googlesheets.service.generic.webdriver.Locators.TAG_TD;
 
 public class EntityList {

@@ -6,15 +6,10 @@ import org.openqa.selenium.By;
 
 import java.util.List;
 
-import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
 import static googlesheets.service.generic.addon.GenericAddonService.waitForWorkingMessageDisplayedAndHidden;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AdvancedFindReplaceService {
-    public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Advanced Find and Replace";
-    //   public static final String MENU_TEXT_ADVANCED_FIND_AND_REPLACE = "Dev Scr";
-    public static final String MENU_TEXT_START = "Start";
-
     public static final String BUTTON_ID_FIND_ALL = "afrFindActionButtonBottom";
     public static final String BUTTON_ID_REPLACE_ALL = "afrReplaceAllActionButton";
     public static final String BUTTON_ID_REPLACE = "afrReplaceActionButton";
@@ -22,14 +17,7 @@ public class AdvancedFindReplaceService {
 
 
     public static void runAdvancedFindAndReplace() {
-        clickAddonsMenu();
-        clickAdvancedFindAndReplaceMenu();
-        clickStartMenu();
-        //todo: change to some explicit wait
-        //wait for dialog window to be loaded
-        sleep(5000);
-
-        switchDriverToAddonIframe();
+        new AdvancedFindReplaceRunner().runAddon();
     }
 
     public static void setSearchString(String searchString) {
@@ -39,16 +27,6 @@ public class AdvancedFindReplaceService {
 
     public static void setReplaceString(String replacementString) {
         setText(replacementString, "afrReplaceString");
-    }
-
-
-    private static void clickAdvancedFindAndReplaceMenu() {
-        clickHighLevelMenuItem(MENU_TEXT_ADVANCED_FIND_AND_REPLACE, MENU_TEXT_START, false);
-    }
-
-
-    private static void clickStartMenu() {
-        clickMenuItem(MENU_TEXT_START);
     }
 
 

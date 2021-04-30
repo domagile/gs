@@ -3,7 +3,7 @@ package googlesheets.test.afr.generic;
 import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.technical.file.FileType;
-import googlesheets.test.SpreadsheetTest;
+import googlesheets.test.generic.SpreadsheetTest;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.technical.file.FileService.*;
@@ -35,7 +35,7 @@ public class AFRTest extends SpreadsheetTest {
         if (fileExists(spreadsheetName, resultListName, FileType.CSV)) {
             throw new IllegalStateException(String.format("File for list %s already exists", resultListName));
         }
-        WebDriverService.getInstance().getDriver().switchTo().defaultContent();
+        WebDriverService.switchDriverToDefaultContent();
         makeSheetActive(resultListName);
         startCSVDownload();
         restoreInitialDocumentState(resultListName);
