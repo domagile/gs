@@ -4,8 +4,8 @@ import googlesheets.model.generic.rowselection.PairSelection;
 import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.addon.FunctionInvocationException;
-import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.addon.sheetselection.EntityList;
+import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.xpath.XPathHelper;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -14,7 +14,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -442,6 +441,22 @@ public class GoogleSheetService {
             field.clear();
             field.sendKeys(textValue);
         }, text, InvalidElementStateException.class);
+    }
+
+
+    public static void setAdxNumber(int number, String fieldId) {
+        invokeFunctionWithReinvocation(() -> {
+            WebElement field = getPresentElement(fieldId);
+
+            String currentText = field.getAttribute("value");
+            StringBuilder backspaceString = new StringBuilder();
+            for (int i = 0; i < currentText.length(); i++) {
+                backspaceString.append(Keys.BACK_SPACE);
+            }
+            field.sendKeys("" + Keys.END + backspaceString);
+
+            field.sendKeys(String.valueOf(number));
+        }, InvalidElementStateException.class);
     }
 
 

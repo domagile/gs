@@ -27,11 +27,15 @@ public class AddonRunner {
     }
 
     public void runAddon() {
-        if (GlobalContext.IS_POWER_TOOLS_MODE) {
+        if (isPowerToolsMode()) {
             runThroughPowerTools();
         } else {
             runAsSeparateAddon();
         }
+    }
+
+    protected boolean isPowerToolsMode() {
+        return GlobalContext.IS_POWER_TOOLS_MODE;
     }
 
 
