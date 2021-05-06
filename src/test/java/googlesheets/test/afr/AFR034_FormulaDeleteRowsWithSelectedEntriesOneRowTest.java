@@ -29,7 +29,7 @@ public class AFR034_FormulaDeleteRowsWithSelectedEntriesOneRowTest extends AFRTe
 
 
         runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_SELECTED_ENTRIES);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_034_formulaDeleteRowsWithSelectedEntriesOneRow.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_034_formulaDeleteRowsWithSelectedEntriesOneRow.csv");
     }
 
     protected void restoreInitialDocumentState(String resultListName) {

@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 
 public class AFR013_value_ByMaskTest extends AFRTest {
     @BeforeClass
@@ -30,7 +30,7 @@ public class AFR013_value_ByMaskTest extends AFRTest {
         execute(options);
 
         runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_013_value_ByMask.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_013_value_ByMask.csv");
 
 
 

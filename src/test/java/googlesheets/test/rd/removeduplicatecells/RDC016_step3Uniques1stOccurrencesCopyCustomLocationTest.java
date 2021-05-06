@@ -5,10 +5,8 @@ import googlesheets.test.rd.removeduplicatecells.generic.RDCTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 
@@ -35,7 +33,7 @@ public class RDC016_step3Uniques1stOccurrencesCopyCustomLocationTest extends RDC
         setCustomLocationRange("'Master'!G1");
         clickFinishAndClose();
 
-        checkResult(getResultListName("Master"), "removeduplicatecells\\RDC_016_uniques1stOccurrencesCopyCustomLocation.csv");
+        checkResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_016_uniques1stOccurrencesCopyCustomLocation.csv");
 
     }
 

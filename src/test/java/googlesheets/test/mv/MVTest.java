@@ -35,7 +35,7 @@ public class MVTest extends SpreadsheetTest {
         switchDriverToDefaultContent();
         startCSVDownload();
         compareFileWithEtalon(spreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.CSV));
-        removeDownloadedListFile(spreadsheetName, sheetName, FileType.CSV);
+        removeDownloadedSheetFile(spreadsheetName, sheetName, FileType.CSV);
     }
 
 
@@ -48,7 +48,7 @@ public class MVTest extends SpreadsheetTest {
         switchDriverToDefaultContent();
         startXLSXDownload();
         compareFileWithEtalon(spreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.XLSX), FileType.XLSX);
-        removeDownloadedListFile(spreadsheetName, sheetName, FileType.XLSX);
+        removeDownloadedSheetFile(spreadsheetName, sheetName, FileType.XLSX);
     }
 
 

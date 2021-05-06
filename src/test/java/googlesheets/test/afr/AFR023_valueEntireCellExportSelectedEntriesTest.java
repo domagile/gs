@@ -34,7 +34,7 @@ public class AFR023_valueEntireCellExportSelectedEntriesTest extends AFRTest {
 
 
         sleep(7000);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_023_valueEntireCellExportSelectedEntries.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_023_valueEntireCellExportSelectedEntries.csv");
 
     }
 

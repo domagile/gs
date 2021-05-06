@@ -1,5 +1,6 @@
 package googlesheets.service.generic.addon.resultchecker;
 
+import googlesheets.service.GlobalContext;
 import googlesheets.service.technical.file.FileType;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
@@ -17,7 +18,7 @@ public class ResultCheckerImpl implements ResultChecker {
         startCSVDownload();
         sleep(2000);
         compareFileWithEtalon(spreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.CSV));
-        removeDownloadedListFile(spreadsheetName, sheetName, FileType.CSV);
+        removeDownloadedSheetFile(spreadsheetName, sheetName, FileType.CSV);
     }
 
 
@@ -28,7 +29,7 @@ public class ResultCheckerImpl implements ResultChecker {
         startXLSXDownload();
         sleep(2000);
         compareFileWithEtalon(spreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.XLSX), FileType.XLSX);
-        removeDownloadedListFile(spreadsheetName, sheetName, FileType.XLSX);
+        removeDownloadedSheetFile(spreadsheetName, sheetName, FileType.XLSX);
     }
 
 
@@ -37,11 +38,22 @@ public class ResultCheckerImpl implements ResultChecker {
         openDoc(resultInfo.getNewSpreadsheetLink());
         startCSVDownload();
         sleep(2000);
-        String sheetName = getResultListName(resultSheetNamePart);
-        moveSpreadsheetToTrash();
+        String sheetName = getResultSheetName(resultSheetNamePart);
+        if (GlobalContext.USE_SPREADSHEET_API) {
+            deleteSpreadsheet(getSpreadsheetId(resultInfo.getNewSpreadsheetLink()));
+        }
+        else {
+            moveSpreadsheetToTrashThroughMenu();
+        }
         String newSpreadsheetName = "New spreadsheet";
         compareFileWithEtalon(newSpreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.CSV));
-        removeDownloadedListFile(newSpreadsheetName, sheetName, FileType.CSV);
+        removeDownloadedSheetFile(newSpreadsheetName, sheetName, FileType.CSV);
+    }
+
+
+    private String getSpreadsheetId(String link) {
+        String[] parts = link.split("/");
+        return parts[parts.length - 2];
     }
 
 

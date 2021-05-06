@@ -34,7 +34,7 @@ public class AFR027_valueEntireCellDeleteRowsSelectedEntriesOneRowTest extends A
         runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_SELECTED_ENTRIES);
 
         sleep(5000);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_027_valueEntireCellExportSelectedEntriesOneRow.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_027_valueEntireCellExportSelectedEntriesOneRow.csv");
 
     }
 

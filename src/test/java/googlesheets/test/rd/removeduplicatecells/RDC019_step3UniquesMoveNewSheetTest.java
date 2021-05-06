@@ -5,10 +5,8 @@ import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.setRange;
 
@@ -35,7 +33,7 @@ public class RDC019_step3UniquesMoveNewSheetTest extends RDRTest {
         clickNewSheet();
         clickFinishAndClose();
 
-        checkResult(getResultListName("Master - uniques"), "removeduplicatecells\\RDC_019_uniquesMoveNewSheet.csv");
+        checkResult(getResultSheetName("Master - uniques"), "removeduplicatecells\\RDC_019_uniquesMoveNewSheet.csv");
 
     }
 

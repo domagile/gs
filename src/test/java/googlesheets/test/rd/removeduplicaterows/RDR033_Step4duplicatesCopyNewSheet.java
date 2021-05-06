@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
-import static googlesheets.service.generic.google.GoogleSheetService.removeListThroughMenu;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.removeSheetThroughMenu;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR033_Step4duplicatesCopyNewSheet extends RDRTest {
@@ -33,12 +33,12 @@ public class RDR033_Step4duplicatesCopyNewSheet extends RDRTest {
         clickNewSheet();
 
         clickFinishAndClose();
-        checkResult(getResultListName("Master - duplicates"), "removeduplicaterows\\RDR_033_step4duplicatesAllColumnsCopyNewSheet.csv");
+        checkResult(getResultSheetName("Master - duplicates"), "removeduplicaterows\\RDR_033_step4duplicatesAllColumnsCopyNewSheet.csv");
     }
 
 
     @Override
     protected void restoreInitialDocumentState(String resultListName) {
-        removeListThroughMenu(resultListName);
+        removeSheetThroughMenu(resultListName);
     }
 }

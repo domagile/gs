@@ -40,11 +40,11 @@ public class AFRTest extends SpreadsheetTest {
         startCSVDownload();
         restoreInitialDocumentState(resultListName);
         compareFileWithEtalon(spreadsheetName, resultListName, etalonFile);
-        removeDownloadedListFile(spreadsheetName, resultListName, FileType.CSV);
+        removeDownloadedSheetFile(spreadsheetName, resultListName, FileType.CSV);
     }
 
 
     protected void restoreInitialDocumentState(String resultListName) {
-        removeListThroughMenu(resultListName);
+        removeSheetThroughMenu(resultListName);
     }
 }

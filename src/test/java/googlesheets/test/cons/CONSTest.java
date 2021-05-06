@@ -9,7 +9,7 @@ import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.test.generic.DefaultSpreadsheetTest;
 
-import static googlesheets.service.generic.google.GoogleSheetService.removeListThroughMenu;
+import static googlesheets.service.generic.google.GoogleSheetService.removeSheetThroughMenu;
 import static googlesheets.ui.consolidatesheets.ConsolidateSheetsAddonDialog.BUTTON_ID_CLOSE;
 
 public class CONSTest extends DefaultSpreadsheetTest {
@@ -50,13 +50,8 @@ public class CONSTest extends DefaultSpreadsheetTest {
     }
 
 
-    protected void checkNewSpreadsheetResult(ResultInfo resultInfo) {
-        getResultChecker().checkNewSpreadsheetResult(resultInfo, getSpreadsheetName(), "Sheet1");
-    }
-
-
     protected void restoreInitialDocumentState(String resultListName)  {
-        removeListThroughMenu(resultListName);
+        removeSheetThroughMenu(resultListName);
     }
 
 

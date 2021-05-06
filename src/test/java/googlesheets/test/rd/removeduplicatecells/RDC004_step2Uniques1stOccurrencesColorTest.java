@@ -5,10 +5,8 @@ import googlesheets.test.rd.removeduplicatecells.generic.RDCTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 public class RDC004_step2Uniques1stOccurrencesColorTest extends RDCTest {
@@ -32,7 +30,7 @@ public class RDC004_step2Uniques1stOccurrencesColorTest extends RDCTest {
         clickFillWithColor();
         clickFinishAndClose();
 
-        checkExcelResult(getResultListName("Master"), "removeduplicatecells\\RDC_004_uniques1stOccurrencesColor.xlsx");
+        checkExcelResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_004_uniques1stOccurrencesColor.xlsx");
     }
 
     @Override

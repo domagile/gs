@@ -8,10 +8,8 @@ import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 
 public class AFR007_NotesTest extends AFRTest {
     @BeforeClass
@@ -31,6 +29,6 @@ public class AFR007_NotesTest extends AFRTest {
 
         runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
 
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_007_Notes.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_007_Notes.csv");
     }
 }

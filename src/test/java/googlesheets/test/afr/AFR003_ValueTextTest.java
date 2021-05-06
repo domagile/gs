@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 
 public class AFR003_ValueTextTest extends AFRTest {
     @BeforeClass
@@ -28,6 +28,6 @@ public class AFR003_ValueTextTest extends AFRTest {
         execute(options);
 
         runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_003_valueTextAllSheets.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_003_valueTextAllSheets.csv");
     }
 }

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.selectedEntries;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public class AFR024_valueExportRowsSelectedEntriesTest extends AFRTest {
@@ -36,7 +36,7 @@ public class AFR024_valueExportRowsSelectedEntriesTest extends AFRTest {
 
 
         sleep(7000);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_024_valueExportRowsSelectedEntries.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_024_valueExportRowsSelectedEntries.csv");
 
     }
 

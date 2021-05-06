@@ -3,10 +3,8 @@ package googlesheets.test.rd.comparetwosheets;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS025_uniqueCopyNewSheetTest extends CTSTest {
@@ -39,7 +37,7 @@ public class CTS025_uniqueCopyNewSheetTest extends CTSTest {
         clickNewSheet();
 
         clickFinishAndClose();
-        checkResult(getResultListName("Table1 - uniques"), "comparetwosheets\\CTS_025_uniqueCopyNewSheet.csv");
+        checkResult(getResultSheetName("Table1 - uniques"), "comparetwosheets\\CTS_025_uniqueCopyNewSheet.csv");
     }
 
     @Override

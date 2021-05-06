@@ -35,7 +35,7 @@ public class AFR059_hyperlinksReplaceTest extends AFRTest {
         clickReplace();
         runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
 
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_019_valueReplace.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_019_valueReplace.csv");
     }
 
 

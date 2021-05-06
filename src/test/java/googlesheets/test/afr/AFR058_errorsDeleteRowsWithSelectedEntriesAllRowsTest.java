@@ -32,7 +32,7 @@ public class AFR058_errorsDeleteRowsWithSelectedEntriesAllRowsTest extends AFRTe
         runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_SELECTED_ENTRIES);
 
         sleep(7000);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_058_errorsDeleteRowsWithSelectedEntriesAllRows.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_058_errorsDeleteRowsWithSelectedEntriesAllRows.csv");
     }
 
     protected void restoreInitialDocumentState(String resultListName) {

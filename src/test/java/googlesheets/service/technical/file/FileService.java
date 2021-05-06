@@ -91,21 +91,21 @@ public class FileService {
     }
 
 
-    public static void removeDownloadedListFile(String spreadsheetName, String listName, FileType fileType) {
-        new File(getDownloadedFileName(spreadsheetName, listName, fileType)).delete();
+    public static void removeDownloadedSheetFile(String spreadsheetName, String sheetName, FileType fileType) {
+        new File(getDownloadedFileName(spreadsheetName, sheetName, fileType)).delete();
     }
 
 
-    public static boolean fileExists(String spreadsheetName, String listName, FileType fileType) {
-        return new File(getDownloadedFileName(spreadsheetName, listName, fileType)).exists();
+    public static boolean fileExists(String spreadsheetName, String sheetName, FileType fileType) {
+        return new File(getDownloadedFileName(spreadsheetName, sheetName, fileType)).exists();
     }
 
 
-    public static String getDownloadedFileName(String spreadsheetName, String listName, FileType fileType)
+    public static String getDownloadedFileName(String spreadsheetName, String sheetName, FileType fileType)
     {
         String userDirectory = System.getProperty("user.home");
         if (fileType == FileType.CSV) {
-            return String.format("%s\\Downloads\\%s - %s.%s", userDirectory, spreadsheetName, listName, fileType.toString().toLowerCase());
+            return String.format("%s\\Downloads\\%s - %s.%s", userDirectory, spreadsheetName, sheetName, fileType.toString().toLowerCase());
         }
         else if (fileType == FileType.XLSX) {
             return String.format("%s\\Downloads\\%s.%s", userDirectory, spreadsheetName, fileType.toString().toLowerCase());

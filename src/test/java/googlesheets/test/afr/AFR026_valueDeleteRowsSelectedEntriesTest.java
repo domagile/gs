@@ -35,7 +35,7 @@ public class AFR026_valueDeleteRowsSelectedEntriesTest extends AFRTest {
 
 
         sleep(7000);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_026_valueDeleteSelectedEntries.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_026_valueDeleteSelectedEntries.csv");
 
     }
 

@@ -6,11 +6,10 @@ import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 
 public class AFR008_Hyperlinks extends AFRTest {
     @BeforeClass
@@ -32,6 +31,6 @@ public class AFR008_Hyperlinks extends AFRTest {
 
         runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
 
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_008_Hyperlinks.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_008_Hyperlinks.csv");
     }
 }

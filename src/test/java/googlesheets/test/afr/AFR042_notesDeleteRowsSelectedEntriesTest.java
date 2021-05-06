@@ -35,7 +35,7 @@ public class AFR042_notesDeleteRowsSelectedEntriesTest extends AFRTest {
 
 
         sleep(7000);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_042_notesDeleteSelectedEntries.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_042_notesDeleteSelectedEntries.csv");
 
     }
 

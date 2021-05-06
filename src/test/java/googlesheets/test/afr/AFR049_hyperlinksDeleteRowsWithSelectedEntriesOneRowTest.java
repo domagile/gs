@@ -29,7 +29,7 @@ public class AFR049_hyperlinksDeleteRowsWithSelectedEntriesOneRowTest extends AF
 
 
         runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_SELECTED_ENTRIES);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_049_hyperlinksDeleteRowsWithSelectedEntriesOneRow.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_049_hyperlinksDeleteRowsWithSelectedEntriesOneRow.csv");
     }
 
     protected void restoreInitialDocumentState(String resultListName) {

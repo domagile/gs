@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 
 public class AFR047_hyperlinksExportRowsWithSelectedEntriesOneRowTest extends AFRTest {
     @BeforeClass
@@ -29,7 +29,7 @@ public class AFR047_hyperlinksExportRowsWithSelectedEntriesOneRowTest extends AF
 
 
         runMenuAction(AFRActionEnumeration.EXPORT_ROWS_WITH_SELECTED_ENTRIES);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_047_hyperlinksExportRowsWithSelectedEntriesOneRow.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_047_hyperlinksExportRowsWithSelectedEntriesOneRow.csv");
     }
 
 }

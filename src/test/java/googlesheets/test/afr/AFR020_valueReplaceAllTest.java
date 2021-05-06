@@ -6,10 +6,7 @@ import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.advancedfindreplace.SearchInSelection;
 import googlesheets.test.afr.generic.AFRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
@@ -35,7 +32,7 @@ public class AFR020_valueReplaceAllTest extends AFRTest {
         clickReplaceAll();
 
         runMenuAction(AFRActionEnumeration.EXPORT_ALL_FOUND_ENTRIES);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_020_valueReplaceAll.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_020_valueReplaceAll.csv");
     }
 
 

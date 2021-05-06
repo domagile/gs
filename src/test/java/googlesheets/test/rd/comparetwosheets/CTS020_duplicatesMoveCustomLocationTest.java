@@ -3,8 +3,6 @@ package googlesheets.test.rd.comparetwosheets;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.setCustomLocationRange;
@@ -41,7 +39,7 @@ public class CTS020_duplicatesMoveCustomLocationTest extends CTSTest {
         setCustomLocationRange("'Table1'!K1");
 
         clickFinishAndClose();
-        checkResult(getResultListName("Table1"), "comparetwosheets\\CTS_020_duplicatesMoveCustomLocation.csv");
+        checkResult(getResultSheetName("Table1"), "comparetwosheets\\CTS_020_duplicatesMoveCustomLocation.csv");
     }
 
     @Override

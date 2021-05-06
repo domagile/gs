@@ -28,7 +28,7 @@ public class AFR030_FormulaExportTheSelectedEntriesTest extends AFRTest {
         execute(options);
 
         runMenuAction(AFRActionEnumeration.EXPORT_SELECTED_ENTRIES);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_030_formulaExportTheSelectedEntriesOneRow.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_030_formulaExportTheSelectedEntriesOneRow.csv");
     }
 
 }

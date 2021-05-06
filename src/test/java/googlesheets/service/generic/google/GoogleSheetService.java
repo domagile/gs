@@ -7,6 +7,7 @@ import googlesheets.service.generic.addon.FunctionInvocationException;
 import googlesheets.service.generic.addon.sheetselection.EntityList;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.xpath.XPathHelper;
+import googlesheets.service.technical.api.SpreadsheetService;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -105,7 +106,14 @@ public class GoogleSheetService {
         clickElement(By.xpath(attributeIs("aria-label", "Microsoft Excel (.xlsx) x")));
     }
 
-    public static void moveSpreadsheetToTrash() {
+
+    public static void deleteSpreadsheet(String spreadsheetId)
+    {
+        SpreadsheetService.deleteSpreadsheet(spreadsheetId);
+    }
+
+
+    public static void moveSpreadsheetToTrashThroughMenu() {
         clickMenuFile();
         clickElement(By.xpath(attributeIs("aria-label", "Move to trash t")));
     }
@@ -173,7 +181,7 @@ public class GoogleSheetService {
     }
 
 
-    public static String getResultListName(String namePart) {
+    public static String getResultSheetName(String namePart) {
         switchDriverToDefaultContent();
         WebElement element = getPresentElementByXpath(textContains(namePart));
         return element.getText().trim();
@@ -185,15 +193,15 @@ public class GoogleSheetService {
     }
 
 
-    public static void removeListThroughMenu(String listName) {
-        openSheetContextMenu(listName);
+    public static void removeSheetThroughMenu(String sheetName) {
+        openSheetContextMenu(sheetName);
         clickContextMenuByText("Delete");
         clickDialogOK();
     }
 
 
-    public static void duplicateListThroughMenu(String listName) {
-        openSheetContextMenu(listName);
+    public static void duplicateSheetThroughMenu(String sheetName) {
+        openSheetContextMenu(sheetName);
         clickContextMenuByText("Duplicate");
     }
 

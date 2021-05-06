@@ -10,7 +10,7 @@ import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.test.generic.DefaultSpreadsheetTest;
 
 import static googlesheets.service.combinesheets.CombineSheetsService.*;
-import static googlesheets.service.generic.google.GoogleSheetService.removeListThroughMenu;
+import static googlesheets.service.generic.google.GoogleSheetService.removeSheetThroughMenu;
 
 public class CSTest extends DefaultSpreadsheetTest {
     public static final String COMBINE_SHEETS_ETALON_DIR = "combinesheets\\";
@@ -49,7 +49,7 @@ public class CSTest extends DefaultSpreadsheetTest {
 
 
     protected void restoreInitialDocumentState(String resultListName)  {
-        removeListThroughMenu(resultListName);
+        removeSheetThroughMenu(resultListName);
     }
 
 

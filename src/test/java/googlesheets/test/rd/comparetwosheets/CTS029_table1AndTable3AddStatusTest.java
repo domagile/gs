@@ -4,8 +4,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
@@ -40,7 +38,7 @@ public class CTS029_table1AndTable3AddStatusTest extends CTSTest {
         clickAddStatusColumnRadioButton();
 
         clickFinishAndClose();
-        checkResult(getResultListName("Table1"), "comparetwosheets\\CTS_029_uniqueTable1AndTable3AddStatus.csv");
+        checkResult(getResultSheetName("Table1"), "comparetwosheets\\CTS_029_uniqueTable1AndTable3AddStatus.csv");
     }
 
     @Override

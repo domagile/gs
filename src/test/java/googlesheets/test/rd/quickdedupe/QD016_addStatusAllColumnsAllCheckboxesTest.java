@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 
 
 public class QD016_addStatusAllColumnsAllCheckboxesTest extends QDTest {
@@ -29,7 +29,7 @@ public class QD016_addStatusAllColumnsAllCheckboxesTest extends QDTest {
                 .build();
         execute(options);
 
-        checkResult(getResultListName("Master"), "quickdedupe\\QD_016_addStatusAllColumnsAllCheckboxes.csv");
+        checkResult(getResultSheetName("Master"), "quickdedupe\\QD_016_addStatusAllColumnsAllCheckboxes.csv");
     }
 
     @Override

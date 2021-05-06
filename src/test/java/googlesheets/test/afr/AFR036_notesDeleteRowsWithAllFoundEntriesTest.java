@@ -28,7 +28,7 @@ public class AFR036_notesDeleteRowsWithAllFoundEntriesTest extends AFRTest {
         execute(options);
 
         runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_036_notesDeleteRowsWithAllFoundEntries.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_036_notesDeleteRowsWithAllFoundEntries.csv");
     }
 
     protected void restoreInitialDocumentState(String resultListName) {

@@ -4,10 +4,8 @@ import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPa
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS028_uniqueMatchCaseAddStatusTest extends CTSTest {
@@ -41,7 +39,7 @@ public class CTS028_uniqueMatchCaseAddStatusTest extends CTSTest {
         clickAddStatusColumnRadioButton();
 
         clickFinishAndClose();
-        checkResult(getResultListName("Table1"), "comparetwosheets\\CTS_028_uniqueMatchCaseAddStatusTest.csv");
+        checkResult(getResultSheetName("Table1"), "comparetwosheets\\CTS_028_uniqueMatchCaseAddStatusTest.csv");
     }
 
     @Override

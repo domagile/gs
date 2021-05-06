@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 
 public class AFR053_errorsExportTheSelectedEntriesTest extends AFRTest {
     @BeforeClass
@@ -28,7 +28,7 @@ public class AFR053_errorsExportTheSelectedEntriesTest extends AFRTest {
         execute(options);
 
         runMenuAction(AFRActionEnumeration.EXPORT_SELECTED_ENTRIES);
-        checkResult(getResultListName("Export results "), "advancedfindreplace\\AFR_053_errorsExportTheSelectedEntriesOneRow.csv");
+        checkResult(getResultSheetName("Export results "), "advancedfindreplace\\AFR_053_errorsExportTheSelectedEntriesOneRow.csv");
     }
 
 }

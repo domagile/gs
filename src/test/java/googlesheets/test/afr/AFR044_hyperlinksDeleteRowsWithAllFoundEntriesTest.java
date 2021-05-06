@@ -28,7 +28,7 @@ public class AFR044_hyperlinksDeleteRowsWithAllFoundEntriesTest extends AFRTest 
         execute(options);
 
         runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES);
-        checkResult(getResultListName("Master"), "advancedfindreplace\\AFR_044_hyperlinksDeleteRowsWithAllFoundEntries.csv");
+        checkResult(getResultSheetName("Master"), "advancedfindreplace\\AFR_044_hyperlinksDeleteRowsWithAllFoundEntries.csv");
     }
 
     protected void restoreInitialDocumentState(String resultListName) {

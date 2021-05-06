@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickElement;
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElementByCssSelector;
 import static googlesheets.service.generic.webdriver.Locators.*;
@@ -55,7 +56,10 @@ public class SheetSelectionPanel {
     }
 
     private static Consumer<WebElement> expandSheetFunction() {
-        return tr -> tr.findElements(TAG_TD).get(0).click();
+        return tr -> {
+            WebElement td = tr.findElements(TAG_TD).get(0);
+            clickElement(td);
+        };
     }
 
 

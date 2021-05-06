@@ -3,10 +3,8 @@ package googlesheets.test.rd.comparetwosheets;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS022_uniqueAddStatusTest extends CTSTest {
@@ -38,7 +36,7 @@ public class CTS022_uniqueAddStatusTest extends CTSTest {
         clickAddStatusColumnRadioButton();
 
         clickFinishAndClose();
-         checkResult(getResultListName("Table1"), "comparetwosheets\\CTS_022_uniqueAddStatus.csv");
+         checkResult(getResultSheetName("Table1"), "comparetwosheets\\CTS_022_uniqueAddStatus.csv");
     }
 
     @Override

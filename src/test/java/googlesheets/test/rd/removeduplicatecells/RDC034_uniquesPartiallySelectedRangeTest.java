@@ -5,10 +5,8 @@ import googlesheets.test.rd.removeduplicatecells.generic.RDCTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 public class RDC034_uniquesPartiallySelectedRangeTest extends RDCTest {
@@ -33,7 +31,7 @@ public class RDC034_uniquesPartiallySelectedRangeTest extends RDCTest {
         clickFillWithColor();
         clickFinishAndClose();
 
-        checkExcelResult(getResultListName("Master"), "removeduplicatecells\\RDC_034_uniquesPartiallySelectedRange.xlsx");
+        checkExcelResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_034_uniquesPartiallySelectedRange.xlsx");
     }
 
     @Override

@@ -3,10 +3,8 @@ package googlesheets.test.rd.comparetwosheets;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
-import static googlesheets.service.generic.google.GoogleSheetService.getResultListName;
-import static googlesheets.service.generic.google.GoogleSheetService.removeListThroughMenu;
+import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.removeSheetThroughMenu;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS015_duplicatesCopyNewSheetTest extends CTSTest {
@@ -39,11 +37,11 @@ public class CTS015_duplicatesCopyNewSheetTest extends CTSTest {
         clickNewSheet();
 
         clickFinishAndClose();
-         checkResult(getResultListName("Table1 - duplicates"), "comparetwosheets\\CTS_015_duplicatesCopyNewSheet.csv");
+         checkResult(getResultSheetName("Table1 - duplicates"), "comparetwosheets\\CTS_015_duplicatesCopyNewSheet.csv");
     }
 
     @Override
     protected void restoreInitialDocumentState(String resultListName) {
-        removeListThroughMenu(resultListName);
+        removeSheetThroughMenu(resultListName);
     }
 }

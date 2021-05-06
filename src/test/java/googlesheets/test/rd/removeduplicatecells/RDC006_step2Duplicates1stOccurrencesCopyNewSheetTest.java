@@ -5,8 +5,6 @@ import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
@@ -32,7 +30,7 @@ public class RDC006_step2Duplicates1stOccurrencesCopyNewSheetTest extends RDRTes
         clickNewSheet();
         clickFinishAndClose();
 
-        checkResult(getResultListName("Master - duplicates"), "removeduplicatecells\\RDC_006_duplicates1stOccurrencesCopyNewSheet.csv");
+        checkResult(getResultSheetName("Master - duplicates"), "removeduplicatecells\\RDC_006_duplicates1stOccurrencesCopyNewSheet.csv");
 
     }
 

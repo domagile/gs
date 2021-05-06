@@ -25,7 +25,7 @@ public class QD001_fillWithColorTest extends QDTest {
                 .build();
         execute(options);
 
-        checkExcelResult(getResultListName("Master"), "quickdedupe\\QD_001_fillWithColor.xlsx");
+        checkExcelResult(getResultSheetName("Master"), "quickdedupe\\QD_001_fillWithColor.xlsx");
     }
 
     @Override

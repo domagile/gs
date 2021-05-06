@@ -6,6 +6,7 @@ public class GlobalContext {
     public static final boolean TEST_RC_VERSION = false;
     public static final int MAX_REINVOCATION_COUNT = 30;
     public static final int DEFAULT_WORKING_MESSAGE_TIMEOUT = 60;
+    public static final boolean USE_SPREADSHEET_API = false;
 
     private static GlobalContext instance;
     private static boolean isLoggedIn;
