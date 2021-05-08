@@ -7,12 +7,12 @@ import googlesheets.service.combinesheets.CombineSheetsService;
 import googlesheets.service.generic.addon.DriveFileChooser;
 import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
-import googlesheets.test.generic.DefaultSpreadsheetTest;
+import googlesheets.test.generic.DefaultAddonTest;
 
 import static googlesheets.service.combinesheets.CombineSheetsService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.removeSheetThroughMenu;
 
-public class CSTest extends DefaultSpreadsheetTest {
+public class CSTest extends DefaultAddonTest {
     public static final String COMBINE_SHEETS_ETALON_DIR = "combinesheets\\";
 
 

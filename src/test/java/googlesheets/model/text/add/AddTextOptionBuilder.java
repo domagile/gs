@@ -1,7 +1,5 @@
 package googlesheets.model.text.add;
 
-import googlesheets.model.mergevalues.MergeValuesOptionBuilder;
-
 public class AddTextOptionBuilder {
     private String range;
     private String addedText;

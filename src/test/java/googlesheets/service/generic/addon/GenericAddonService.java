@@ -25,6 +25,7 @@ public abstract class GenericAddonService {
     private static final WebDriverWait wait = WebDriverService.getInstance().getWait();
     public static final String FIELD_ID_NAME_BOX = "t-name-box";
     public static final String FIELD_ID_WORKING_MESSAGE_DIV = "adxPreloader";
+    public static final String FIELD_ID_PROGRESS_MESSAGE_DIV = "adxProgress";
 
 
     public static IFrameInfo switchDriverToAddonIframe() {
@@ -224,15 +225,35 @@ public abstract class GenericAddonService {
     }
 
 
+    public static void waitForProgressMessageDisplayedAndHidden() {
+        waitForProgressMessage(true, GlobalContext.DEFAULT_WORKING_MESSAGE_TIMEOUT);
+        waitForProgressMessage(false, GlobalContext.DEFAULT_WORKING_MESSAGE_TIMEOUT);
+    }
+
+
     public static void waitForWorkingMessage(boolean isDisplayed) {
         waitForWorkingMessage(isDisplayed, GlobalContext.DEFAULT_WORKING_MESSAGE_TIMEOUT);
     }
 
 
     public static void waitForWorkingMessage(boolean isDisplayed, int timeoutSec) {
+        waitFor(getProgressBarLocator(FIELD_ID_WORKING_MESSAGE_DIV, isDisplayed), timeoutSec);
+    }
+
+
+    public static void waitForProgressMessage(boolean isDisplayed, int timeoutSec) {
+        waitFor(getProgressBarLocator(FIELD_ID_PROGRESS_MESSAGE_DIV, isDisplayed), timeoutSec);
+    }
+
+
+    private static void waitFor(By locator, int timeoutSec) {
         WebDriverWait wait = getWaitWithTimeout(timeoutSec);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
-                String.format("//div[@id='%s' and @style='display: %s;']", FIELD_ID_WORKING_MESSAGE_DIV,
-                        isDisplayed ? "flex" : "none"))));
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    private static By getProgressBarLocator(String divId, boolean isDisplayed) {
+        return By.xpath(
+                String.format("//div[@id='%s' and @style='display: %s;']", divId,
+                        isDisplayed ? "flex" : "none"));
     }
 }

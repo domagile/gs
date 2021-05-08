@@ -3,13 +3,13 @@ package googlesheets.test.afr.generic;
 import googlesheets.model.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.technical.file.FileType;
-import googlesheets.test.generic.SpreadsheetTest;
+import googlesheets.test.generic.AddonTest;
 
 import static googlesheets.service.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
-public class AFRTest extends SpreadsheetTest {
+public class AFRTest extends AddonTest {
     public void execute(AdvancedFindReplaceOptions options) {
         runAdvancedFindAndReplace();
         setSearchIn(options.getSearchInType(), options.getSearchSheetIndexes());

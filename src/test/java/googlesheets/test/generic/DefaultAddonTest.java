@@ -6,12 +6,12 @@ import googlesheets.service.generic.addon.resultchecker.ResultCheckerImpl;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import org.junit.After;
 
-public abstract class DefaultSpreadsheetTest extends SpreadsheetTest {
+public abstract class DefaultAddonTest extends AddonTest {
     private ResultLocationProvider options;
     private ResultChecker resultChecker;
 
 
-    protected DefaultSpreadsheetTest(String etalonDir)
+    protected DefaultAddonTest(String etalonDir)
     {
         resultChecker = new ResultCheckerImpl(etalonDir);
     }

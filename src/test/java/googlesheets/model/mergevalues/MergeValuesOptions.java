@@ -1,6 +1,8 @@
 package googlesheets.model.mergevalues;
 
-public class MergeValuesOptions {
+import googlesheets.model.generic.SideAddonOptions;
+
+public class MergeValuesOptions implements SideAddonOptions {
     private String range;
     private MergeTypeEnumeration mergeType = MergeTypeEnumeration.SELECTED_ROW;
     private SeparatorEnumeration predefinedSeparator;

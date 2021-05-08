@@ -1,6 +1,8 @@
 package googlesheets.model.text.add;
 
-public class AddTextOptions {
+import googlesheets.model.generic.SideAddonOptions;
+
+public class AddTextOptions implements SideAddonOptions {
     private String range;
     private String addedText;
     private PositionEnumeration position;

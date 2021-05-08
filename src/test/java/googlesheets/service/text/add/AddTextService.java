@@ -1,15 +1,13 @@
 package googlesheets.service.text.add;
 
-import googlesheets.model.mergevalues.MergeValuesOptions;
 import googlesheets.model.text.add.AddTextOptions;
-import googlesheets.service.mergevalues.MergeValuesRunner;
-import googlesheets.ui.mergevalues.MergeValuesAddonDialog;
+import googlesheets.service.generic.addon.SideAddonService;
 import googlesheets.ui.text.add.AddTextDialog;
 
 import static googlesheets.service.generic.addon.GenericAddonService.setNameBoxValue;
 import static googlesheets.service.generic.addon.GenericAddonService.waitForWorkingMessageDisplayedAndHidden;
 
-public class AddTextService {
+public class AddTextService implements SideAddonService<AddTextOptions> {
     private AddTextDialog addonDialog = new AddTextDialog();
 
     public void runAddon()

@@ -1,15 +1,16 @@
 package googlesheets.service.mergevalues;
 
 import googlesheets.model.mergevalues.MergeValuesOptions;
+import googlesheets.service.generic.addon.SideAddonService;
 import googlesheets.ui.mergevalues.MergeValuesAddonDialog;
 
 import static googlesheets.service.generic.addon.GenericAddonService.setNameBoxValue;
 import static googlesheets.service.generic.addon.GenericAddonService.waitForWorkingMessageDisplayedAndHidden;
 
-public class MergeValuesService {
+public class MergeValuesService implements SideAddonService<MergeValuesOptions> {
     private MergeValuesAddonDialog addonDialog = new MergeValuesAddonDialog();
 
-    public void runMergeValues()
+    public void runAddon()
     {
         new MergeValuesRunner().runAddon();
     }
@@ -44,7 +45,7 @@ public class MergeValuesService {
     }
 
 
-    public void merge() {
+    public void execute() {
         addonDialog.clickMerge();
         waitForWorkingMessageDisplayedAndHidden();
     }

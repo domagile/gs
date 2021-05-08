@@ -1,17 +1,15 @@
 package googlesheets.test.ms;
 
 import googlesheets.model.mergesheets.MergeSheetsOptions;
-import googlesheets.service.generic.addon.resultchecker.ResultChecker;
-import googlesheets.service.generic.addon.resultchecker.ResultCheckerImpl;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.service.mergesheets.MergeSheetsRunner;
-import googlesheets.test.generic.DefaultSpreadsheetTest;
+import googlesheets.test.generic.DefaultAddonTest;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickElement;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.mergesheets.MergeSheetsService.*;
 
-public class MSTest extends DefaultSpreadsheetTest {
+public class MSTest extends DefaultAddonTest {
     private static final String MERGE_SHEETS_ETALON_DIR = "mergesheets\\";
 
 

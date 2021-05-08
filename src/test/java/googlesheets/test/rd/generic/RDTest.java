@@ -2,13 +2,13 @@ package googlesheets.test.rd.generic;
 
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.service.technical.file.FileType;
-import googlesheets.test.generic.SpreadsheetTest;
+import googlesheets.test.generic.AddonTest;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.technical.file.FileService.compareFileWithEtalon;
 import static googlesheets.service.technical.file.FileService.removeDownloadedSheetFile;
 
-public class RDTest extends SpreadsheetTest {
+public class RDTest extends AddonTest {
     protected void checkResult(String listName, String etalonFileName) {
         //fixme: refactor to invoke generic checks from checkResult()
         startCSVDownload();

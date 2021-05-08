@@ -7,12 +7,12 @@ import googlesheets.service.consolidatesheets.ConsolidateSheetsService;
 import googlesheets.service.generic.addon.DriveFileChooser;
 import googlesheets.service.generic.addon.GenericAddonService;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
-import googlesheets.test.generic.DefaultSpreadsheetTest;
+import googlesheets.test.generic.DefaultAddonTest;
 
 import static googlesheets.service.generic.google.GoogleSheetService.removeSheetThroughMenu;
 import static googlesheets.ui.consolidatesheets.ConsolidateSheetsAddonDialog.BUTTON_ID_CLOSE;
 
-public class CONSTest extends DefaultSpreadsheetTest {
+public class CONSTest extends DefaultAddonTest {
     public static final String CONSOLIDATE_SHEETS_ETALON_DIR = "consolidatesheets\\";
     private ConsolidateSheetsService service = new ConsolidateSheetsService();
 

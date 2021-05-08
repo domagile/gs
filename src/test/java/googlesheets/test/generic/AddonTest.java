@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
-public abstract class SpreadsheetTest {
+public abstract class AddonTest {
 
     protected String getSpreadsheetName()
     {
