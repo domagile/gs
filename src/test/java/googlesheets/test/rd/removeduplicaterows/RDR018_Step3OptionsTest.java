@@ -16,7 +16,7 @@ public class RDR018_Step3OptionsTest extends RDRTest {
 
 
     @Test
-    public void duplicatesSkipEmptyCellsFirst3Columns() throws IOException {
+    public void duplicatesSkipEmptyCellsFirst3Columns() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

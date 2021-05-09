@@ -15,7 +15,7 @@ public class RDR023_Step4OptionsTest extends RDRTest {
     }
 
     @Test
-    public void duplicatesAnd1stOccurrences2And4ColumnsDeleteRowsWithinSelection() throws IOException {
+    public void duplicatesAnd1stOccurrences2And4ColumnsDeleteRowsWithinSelection() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

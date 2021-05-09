@@ -16,7 +16,7 @@ public class RDR040_Step4DuplicatesSelectedRangeColorsTest extends RDRTest {
     }
 
     @Test
-    public void duplicatesSelectedRangeColor() throws IOException {
+    public void duplicatesSelectedRangeColor() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

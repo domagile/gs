@@ -18,7 +18,7 @@ public class RDR042_partiallySelectedRange extends RDRTest {
 
 
     @Test
-    public void partiallySelectedRange() throws IOException {
+    public void partiallySelectedRange() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         setRange("A1:C35");

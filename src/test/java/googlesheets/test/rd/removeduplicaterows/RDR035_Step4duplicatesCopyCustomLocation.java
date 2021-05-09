@@ -17,7 +17,7 @@ public class RDR035_Step4duplicatesCopyCustomLocation extends RDRTest {
 
 
     @Test
-    public void duplicatesAllColumnsCopyAnotherLocation() throws IOException {
+    public void duplicatesAllColumnsCopyAnotherLocation() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

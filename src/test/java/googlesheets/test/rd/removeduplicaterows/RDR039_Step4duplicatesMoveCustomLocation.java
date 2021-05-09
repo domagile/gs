@@ -17,7 +17,7 @@ public class RDR039_Step4duplicatesMoveCustomLocation extends RDRTest {
 
 
     @Test
-    public void duplicatesMoveToAnotherLocation() throws IOException {
+    public void duplicatesMoveToAnotherLocation() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

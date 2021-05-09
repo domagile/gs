@@ -16,7 +16,7 @@ public class RDR012_Step2OptionsTest extends RDRTest {
 
 
     @Test
-    public void uniques_AllColumns() throws IOException {
+    public void uniques_AllColumns() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         setRange("A1:C41");

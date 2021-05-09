@@ -16,7 +16,7 @@ public class RDR032_Step4AddStatusTest extends RDRTest {
 
 
     @Test
-    public void duplicatesAllColumnsAddStatus() throws IOException {
+    public void duplicatesAllColumnsAddStatus() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

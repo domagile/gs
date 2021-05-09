@@ -16,9 +16,10 @@ public class RDR030_Step4OptionsTest extends RDRTest {
 
 
     @Test
-    public void UniquesAllColumnsClearValues() throws IOException {
+    public void UniquesAllColumnsClearValues() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
+        setRange("A1:E42");
         clickNext();
         clickUniquesRadioButton();
         clickNext();

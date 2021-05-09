@@ -16,7 +16,7 @@ public class RDR031_Step4ClearValuesTest extends RDRTest {
 
 
     @Test
-    public void Uniques1stOccurrencesAllColumnsClearValues() throws IOException {
+    public void Uniques1stOccurrencesAllColumnsClearValues() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

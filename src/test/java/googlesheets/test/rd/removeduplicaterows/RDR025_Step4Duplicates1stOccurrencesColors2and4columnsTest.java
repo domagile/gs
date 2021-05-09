@@ -2,7 +2,6 @@ package googlesheets.test.rd.removeduplicaterows;
 
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ public class RDR025_Step4Duplicates1stOccurrencesColors2and4columnsTest extends 
     }
 
     @Test
-    public void duplicatesAnd1stOccurrences2And4ColumnsColor() throws IOException {
+    public void duplicatesAnd1stOccurrences2And4ColumnsColor() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

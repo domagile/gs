@@ -18,7 +18,7 @@ public class RDR038_Step4duplicatesMoveNewSpreadsheetsTest extends RDRTest {
 
 
     @Test
-    public void duplicatesMoveNewSpreadsheets() throws IOException {
+    public void duplicatesMoveNewSpreadsheets() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

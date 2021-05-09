@@ -16,7 +16,7 @@ public class RDR026_Step4UniquesColors2and4columnsTest extends RDRTest {
     }
 
     @Test
-    public void uniques2And4ColumnsColor() throws IOException {
+    public void uniques2And4ColumnsColor() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

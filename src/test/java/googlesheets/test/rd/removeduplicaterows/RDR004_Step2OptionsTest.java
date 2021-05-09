@@ -16,7 +16,7 @@ public class RDR004_Step2OptionsTest extends RDRTest {
 
 
     @Test
-    public void uniques() throws IOException {
+    public void uniques() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

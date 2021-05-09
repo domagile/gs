@@ -16,7 +16,7 @@ public class RDR027_Step4UniquesAnd1stOccurrences2and4columnsColorsTest extends 
     }
 
     @Test
-    public void uniquesAnd1stOccurrences2and4columnsColors() throws IOException {
+    public void uniquesAnd1stOccurrences2and4columnsColors() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();

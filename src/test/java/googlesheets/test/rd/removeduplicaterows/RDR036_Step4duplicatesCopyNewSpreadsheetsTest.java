@@ -18,7 +18,7 @@ public class RDR036_Step4duplicatesCopyNewSpreadsheetsTest extends RDRTest {
 
 
     @Test
-    public void duplicatesCopyNewSpreadsheets() throws IOException {
+    public void duplicatesCopyNewSpreadsheets() {
         runFindDuplicateOrUniqueRows();
         setCreateBackupCopyOfSheet(false);
         clickNext();
