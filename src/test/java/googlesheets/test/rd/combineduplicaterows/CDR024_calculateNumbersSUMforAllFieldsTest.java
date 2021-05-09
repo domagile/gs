@@ -21,7 +21,7 @@ public class CDR024_calculateNumbersSUMforAllFieldsTest extends CDRTest {
     @Test
     public void calculateNumbersSUMforAllFields() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()
-                .range("C3:H17")
+                .range("C3:17")
                 .dataHasHeaderRow(true)
                 .matchCase(true)
                 .keyColumnIndexes(1, 2, 3)
