@@ -24,8 +24,10 @@ public class CDR048_calculateNumbersMODEforOneFieldTest extends CDRTest {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()
                 .range("B3:G17")
                 .dataHasHeaderRow(true)
-                .keyColumnIndexes(1)
-                .mergedColumns(new MergedColumn(1, CALCULATE_NUMBERS, MODE))
+                .keyColumnIndexes(1, 2, 3)
+                .mergedColumns(new MergedColumn(1, CALCULATE_NUMBERS, MODE),
+                        new MergedColumn(2, CALCULATE_NUMBERS, MODE),
+                        new MergedColumn(3, CALCULATE_NUMBERS, MODE))
                 .build();
         execute(options);
 
