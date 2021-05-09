@@ -16,7 +16,7 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 public class CDR055_calculateNumbersVARforAllFieldsTest extends CDRTest {
     @BeforeClass
     public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1ic9XIKDZwNYeU4NJGExONUcyn-ZLtwGiK7vv8HSgudc/edit#gid=1794749578");
+        openDocument("https://docs.google.com/spreadsheets/d/1ic9XIKDZwNYeU4NJGExONUcyn-ZLtwGiK7vv8HSgudc/edit#gid=998853097");
     }
 
     @Test

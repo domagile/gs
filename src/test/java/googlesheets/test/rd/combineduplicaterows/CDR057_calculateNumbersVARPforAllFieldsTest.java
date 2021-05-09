@@ -19,26 +19,26 @@ public class CDR057_calculateNumbersVARPforAllFieldsTest extends CDRTest {
     }
 
     @Test
-    public void calculateNumbersMEDIANforAllFields() {
+    public void calculateNumbersVARPforAllFields() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()
                 .range("A1:K9")
                 .dataHasHeaderRow(true)
                 .keyColumnIndexes(1)
                 .synchronizeAction(true)
-                .mergedColumns(new MergedColumn(1, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(2, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(3, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(4, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(5, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(6, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(7, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(8, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(9, CALCULATE_NUMBERS, MEDIAN),
-                        new MergedColumn(10, CALCULATE_NUMBERS, MEDIAN))
+                .mergedColumns(new MergedColumn(1, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(2, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(3, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(4, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(5, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(6, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(7, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(8, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(9, CALCULATE_NUMBERS, VARP),
+                        new MergedColumn(10, CALCULATE_NUMBERS, VARP))
                 .build();
         execute(options);
 
-        checkResult("Master", "combineduplicaterows\\CDR_059_calculateNumbersMTDIANforAllFields.csv");
+        checkResult("Master", "combineduplicaterows\\CDR_057_calculateNumbersVARPforAllFields.csv");
     }
 
 
