@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static googlesheets.model.consolidatesheets.ConsolidationFunctionEnumeration.SUM;
 import static googlesheets.model.consolidatesheets.ConsolidationTypeEnumeration.BY_LABEL;
+import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public class CONS048_sheetSelectionTest extends CONSTest {
     @BeforeClass
@@ -27,6 +28,7 @@ public class CONS048_sheetSelectionTest extends CONSTest {
                 .useLeftColumnLabel(true)
                 .build();
         execute(options);
+        sleep(500);
         checkResult();
     }
 }
