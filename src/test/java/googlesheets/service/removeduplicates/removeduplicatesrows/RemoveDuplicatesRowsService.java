@@ -126,7 +126,7 @@ public class RemoveDuplicatesRowsService extends GenericAddonService {
 
     public static void clickFinishAndClose() {
         clickFinish();
-        waitForCompletionAndClose("rows have been found", "closeButton");
+        waitForCompletionAndClose("been found", "closeButton");
     }
 
 
