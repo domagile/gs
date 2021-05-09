@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 public class RDC025_step3DuplicatesClearValuesTest extends RDRTest {
@@ -30,7 +30,7 @@ public class RDC025_step3DuplicatesClearValuesTest extends RDRTest {
         clickClearValuesRadioButton();
         clickFinishAndClose();
 
-        checkResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_025_duplicatesClearValues.csv");
+        checkResult(getFullSheetName("Master"), "removeduplicatecells\\RDC_025_duplicatesClearValues.csv");
 
     }
 

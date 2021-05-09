@@ -38,7 +38,7 @@ public class RDTest extends AddonTest {
         openDocument(resultInfo.getNewSpreadsheetLink());
         startCSVDownload();
         sleep(2000);
-        String listName = getResultSheetName(sourceListName);
+        String listName = getFullSheetName(sourceListName);
         moveSpreadsheetToTrashThroughMenu();
         String newSpreadsheetName = String.format("%s - %s", getSpreadsheetName(), listName.substring(listName.indexOf('-') + 2));
         compareFileWithEtalon(newSpreadsheetName, listName, etalonFileName);

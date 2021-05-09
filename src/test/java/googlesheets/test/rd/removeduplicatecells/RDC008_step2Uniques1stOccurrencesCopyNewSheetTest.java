@@ -30,7 +30,7 @@ public class RDC008_step2Uniques1stOccurrencesCopyNewSheetTest extends RDRTest {
         clickNewSheet();
         clickFinishAndClose();
 
-        checkResult(getResultSheetName("Master - uniques"), "removeduplicatecells\\RDC_008_uniques1stOccurrencesCopyNewSheet.csv");
+        checkResult(getFullSheetName("Master - uniques"), "removeduplicatecells\\RDC_008_uniques1stOccurrencesCopyNewSheet.csv");
 
     }
 

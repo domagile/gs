@@ -38,7 +38,7 @@ public class CTS029_table1AndTable3AddStatusTest extends CTSTest {
         clickAddStatusColumnRadioButton();
 
         clickFinishAndClose();
-        checkResult(getResultSheetName("Table1"), "comparetwosheets\\CTS_029_uniqueTable1AndTable3AddStatus.csv");
+        checkResult(getFullSheetName("Table1"), "comparetwosheets\\CTS_029_uniqueTable1AndTable3AddStatus.csv");
     }
 
     @Override

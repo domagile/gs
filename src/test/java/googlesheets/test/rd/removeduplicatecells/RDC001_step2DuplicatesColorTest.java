@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 public class RDC001_step2DuplicatesColorTest extends RDCTest {
@@ -33,7 +33,7 @@ public class RDC001_step2DuplicatesColorTest extends RDCTest {
 
         clickFinishAndClose();
 
-        checkExcelResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_001_duplicatesColor.xlsx");
+        checkExcelResult(getFullSheetName("Master"), "removeduplicatecells\\RDC_001_duplicatesColor.xlsx");
     }
 
     @Override

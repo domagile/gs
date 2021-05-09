@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 public class RDC032_step2UniquesMatchCaseSkipEmptyCellsTest extends RDCTest {
@@ -31,7 +31,7 @@ public class RDC032_step2UniquesMatchCaseSkipEmptyCellsTest extends RDCTest {
 
         clickFinishAndClose();
 
-        checkExcelResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_032_uniquesMatchCaseSkipEmptyCells.xlsx");
+        checkExcelResult(getFullSheetName("Master"), "removeduplicatecells\\RDC_032_uniquesMatchCaseSkipEmptyCells.xlsx");
     }
 
     @Override

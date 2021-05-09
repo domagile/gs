@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS018_duplicatesMoveNewSheetTest extends CTSTest {
@@ -37,7 +37,7 @@ public class CTS018_duplicatesMoveNewSheetTest extends CTSTest {
         clickNewSheet();
 
         clickFinishAndClose();
-        checkResult(getResultSheetName("Table1 - duplicates"), "comparetwosheets\\CTS_018_duplicatesMoveToNewSheet.csv");
+        checkResult(getFullSheetName("Table1 - duplicates"), "comparetwosheets\\CTS_018_duplicatesMoveToNewSheet.csv");
     }
 
    /* @Override

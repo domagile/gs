@@ -39,7 +39,7 @@ public class CTS017_duplicatesCopyCustomLocationTest extends CTSTest {
         setCustomLocationRange("'Table1'!K1");
 
         clickFinishAndClose();
-        checkResult(getResultSheetName("Table1"), "comparetwosheets\\CTS_017_duplicatesCopyCustomLocation.csv");
+        checkResult(getFullSheetName("Table1"), "comparetwosheets\\CTS_017_duplicatesCopyCustomLocation.csv");
     }
 
     @Override

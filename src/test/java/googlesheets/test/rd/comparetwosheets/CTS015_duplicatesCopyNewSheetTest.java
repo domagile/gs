@@ -3,7 +3,7 @@ package googlesheets.test.rd.comparetwosheets;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.generic.google.GoogleSheetService.removeSheetThroughMenu;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
@@ -37,7 +37,7 @@ public class CTS015_duplicatesCopyNewSheetTest extends CTSTest {
         clickNewSheet();
 
         clickFinishAndClose();
-         checkResult(getResultSheetName("Table1 - duplicates"), "comparetwosheets\\CTS_015_duplicatesCopyNewSheet.csv");
+         checkResult(getFullSheetName("Table1 - duplicates"), "comparetwosheets\\CTS_015_duplicatesCopyNewSheet.csv");
     }
 
     @Override

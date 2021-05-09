@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.setRange;
 
@@ -33,7 +33,7 @@ public class RDC017_step3DuplicatesMoveNewSheetTest extends RDRTest {
         clickNewSheet();
         clickFinishAndClose();
 
-        checkResult(getResultSheetName("Master - duplicates"), "removeduplicatecells\\RDC_017_duplicatesMoveNewSheet.csv");
+        checkResult(getFullSheetName("Master - duplicates"), "removeduplicatecells\\RDC_017_duplicatesMoveNewSheet.csv");
 
     }
 

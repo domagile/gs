@@ -181,7 +181,7 @@ public class GoogleSheetService {
     }
 
 
-    public static String getResultSheetName(String namePart) {
+    public static String getFullSheetName(String namePart) {
         switchDriverToDefaultContent();
         WebElement element = getPresentElementByXpath(textContains(namePart));
         return element.getText().trim();

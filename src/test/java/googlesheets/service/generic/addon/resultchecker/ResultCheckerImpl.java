@@ -38,7 +38,7 @@ public class ResultCheckerImpl implements ResultChecker {
         openDoc(resultInfo.getNewSpreadsheetLink());
         startCSVDownload();
         sleep(2000);
-        String sheetName = getResultSheetName(resultSheetNamePart);
+        String sheetName = getFullSheetName(resultSheetNamePart);
         if (GlobalContext.USE_SPREADSHEET_API) {
             deleteSpreadsheet(getSpreadsheetId(resultInfo.getNewSpreadsheetLink()));
         }

@@ -1,0 +1,35 @@
+Sheet,Cell,Type,Value
+Master,D4,Hyperlink,tom_hance@verizon.net
+Master,C8,Hyperlink,https://www.att.com/
+Master,C18,Hyperlink,www.verizon.com
+Master,C21,Hyperlink,https://www.earthlink.net/#/
+Master,C26,Hyperlink,www.yahoo.com
+Master,C32,Hyperlink,https://www.xfinity.com/
+Master,C35,Hyperlink,https://currently.att.yahoo.com/
+Master,C41,Hyperlink,www.apple.com
+Master,C84,Hyperlink,Apple
+Master,C95,Hyperlink,www.apple.com
+Master,C100,Hyperlink,Apple
+Master,C110,Hyperlink,xfinity
+Master,C118,Hyperlink,https://www.xfinity.com/
+Master,C126,Hyperlink,xfinity
+Master,C217,Hyperlink,https://www.laredoute.com/
+Master,C226,Hyperlink,laredoute
+Master,C230,Hyperlink,https://www.laredoute.com/
+Master,C232,Hyperlink,laredoute
+Master,C236,Hyperlink,https://www.laredoute.com/
+Master,C8,Hyperlink,"=HYPERLINK(""https://www.att.com/"")"
+Master,C18,Hyperlink,"=HYPERLINK(""www.verizon.com"")"
+Master,C84,Hyperlink,"=HYPERLINK(""www.apple.com"",""Apple"")"
+Master,C118,Hyperlink,"=HYPERLINK(""https://www.xfinity.com/"")"
+Master,C126,Hyperlink,"=HYPERLINK(""https://www.xfinity.com"", ""xfinity"")"
+Master,C230,Hyperlink,"=HYPERLINK(""https://www.laredoute.com/"")"
+Master,C232,Hyperlink,"=HYPERLINK(""https://www.laredoute.com"", ""laredoute"")"
+Master2,E4,Hyperlink,www.cdiscount.com
+Master2,D11,Hyperlink,www.cdiscount.com
+Master2,B13,Hyperlink,"Silverence
+www.cdiscount.com"
+Master2,B14,Hyperlink,www.cdiscount.com Lymer
+Master2,B17,Hyperlink,Araiza Iii www.cdiscount.com
+Master2,D23,Hyperlink,47801 Anchor Ct www.fnac.com
+Master2,I24,Hyperlink,www.fnac.com

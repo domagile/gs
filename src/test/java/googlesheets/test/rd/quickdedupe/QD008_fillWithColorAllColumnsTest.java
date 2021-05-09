@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 
 
 public class QD008_fillWithColorAllColumnsTest extends QDTest {
@@ -26,7 +26,7 @@ public class QD008_fillWithColorAllColumnsTest extends QDTest {
                 .build();
         execute(options);
 
-        checkExcelResult(getResultSheetName("Master"), "quickdedupe\\QD_008_fillWithColorAllColumns.xlsx");
+        checkExcelResult(getFullSheetName("Master"), "quickdedupe\\QD_008_fillWithColorAllColumns.xlsx");
     }
 
     @Override

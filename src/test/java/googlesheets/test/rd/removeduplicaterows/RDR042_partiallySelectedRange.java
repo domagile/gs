@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR042_partiallySelectedRange extends RDRTest {
@@ -34,7 +34,7 @@ public class RDR042_partiallySelectedRange extends RDRTest {
         clickNewSheet();
 
         clickFinishAndClose();
-        String listName = getResultSheetName("Master - duplicates");
+        String listName = getFullSheetName("Master - duplicates");
         checkResult(listName, "removeduplicaterows\\RDR_042_duplicatesPartiallySelectedRange.csv");
     }
 

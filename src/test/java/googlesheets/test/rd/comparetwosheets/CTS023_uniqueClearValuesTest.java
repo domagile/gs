@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS023_uniqueClearValuesTest extends CTSTest {
@@ -35,7 +35,7 @@ public class CTS023_uniqueClearValuesTest extends CTSTest {
 
         clickClearValuesRadioButton();
         clickFinishAndClose();
-         checkResult(getResultSheetName("Table1"), "comparetwosheets\\CTS_023_uniqueClearValues.csv");
+         checkResult(getFullSheetName("Table1"), "comparetwosheets\\CTS_023_uniqueClearValues.csv");
     }
 
     @Override

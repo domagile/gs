@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 
@@ -32,7 +32,7 @@ public class RDC028_step3Uniques1stOccurrencesClearValuesTest extends RDCTest {
        // setCustomLocationRange("'Master'!G1");
         clickFinishAndClose();
 
-        checkResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_028_uniques1stOccurrencesClearValues.csv");
+        checkResult(getFullSheetName("Master"), "removeduplicatecells\\RDC_028_uniques1stOccurrencesClearValues.csv");
 
     }
 

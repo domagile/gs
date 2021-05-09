@@ -33,7 +33,7 @@ public class RDC015_step3UniquesCopyCustomLocationTest extends RDCTest {
         setCustomLocationRange("'Master'!G1");
         clickFinishAndClose();
 
-        checkResult(getResultSheetName("Master"), "removeduplicatecells\\RDC_015_uniquesCopyCustomLocation.csv");
+        checkResult(getFullSheetName("Master"), "removeduplicatecells\\RDC_015_uniquesCopyCustomLocation.csv");
 
     }
 

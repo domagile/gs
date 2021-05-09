@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
-import static googlesheets.service.generic.google.GoogleSheetService.getResultSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 
 
 public class QD013_copyNewSheetAllColumnsTest extends QDTest {
@@ -28,7 +28,7 @@ public class QD013_copyNewSheetAllColumnsTest extends QDTest {
                 .build();
         execute(options);
 
-        checkResult(getResultSheetName("Master - duplicates"), "quickdedupe\\QD_013_copyNewSheetAllColumns.csv");
+        checkResult(getFullSheetName("Master - duplicates"), "quickdedupe\\QD_013_copyNewSheetAllColumns.csv");
     }
 
     @Override
