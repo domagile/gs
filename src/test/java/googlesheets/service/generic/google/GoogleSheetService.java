@@ -419,12 +419,13 @@ public class GoogleSheetService {
         invokeFunctionWithReinvocation(() -> {
             WebElement adxCombobox = getElement(id);
             clickElement(adxCombobox.findElement(By.className("adx-custom-select-button")));
+            WebElement optionsDiv = adxCombobox.findElement(By.className("adx-custom-select-menu"));
             if (!waitForCondition(
-                    () -> adxCombobox.findElement(By.className("adx-custom-select-menu")).getCssValue("display").equals("block"),
+                    () -> optionsDiv.getCssValue("display").equals("block"),
                     2, 500)) {
                 throw new FunctionInvocationException();
             }
-            clickElement(adxCombobox.findElement(By.xpath(textIs(value))));
+            clickElement(optionsDiv.findElement(By.xpath(textIs(value))));
         }, StaleElementReferenceException.class);
     }
 
