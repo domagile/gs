@@ -2,10 +2,14 @@ package googlesheets.service.generic.addon;
 
 import googlesheets.service.GlobalContext;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
-import static googlesheets.service.generic.addon.GenericAddonService.switchDriverToAddonIframe;
+import java.util.List;
+
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.invokeFunctionWithReinvocation;
+import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.webdriver.FieldHelper.getElements;
 
 public class AddonRunner {
     private String powerToolsSectionIconId;
@@ -41,7 +45,7 @@ public class AddonRunner {
 
     private void runThroughPowerTools() {
         IFrameInfo iFrameInfo = runPowerTools();
-        GlobalContext.getInstance().setPowerToolsTopIFrameSrc(iFrameInfo.getTopIframeSrc());
+        GlobalContext.getInstance().setFirstAddonTopIFrameSrc(iFrameInfo.getTopIframeSrc());
         clickElement(powerToolsSectionIconId);
         //fixme: no reaction to click without this delay
         sleep(2000);
@@ -57,7 +61,7 @@ public class AddonRunner {
 
 
     private boolean clickAddonPowerToolsIcon() {
-        clickElement(powerToolsAddonIconLocator);
+        clickElement(getAddonIconElement(powerToolsAddonIconLocator));
         if (isSidePanelAddon()) {
             return true;
         }
@@ -65,13 +69,28 @@ public class AddonRunner {
     }
 
 
-    private void runAsSeparateAddon() {
+    private WebElement getAddonIconElement(By locator) {
+        List<WebElement> elements = getElements(locator);
+        if (elements.size() == 1) {
+            return elements.get(0);
+        }
+        else if (elements.size() == 2) {
+            return elements.get(elements.get(0).isDisplayed() ? 0 : 1);
+        }
+        else {
+            throw new IllegalStateException("More than 2 elements: " + elements.size());
+        }
+    }
+
+
+    protected void runAsSeparateAddon() {
         runAddonThroughMenu(lastMenuItemText);
         //todo: change to some explicit wait
         //wait for dialog window to be loaded
         sleep(5000);
 
-        switchDriverToAddonIframe();
+        IFrameInfo iFrameInfo = switchDriverToAddonIframe();
+        GlobalContext.getInstance().setFirstAddonTopIFrameSrc(iFrameInfo.getTopIframeSrc());
     }
 
 

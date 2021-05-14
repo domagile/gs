@@ -6,7 +6,7 @@ import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AddTextDialog {
     public void setAddedText(String text) {
-        setText(text, "addTextGroupe_Text");
+        setText("addTextGroupe_Text", text);
     }
 
 
@@ -62,23 +62,23 @@ public class AddTextDialog {
 
 
     public void setCharacterNumber(int number) {
-        setAdxNumber(number, "addTextGroupe_find_by_position_position");
+        setAdxNumber("addTextGroupe_find_by_position_position", number);
     }
 
 
     public void setBeforeText(String text) {
-        setText(text, "addTextGroupe_find_by_character_before_text");
+        setText("addTextGroupe_find_by_character_before_text", text);
     }
 
 
     public void setAfterText(String text) {
-        setText(text, "addTextGroupe_find_by_character_after_text");
+        setText("addTextGroupe_find_by_character_after_text", text);
     }
 
 
     public void setSkipEmptyCells(boolean value)
     {
-        setCheckboxValueByLabelClick(value, "addTextGroupe_skip_empty_cells");
+        setCheckboxValueByLabelClick("addTextGroupe_skip_empty_cells", value);
     }
 
 

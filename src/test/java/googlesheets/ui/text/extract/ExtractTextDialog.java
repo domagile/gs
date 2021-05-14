@@ -42,47 +42,47 @@ public class ExtractTextDialog {
 
 
     public void setCharacterNumber(int number) {
-        setAdxNumber(number, "extractTextGroupe_chars_count");
+        setAdxNumber("extractTextGroupe_chars_count", number);
     }
 
 
     public void setAllAfterTextOption(boolean value) {
-        setCheckboxValueByLabelClick(value, "extractTextGroupe_afterInternal");
+        setCheckboxValueByLabelClick("extractTextGroupe_afterInternal", value);
     }
 
 
     public void setAllAfterTextValue(String text) {
-        setText(text, "extractTextGroupe_after_text");
+        setText("extractTextGroupe_after_text", text);
     }
 
 
     public void setAllBeforeTextOption(boolean value) {
-        setCheckboxValueByLabelClick(value, "extractTextGroupe_beforeInternal");
+        setCheckboxValueByLabelClick("extractTextGroupe_beforeInternal", value);
     }
 
 
     public void setAllBeforeTextValue(String text) {
-        setText(text, "extractTextGroupe_before_text");
+        setText("extractTextGroupe_before_text", text);
     }
 
 
     public void setMatchCase(boolean value) {
-        setCheckboxValueByLabelClick(value, "extractTextGroupe_match_case");
+        setCheckboxValueByLabelClick("extractTextGroupe_match_case", value);
     }
 
 
     public void setFirstCharPosition(int position) {
-        setAdxNumber(position, "extractTextGroupe_by_pos_first_number");
+        setAdxNumber("extractTextGroupe_by_pos_first_number", position);
     }
 
 
     public void setExtractedCharNumberOption(boolean value) {
-        setCheckboxValueByLabelClick(value, "extractTextGroupe_by_position_charsInternal");
+        setCheckboxValueByLabelClick("extractTextGroupe_by_position_charsInternal", value);
     }
 
 
     public void setExtractedCharNumberValue(int value) {
-        setAdxNumber(value, "extractTextGroupe_by_pos_chars_number");
+        setAdxNumber("extractTextGroupe_by_pos_chars_number", value);
     }
 
 
@@ -92,22 +92,22 @@ public class ExtractTextDialog {
 
 
     public void setMask(String mask) {
-        setText(mask, "extractTextGroupe_mask_text");
+        setText("extractTextGroupe_mask_text", mask);
     }
 
 
     public void setMaskMatchCase(boolean value) {
-        setCheckboxValueByLabelClick(value, "extractTextGroupe_match_case_mask");
+        setCheckboxValueByLabelClick("extractTextGroupe_match_case_mask", value);
     }
 
 
     public void setPlaceResultsToNewColumn(boolean value) {
-        setCheckboxValueByLabelClick(value, "extractTextGroupe_insert_new_column");
+        setCheckboxValueByLabelClick("extractTextGroupe_insert_new_column", value);
     }
 
 
     public void setClearExtractedText(boolean value) {
-        setCheckboxValueByLabelClick(value, "extractTextGroupe_clear_source_data");
+        setCheckboxValueByLabelClick("extractTextGroupe_clear_source_data", value);
     }
 
 

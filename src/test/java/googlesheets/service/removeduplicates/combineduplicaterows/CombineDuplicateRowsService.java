@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static googlesheets.service.generic.addon.GenericAddonService.reinvokeFunctionWithDelay;
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.reinvokeFunctionWithDelay;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.webdriver.FieldHelper.*;
 import static googlesheets.service.generic.webdriver.Locators.TAG_SELECT;
@@ -27,7 +27,7 @@ public class CombineDuplicateRowsService {
     public static final String INPUT_ID_RANGE = "inputActiveRange";
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(CHECKBOX_ID_CREATE_BACKUP_COPY, value);
         sleep(5000);
     }
 

@@ -2,20 +2,22 @@ package googlesheets.service.generic.addon;
 
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
-import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.google.GoogleSheetService;
+import googlesheets.service.generic.webdriver.FieldHelper;
+import googlesheets.service.generic.webdriver.WebDriverService;
+import org.apache.poi.openxml4j.opc.internal.FileHelper;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.*;
+import java.util.function.Predicate;
 
-import static googlesheets.service.generic.google.GoogleSheetService.*;
-import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
-import static googlesheets.service.generic.webdriver.FieldHelper.getElements;
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.reinvokeFunctionWithDelay;
+import static googlesheets.service.generic.google.GoogleSheetService.setText;
+import static googlesheets.service.generic.google.GoogleSheetService.waitForCondition;
+import static googlesheets.service.generic.webdriver.FieldHelper.*;
 import static googlesheets.service.generic.webdriver.Locators.TAG_IFRAME;
 import static googlesheets.service.generic.webdriver.WebDriverService.*;
 import static googlesheets.service.generic.xpath.XPathHelper.textContainsExceptTag;
@@ -31,10 +33,24 @@ public abstract class GenericAddonService {
     public static IFrameInfo switchDriverToAddonIframe() {
         if (GlobalContext.IS_POWER_TOOLS_MODE) {
             return switchDriverToCheckedAddonIframe(iFrame -> !iFrame.getAttribute("src").equals(
-                    GlobalContext.getInstance().getPowerToolsTopIFrameSrc()));
+                    GlobalContext.getInstance().getFirstAddonTopIFrameSrc()));
         } else {
             return switchDriverToCheckedAddonIframe(iFrame -> true);
         }
+    }
+
+
+    public static void switchDriverToFirstAddonIframe() {
+        switchDriverToDefaultContent();
+        switchDriverToCheckedAddonIframe(iFrame -> iFrame.getAttribute("src").equals(
+                GlobalContext.getInstance().getFirstAddonTopIFrameSrc()));
+    }
+
+
+    public static void switchDriverToSecondAddonIframe() {
+        switchDriverToDefaultContent();
+        switchDriverToCheckedAddonIframe(iFrame -> !iFrame.getAttribute("src").equals(
+                GlobalContext.getInstance().getFirstAddonTopIFrameSrc()));
     }
 
 
@@ -65,75 +81,6 @@ public abstract class GenericAddonService {
             return reinvokeFunctionWithDelay(GenericAddonService::switchDriverToCheckedAddonIframe, iFramePredicate);
         }
         return new IFrameInfo(topIframeSrc);
-    }
-
-
-    public static void reinvokeFunctionWithDelay(Runnable function) {
-        sleep(1000);
-        function.run();
-    }
-
-    public static <T> void reinvokeFunctionWithDelay(Consumer<T> function, T parameter) {
-        sleep(1000);
-        function.accept(parameter);
-    }
-
-    public static <T, R> R reinvokeFunctionWithDelay(Function<T, R> function, T parameter) {
-        sleep(1000);
-        return function.apply(parameter);
-    }
-
-
-    public static <T> void invokeFunctionWithReinvocation(Consumer<T> function, T parameter, Class<? extends WebDriverException>... exceptionTypes) {
-        try {
-            function.accept(parameter);
-        } catch (WebDriverException e) {
-            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e)))
-                throw e;
-            if (GlobalContext.getInstance().registerFunctionInvocation(function)) {
-                sleep(1000);
-                invokeFunctionWithReinvocation(function, parameter, exceptionTypes);
-            }
-        }
-    }
-
-
-    public static <T, U> void invokeFunctionWithReinvocation(BiConsumer<T, U> function, T parameter1, U parameter2,
-                                                             Class<? extends WebDriverException>... exceptionTypes) {
-        try {
-            function.accept(parameter1, parameter2);
-        } catch (WebDriverException | FunctionInvocationException e) {
-            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e))
-                    && !(e instanceof FunctionInvocationException))
-                throw e;
-            if (GlobalContext.getInstance().registerFunctionInvocation(function)) {
-                sleep(1000);
-                invokeFunctionWithReinvocation(function, parameter1, parameter2, exceptionTypes);
-            }
-        }
-    }
-
-
-    public static <T> void invokeFunctionWithReinvocation(Runnable function, Class<? extends WebDriverException>... exceptionTypes) {
-        try {
-            function.run();
-        } catch (WebDriverException | FunctionInvocationException e) {
-            if (Arrays.stream(exceptionTypes).noneMatch(type -> type.isInstance(e))
-                    && !(e instanceof FunctionInvocationException))
-                throw e;
-            if (GlobalContext.getInstance().registerFunctionInvocation(function)) {
-                sleep(1000);
-                invokeFunctionWithReinvocation(function, exceptionTypes);
-            }
-        }
-    }
-
-
-    public static <T> void invokeFunctionWithReinvocation(BooleanSupplier function) {
-        if (!function.getAsBoolean()) {
-            sleep(1000);
-            invokeFunctionWithReinvocation(function);
-        }
     }
 
 
@@ -185,7 +132,7 @@ public abstract class GenericAddonService {
 
 
     public static void setNameBoxValue(String value) {
-        setText(value + Keys.ENTER, FIELD_ID_NAME_BOX);
+        setText(FIELD_ID_NAME_BOX, value + Keys.ENTER);
     }
 
 
@@ -210,6 +157,7 @@ public abstract class GenericAddonService {
 
 
     public static boolean isWorkingMessageDisplayed() {
+        waitElementPresent(FIELD_ID_WORKING_MESSAGE_DIV);
         return getElement(FIELD_ID_WORKING_MESSAGE_DIV).getCssValue("display").equals("flex");
     }
 

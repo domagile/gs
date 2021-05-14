@@ -24,7 +24,7 @@ public class MergeValuesAddonDialog {
 
 
     public void setCustomSeparator(String separator) {
-        setText(separator, "mergeCellsSeparateValues");
+        setText("mergeCellsSeparateValues", separator);
     }
 
 
@@ -34,27 +34,27 @@ public class MergeValuesAddonDialog {
 
 
     public void setInsertNewColumn(boolean value) {
-        setCheckboxValueByLabelClick(value, "mergeCellsOptionPlaceOutside");
+        setCheckboxValueByLabelClick("mergeCellsOptionPlaceOutside", value);
     }
 
 
     public void setClearContentsOfCells(boolean value) {
-        setCheckboxValueByLabelClick(value, "mergeCellsOptionClearContentLabel");
+        setCheckboxValueByLabelClick("mergeCellsOptionClearContentLabel", value);
     }
 
 
     public void setMergeCellsInEachRow(boolean value) {
-        setCheckboxValueByLabelClick(value, "mergeCellsOptionMergeAll");
+        setCheckboxValueByLabelClick("mergeCellsOptionMergeAll", value);
     }
 
 
     public void setSkipEmptyCells(boolean value) {
-        setCheckboxValueByLabelClick(value, "mergeCellsOptionSkipEmpty");
+        setCheckboxValueByLabelClick("mergeCellsOptionSkipEmpty", value);
     }
 
 
     public void setWrapText(boolean value) {
-        setCheckboxValueByLabelClick(value, "mergeCellsOptionWrapText");
+        setCheckboxValueByLabelClick("mergeCellsOptionWrapText", value);
     }
 
 

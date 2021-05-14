@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebElement;
 
-import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
 import static googlesheets.service.generic.webdriver.FieldHelper.waitElementClickable;

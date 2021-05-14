@@ -9,10 +9,10 @@ import googlesheets.service.generic.addon.FunctionInvocationException;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static googlesheets.model.mergesheets.MergeSheetsResultLocationEnumeration.UPDATE_MAIN_TABLE;
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
@@ -38,12 +38,12 @@ public class MergeSheetsService {
 
     private static void setTableRange(String range, String fieldId) {
         //todo: try to send keys with pause between them
-        setText(range, fieldId);
+        setText(fieldId, range);
         sleep(3000);
         //fixme: just don't know what to do with range behavior and incorrect selection after inserting of range to range field
         setNameBoxValueFromAddonContext(range);
         sleep(3000);
-        if (!isText(range, fieldId) || !getNameBoxValueFromAddonContext().equals(range)) {
+        if (!isText(fieldId, range) || !getNameBoxValueFromAddonContext().equals(range)) {
             throw new FunctionInvocationException();
         }
     }
@@ -65,7 +65,7 @@ public class MergeSheetsService {
 
     public static void setMainTableHasHeaders(boolean value) {
         //checkbox is not updated if we do not wait for some time for clickable label
-        setCheckboxValueByLabelClick(value, "cbMasterHasHeadersInternal");
+        setCheckboxValueByLabelClick("cbMasterHasHeadersInternal", value);
     }
 
     public static void setLookupTableHasHeaders(boolean value) {
@@ -144,7 +144,4 @@ public class MergeSheetsService {
     {
         clickElement("btnNext");
     }
-
-
-
 }

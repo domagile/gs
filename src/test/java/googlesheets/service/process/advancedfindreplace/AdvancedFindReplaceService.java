@@ -21,12 +21,12 @@ public class AdvancedFindReplaceService {
     }
 
     public static void setSearchString(String searchString) {
-        setText(searchString, "afrSearchString");
+        setText("afrSearchString", searchString);
     }
 
 
     public static void setReplaceString(String replacementString) {
-        setText(replacementString, "afrReplaceString");
+        setText("afrReplaceString", replacementString);
     }
 
 

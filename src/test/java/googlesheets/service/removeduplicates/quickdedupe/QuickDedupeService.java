@@ -18,7 +18,7 @@ public class QuickDedupeService {
 
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(CHECKBOX_ID_CREATE_BACKUP_COPY, value);
         sleep(5000);
     }
 

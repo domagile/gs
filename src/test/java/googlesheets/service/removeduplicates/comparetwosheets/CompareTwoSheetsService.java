@@ -30,7 +30,7 @@ public class CompareTwoSheetsService extends GenericAddonService {
     }
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(CHECKBOX_ID_CREATE_BACKUP_COPY, value);
         sleep(5000);
     }
 
@@ -225,7 +225,7 @@ public class CompareTwoSheetsService extends GenericAddonService {
     }
 
     public static void setCustomLocationRange(String range) {
-        setText(range, "rdExistingSheetRange");
+        setText("rdExistingSheetRange", range);
         sleep(2000);
     }
 

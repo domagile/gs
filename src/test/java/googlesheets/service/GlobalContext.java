@@ -12,7 +12,7 @@ public class GlobalContext {
     private static boolean isLoggedIn;
     private Object reinvokedFunction;
     private int reinvocationCount;
-    private String powerToolsTopIFrameSrc = "";
+    private String firstAddonTopIFrameSrc = "";
 
     public static synchronized GlobalContext getInstance()
     {
@@ -54,11 +54,11 @@ public class GlobalContext {
     }
 
 
-    public String getPowerToolsTopIFrameSrc() {
-        return powerToolsTopIFrameSrc;
+    public String getFirstAddonTopIFrameSrc() {
+        return firstAddonTopIFrameSrc;
     }
 
-    public void setPowerToolsTopIFrameSrc(String powerToolsTopIFrameSrc) {
-        this.powerToolsTopIFrameSrc = powerToolsTopIFrameSrc;
+    public void setFirstAddonTopIFrameSrc(String firstAddonTopIFrameSrc) {
+        this.firstAddonTopIFrameSrc = firstAddonTopIFrameSrc;
     }
 }

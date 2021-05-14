@@ -5,6 +5,7 @@ import googlesheets.service.generic.google.GoogleSheetService;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import org.openqa.selenium.*;
 
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.reinvokeFunctionWithDelay;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElementByClassName;
 import static googlesheets.service.generic.webdriver.FieldHelper.getPresentElement;
@@ -52,7 +53,7 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
     }
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(CHECKBOX_ID_CREATE_BACKUP_COPY, value);
     }
 
 
@@ -87,7 +88,7 @@ public class RemoveDuplicatesCellsService extends GenericAddonService {
     }
 
     public static void setCustomLocationRange(String range) {
-        setText(range, TEXTFIELD_ID_CUSTOM_LOCATION_RANGE);
+        setText(TEXTFIELD_ID_CUSTOM_LOCATION_RANGE, range);
         //todo: instead of sleep it's needed to check status of the tab: from tab label 4 divs up and check specific class of div
         sleep(2000);
         checkText(range, TEXTFIELD_ID_CUSTOM_LOCATION_RANGE, RemoveDuplicatesCellsService::setCustomLocationRange);

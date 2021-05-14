@@ -5,6 +5,7 @@ import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.addon.FunctionInvocationException;
 import googlesheets.service.generic.addon.sheetselection.EntityList;
+import googlesheets.service.generic.webdriver.Locators;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.xpath.XPathHelper;
 import googlesheets.service.technical.api.SpreadsheetService;
@@ -23,7 +24,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
-import static googlesheets.service.generic.addon.GenericAddonService.invokeFunctionWithReinvocation;
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.google.Credentials.LOGIN;
 import static googlesheets.service.generic.google.Credentials.PASSWORD;
 import static googlesheets.service.generic.webdriver.FieldHelper.*;
@@ -253,7 +254,7 @@ public class GoogleSheetService {
     }
 
 
-    public static void setPresentCheckboxValue(boolean value, String checkboxId) {
+    public static void setPresentCheckboxValue(String checkboxId, boolean value) {
         waitElementPresent(checkboxId);
         setCheckboxValue(value, checkboxId);
     }
@@ -267,12 +268,19 @@ public class GoogleSheetService {
     }
 
 
-    public static void setCheckboxValueByLabelClick(boolean value, String checkboxId) {
+    public static void setCheckboxValueByLabelClick(String checkboxId, boolean value) {
         WebElement checkbox = getElement(checkboxId);
         if (checkbox.isSelected() != value) {
             WebElement label = getClickableElementByAttribute("for", checkboxId);
             label.click();
         }
+    }
+
+
+    public static void setColor(String colorTitle, String buttonDivDataTitle, String paletteDivClass) {
+        clickElement(getElementByAttribute("data-title", buttonDivDataTitle));
+        WebElement paletteDiv = getElementByClassName(paletteDivClass);
+        clickElement(getElementByAttribute(paletteDiv, "title", colorTitle).findElement(TAG_SPAN));
     }
 
 
@@ -439,12 +447,12 @@ public class GoogleSheetService {
     }
 
 
-    public static boolean isText(String text, String fieldId) {
+    public static boolean isText(String fieldId, String text) {
         return getPresentElement(fieldId).getAttribute("value").equals(text);
     }
 
 
-    public static void setText(String text, String fieldId) {
+    public static void setText(String fieldId, String text) {
         invokeFunctionWithReinvocation(textValue -> {
             WebElement field = getPresentElement(fieldId);
             field.clear();
@@ -453,7 +461,7 @@ public class GoogleSheetService {
     }
 
 
-    public static void setAdxNumber(int number, String fieldId) {
+    public static void setAdxNumber(String fieldId, int number) {
         invokeFunctionWithReinvocation(() -> {
             WebElement field = getPresentElement(fieldId);
 

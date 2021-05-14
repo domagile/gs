@@ -36,6 +36,12 @@ public class FieldHelper {
     }
 
 
+    public static WebElement getElementByAttribute(WebElement container, String attribute, String attributeValue)
+    {
+        return container.findElement(By.xpath(attributeIs(attribute, attributeValue)));
+    }
+
+
     public static WebElement getClickableElementByAttribute(String attribute, String attributeValue)
     {
         return getClickableElement(xpath(attributeIs(attribute, attributeValue)));
@@ -100,6 +106,11 @@ public class FieldHelper {
     }
 
 
+    public static WebElement getElementByClasses(String tag, String class1, String class2) {
+        return driver.findElement(By.cssSelector(String.format("%s.%s.%s", tag, class1, class2)));
+    }
+
+
     public static WebElement getElementByCssSelector(String cssSelector)
     {
         return driver.findElement(By.cssSelector(cssSelector));
@@ -108,6 +119,7 @@ public class FieldHelper {
 
     public static List<WebElement> getElements(By locator)
     {
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         return driver.findElements(locator);
     }
 

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebElement;
 
+import static googlesheets.service.generic.addon.FunctionReinvocationUtil.reinvokeFunctionWithDelay;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.webdriver.FieldHelper.getPresentElement;
 
@@ -45,7 +46,7 @@ public class RemoveDuplicatesRowsService extends GenericAddonService {
     }
 
     public static void setCreateBackupCopyOfSheet(boolean value) {
-        setPresentCheckboxValue(value, CHECKBOX_ID_CREATE_BACKUP_COPY);
+        setPresentCheckboxValue(CHECKBOX_ID_CREATE_BACKUP_COPY, value);
     }
 
     public static void clickDuplicatesRadioButton() {
@@ -91,7 +92,7 @@ public class RemoveDuplicatesRowsService extends GenericAddonService {
     }
 
     public static void setCustomLocationRange(String range) {
-        setText(range, "rdExistingSheetRange");
+        setText("rdExistingSheetRange", range);
         sleep(2000);
     }
 
