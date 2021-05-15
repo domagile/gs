@@ -41,12 +41,12 @@ dependencies {
     compile 'com.google.apis:google-api-services-sheets:v4-rev581-1.25.0'
     compile 'com.google.apis:google-api-services-drive:v3-rev197-1.25.0'
     compile 'com.google.guava:guava:28.2-jre'
+    compile 'org.apache.poi:poi:4.1.2'
+    compile 'org.apache.poi:poi-ooxml:4.1.2'
+    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    compile 'junit:junit:4.12'
 
     testImplementation("io.qameta.allure:allure-java-commons:$allureVersion")
-    testCompile 'org.seleniumhq.selenium:selenium-java:3.141.59'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.apache.poi:poi:4.1.2'
-    testCompile 'org.apache.poi:poi-ooxml:4.1.2'
     testCompile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
     testCompile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
 }
