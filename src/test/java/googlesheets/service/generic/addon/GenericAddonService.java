@@ -3,9 +3,7 @@ package googlesheets.service.generic.addon;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.service.generic.google.GoogleSheetService;
-import googlesheets.service.generic.webdriver.FieldHelper;
 import googlesheets.service.generic.webdriver.WebDriverService;
-import org.apache.poi.openxml4j.opc.internal.FileHelper;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -41,20 +39,19 @@ public abstract class GenericAddonService {
 
 
     public static void switchDriverToFirstAddonIframe() {
-        switchDriverToDefaultContent();
         switchDriverToCheckedAddonIframe(iFrame -> iFrame.getAttribute("src").equals(
                 GlobalContext.getInstance().getFirstAddonTopIFrameSrc()));
     }
 
 
     public static void switchDriverToSecondAddonIframe() {
-        switchDriverToDefaultContent();
         switchDriverToCheckedAddonIframe(iFrame -> !iFrame.getAttribute("src").equals(
                 GlobalContext.getInstance().getFirstAddonTopIFrameSrc()));
     }
 
 
     public static IFrameInfo switchDriverToCheckedAddonIframe(Predicate<WebElement> iFramePredicate) {
+        switchDriverToDefaultContent();
         boolean switched = false;
         String topIframeSrc = null;
 
@@ -76,7 +73,6 @@ public abstract class GenericAddonService {
         }
 
         if (!switched) {
-            switchDriverToDefaultContent();
             //todo: fix reinvocation
             return reinvokeFunctionWithDelay(GenericAddonService::switchDriverToCheckedAddonIframe, iFramePredicate);
         }
