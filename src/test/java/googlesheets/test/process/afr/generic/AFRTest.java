@@ -8,6 +8,7 @@ import googlesheets.test.generic.AddonTest;
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.startCSVDownload;
 
 //todo: extend from DefaultSideAddonTest
 public class AFRTest extends AddonTest {

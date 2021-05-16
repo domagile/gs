@@ -5,6 +5,7 @@ import googlesheets.service.technical.file.FileType;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.technical.file.FileService.*;
+import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.*;
 
 public class ResultCheckerImpl implements ResultChecker {
     private String etalonDir;
@@ -43,7 +44,7 @@ public class ResultCheckerImpl implements ResultChecker {
             deleteSpreadsheet(getSpreadsheetId(resultInfo.getNewSpreadsheetLink()));
         }
         else {
-            moveSpreadsheetToTrashThroughMenu();
+            moveSpreadsheetToTrash();
         }
         String newSpreadsheetName = "New spreadsheet";
         compareFileWithEtalon(newSpreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.CSV));

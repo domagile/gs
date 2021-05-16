@@ -3,6 +3,8 @@ package googlesheets.service.technical.api;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.Sheet;
@@ -10,6 +12,7 @@ import com.google.api.services.sheets.v4.model.Spreadsheet;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +20,15 @@ import java.util.Optional;
 import static googlesheets.service.technical.api.Context.APPLICATION_NAME;
 
 public class SpreadsheetService {
+    private static final String MIME_TYPE_SPREADSHEET = "application/vnd.google-apps.spreadsheet";
     private static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS_READONLY, SheetsScopes.DRIVE);
 
 
     public static void main(String[] args) throws GeneralSecurityException, IOException {
 //        compareSheets();
 //        deleteSpreadsheet("sdfldskfjlsdkjflskdjflsdjkflkjdlkfjslkjdflsdkjf");
+        List<File> spt_002 = getSpreadsheetsByName("SPT_002");
+        System.out.println(spt_002);
     }
 
 
@@ -45,14 +51,60 @@ public class SpreadsheetService {
 
     public static void deleteSpreadsheet(String fileId) {
         try {
-            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            Drive service = new Drive.Builder(HTTP_TRANSPORT, Context.getJsonFactory(), CredentialProvider.getCredentials(HTTP_TRANSPORT, SCOPES))
-                    .setApplicationName(APPLICATION_NAME)
-                    .build();
+            Drive service = getDriveService();
             service.files().delete(fileId).execute();
-        }
-        catch (GeneralSecurityException | IOException e) {
+        } catch (GeneralSecurityException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    private static Drive getDriveService() throws GeneralSecurityException, IOException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, Context.getJsonFactory(), CredentialProvider.getCredentials(HTTP_TRANSPORT, SCOPES))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+        return service;
+    }
+
+
+    public static String getSpreadsheetIdByName(String name) {
+        try {
+            Drive driveService = getDriveService();
+
+            String query = String.format("name = '%s' and mimeType = '%s'", name, MIME_TYPE_SPREADSHEET);
+            FileList result = driveService.files().list().setQ(query).setSpaces("drive")
+                    .setIncludeItemsFromAllDrives(true).setSupportsAllDrives(true)
+                    //Only mentioned fields are fetched for result: id, name, createdTime, mimeType
+                    .setFields("files(id, name, mimeType)")
+                    .execute();
+            List<File> files = result.getFiles();
+            if (files.size() != 1) {
+                throw new RuntimeException("Unexpected number of spreadsheets: " + files.size());
+            }
+            return files.get(0).getId();
+        } catch (GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private static List<File> getSpreadsheetsByName(String name) throws IOException, GeneralSecurityException {
+        Drive driveService = getDriveService();
+
+        String pageToken = null;
+        List<File> list = new ArrayList<>();
+        String query = String.format("name = '%s' and mimeType = '%s'", name, MIME_TYPE_SPREADSHEET);
+
+        do {
+            FileList result = driveService.files().list().setQ(query).setSpaces("drive")
+                    .setIncludeItemsFromAllDrives(true).setSupportsAllDrives(true)
+                    //Only mentioned fields are fetched for result: id, name, createdTime, mimeType
+                    .setFields("nextPageToken, files(id, name, createdTime, mimeType)")
+                    .setPageToken(pageToken).execute();
+            list.addAll(result.getFiles());
+            pageToken = result.getNextPageToken();
+        } while (pageToken != null);
+        return list;
     }
 }

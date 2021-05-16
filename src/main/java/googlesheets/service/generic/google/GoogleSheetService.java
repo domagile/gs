@@ -47,6 +47,13 @@ public class GoogleSheetService {
     }
 
 
+    public static void openSpreadsheetByName(String name) {
+        String id = SpreadsheetService.getSpreadsheetIdByName(name);
+        String link = String.format("https://docs.google.com/spreadsheets/d/%s/edit", id);
+        openDoc(link);
+    }
+
+
     private static String getCustomLink(String link) {
         Properties customLinkMapping = new Properties();
         String commonPart = link.substring(0, link.indexOf('#'));
@@ -87,37 +94,11 @@ public class GoogleSheetService {
     }
 
 
-    public static void startCSVDownload() {
-        clickMenuFile();
-        clickMenuDownload();
-        clickElement(By.xpath(attributeIs("aria-label", "Comma-separated values (.csv, current sheet) c")));
-    }
-
-    private static void clickMenuDownload() {
-        clickElement(By.xpath(attributeIs("aria-label", "Download d")));
-    }
-
-    private static void clickMenuFile() {
-        clickElement(By.xpath(textIs("File")));
-    }
-
-    public static void startXLSXDownload() {
-        clickMenuFile();
-        clickMenuDownload();
-        clickElement(By.xpath(attributeIs("aria-label", "Microsoft Excel (.xlsx) x")));
-    }
-
-
     public static void deleteSpreadsheet(String spreadsheetId)
     {
         SpreadsheetService.deleteSpreadsheet(spreadsheetId);
     }
 
-
-    public static void moveSpreadsheetToTrashThroughMenu() {
-        clickMenuFile();
-        clickElement(By.xpath(attributeIs("aria-label", "Move to trash t")));
-    }
 
     public static void clickElement(By locator) {
         invokeFunctionWithReinvocation(elementLocator -> {
@@ -189,6 +170,18 @@ public class GoogleSheetService {
     }
 
 
+    public static void clickMenuItem(String menuName) {
+        clickMenuItem(menuName, true);
+    }
+
+    public static void clickMenuItem(String menuName, boolean exactText) {
+        invokeFunctionWithReinvocation(() -> {
+            String xpath = exactText ? textIs(menuName) : textContains(menuName);
+            getClickableElementByXpath(xpath).click();
+        }, ElementNotInteractableException.class);
+    }
+
+
     public static void clickContextMenuByText(String text) {
         getPresentElementByXpath(textIs(text)).click();
     }
@@ -213,38 +206,6 @@ public class GoogleSheetService {
         sleep(1000);
     }
 
-
-    public static void clickAddonsMenu() {
-        invokeFunctionWithReinvocation(() -> {
-            getClickableElementByXpath(textIs("Add-ons")).click();
-        }, ElementClickInterceptedException.class, UnhandledAlertException.class);
-    }
-
-
-    public static void clickMenuItem(String menuName) {
-        clickMenuItem(menuName, true);
-    }
-
-    public static void clickMenuItem(String menuName, boolean exactText) {
-        invokeFunctionWithReinvocation((menu, text) -> {
-            String xpath = exactText ? textIs(menuName) : textContains(menuName);
-            getClickableElementByXpath(xpath).click();
-        }, menuName, exactText, ElementNotInteractableException.class);
-    }
-
-
-    public static void clickHighLevelMenuItem(String menuName, String nextMenuName) {
-        clickHighLevelMenuItem(menuName, nextMenuName, true);
-    }
-
-    public static void clickHighLevelMenuItem(String menuName, String nextMenuName, boolean exactText) {
-        invokeFunctionWithReinvocation(() -> {
-            String xpath = exactText ? textIs(menuName) : textContains(menuName);
-            getPresentElementByXpath(xpath).click();
-            xpath = exactText ? textIs(nextMenuName) : textContains(nextMenuName);
-            getWaitWithTimeout(2).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-        }, TimeoutException.class);
-    }
 
     public static void clickRadioButton(String buttonId) {
         waitElementPresent(buttonId);

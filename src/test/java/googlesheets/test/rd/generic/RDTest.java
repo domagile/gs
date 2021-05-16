@@ -4,9 +4,11 @@ import googlesheets.service.generic.addon.resultchecker.ResultInfo;
 import googlesheets.service.technical.file.FileType;
 import googlesheets.test.generic.AddonTest;
 
-import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
+import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 import static googlesheets.service.technical.file.FileService.compareFileWithEtalon;
 import static googlesheets.service.technical.file.FileService.removeDownloadedSheetFile;
+import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.*;
 
 public class RDTest extends AddonTest {
     protected void checkResult(String listName, String etalonFileName) {
@@ -39,7 +41,7 @@ public class RDTest extends AddonTest {
         startCSVDownload();
         sleep(2000);
         String listName = getFullSheetName(sourceListName);
-        moveSpreadsheetToTrashThroughMenu();
+        moveSpreadsheetToTrash();
         String newSpreadsheetName = String.format("%s - %s", getSpreadsheetName(), listName.substring(listName.indexOf('-') + 2));
         compareFileWithEtalon(newSpreadsheetName, listName, etalonFileName);
         removeDownloadedSheetFile(newSpreadsheetName, listName, FileType.CSV);

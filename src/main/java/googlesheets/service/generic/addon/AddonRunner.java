@@ -10,6 +10,7 @@ import static googlesheets.service.generic.addon.FunctionReinvocationUtil.invoke
 import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElements;
+import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.*;
 
 public class AddonRunner {
     private String powerToolsSectionIconId;
@@ -95,7 +96,7 @@ public class AddonRunner {
 
 
     private static IFrameInfo runPowerTools() {
-        clickAddonsMenu();
+        clickMenuAddons();
         clickHighLevelMenuItem(getPowerToolsMenuText(), "Start");
         clickMenuItem("Start");
         //todo: change to some explicit wait
@@ -110,7 +111,7 @@ public class AddonRunner {
 
 
     private void runAddonThroughMenu(String addonMenuName) {
-        clickAddonsMenu();
+        clickMenuAddons();
         clickGroupMenu(addonMenuName);
         clickMenuItem(addonMenuName, isExactMenuItemText());
     }

@@ -5,10 +5,11 @@ import googlesheets.service.generic.addon.SideAddonService;
 import googlesheets.service.technical.file.FileType;
 import org.junit.After;
 
-import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
 import static googlesheets.service.technical.file.FileService.*;
-import static googlesheets.service.technical.file.FileService.removeDownloadedSheetFile;
+import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.startCSVDownload;
+import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.startXLSXDownload;
 import static org.junit.Assert.fail;
 
 public class DefaultSideAddonTest<T extends SideAddonOptions> extends AddonTest {
