@@ -8,11 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class FBC003_eachRowTest extends FBCTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1DmgIvOVCjbKwsyr4VsMJ_V4xGwl-BwJo9rM396diEFw/edit#gid=1816629738");
-    }
-
     @Test
     public void insertFunction()
     {

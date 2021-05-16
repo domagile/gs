@@ -7,11 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EXT002_byStringsTest extends EXTTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/14JTrL1CbcA-JAIfMdDM_GJWEtOlhmpbKDctxoCpEabQ/edit#gid=1894854080");
-    }
-
     @Test
     public void extract()
     {

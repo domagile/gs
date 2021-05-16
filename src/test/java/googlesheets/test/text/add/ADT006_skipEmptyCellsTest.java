@@ -7,11 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ADT006_skipEmptyCellsTest extends ADTTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1npO16Y-lFPAFNsZ68Sjm-GRv2ukBNSoYit7odrOOf3I/edit#gid=1448815627");
-    }
-
     @Test
     public void merge()
     {

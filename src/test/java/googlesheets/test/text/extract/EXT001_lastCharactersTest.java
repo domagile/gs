@@ -8,11 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EXT001_lastCharactersTest extends EXTTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1IIeET0nlkZa98oFbSVlYHKXFpnuSlr0haDus515Kz0Y/edit#gid=0");
-    }
-
     @Test
     public void extract()
     {

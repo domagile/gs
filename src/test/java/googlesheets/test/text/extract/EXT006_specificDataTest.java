@@ -8,11 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EXT006_specificDataTest extends EXTTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/10fXMZrnbCgMfWCZkGx79r9xua2fW2ypgT66Mv6EPUCA/edit#gid=1894854080");
-    }
-
     @Test
     public void extract()
     {

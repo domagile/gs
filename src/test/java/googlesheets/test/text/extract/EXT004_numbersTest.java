@@ -7,11 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EXT004_numbersTest extends EXTTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1hmRKzuTzQOOpgI9o5Oa0gvzvmqm2U3OppsMoasXlZOU/edit#gid=0");
-    }
-
     @Test
     public void extract()
     {

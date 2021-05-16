@@ -7,11 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ADT005_afterCharacterNumberTest extends ADTTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1bZxk22ihbCRdMoeOPaouThxLAxgovVSAgArN7HKo_Nk/edit#gid=663375557");
-    }
-
     @Test
     public void merge()
     {

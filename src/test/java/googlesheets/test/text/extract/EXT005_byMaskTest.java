@@ -7,11 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EXT005_byMaskTest extends EXTTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1SDWtA5o2C4MO86jrsOaUXi0OxbxprdCFXKyqzNkUQS0/edit#gid=1894854080");
-    }
-
     @Test
     public void extract()
     {
