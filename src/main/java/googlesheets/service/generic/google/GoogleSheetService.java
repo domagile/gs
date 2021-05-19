@@ -54,6 +54,11 @@ public class GoogleSheetService {
     }
 
 
+    public static String getSpreadsheetIdByUrl() {
+        return driver.getCurrentUrl().split("/")[5];
+    }
+
+
     private static String getCustomLink(String link) {
         Properties customLinkMapping = new Properties();
         String commonPart = link.substring(0, link.indexOf('#'));
@@ -246,7 +251,7 @@ public class GoogleSheetService {
 
 
     public static void clickUndo() {
-        getElement("t-undo").findElement(By.className("goog-toolbar-button-inner-box")).click();
+        clickElement(getElement("t-undo").findElement(By.className("goog-toolbar-button-inner-box")));
     }
 
 

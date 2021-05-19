@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static googlesheets.service.technical.api.Context.APPLICATION_NAME;
+import static org.junit.Assert.fail;
 
 public class SpreadsheetService {
     private static final String MIME_TYPE_SPREADSHEET = "application/vnd.google-apps.spreadsheet";
@@ -32,15 +33,23 @@ public class SpreadsheetService {
     }
 
 
-    public static void compareSheets(String spreadsheetId, String sheet1Name, String sheet2Name) throws GeneralSecurityException, IOException {
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, Context.getJsonFactory(),
-                CredentialProvider.getCredentials(HTTP_TRANSPORT, SCOPES))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-        Spreadsheet spreadsheet = service.spreadsheets().get(spreadsheetId).execute();
-        Sheet sheet1 = getSheet(spreadsheet, sheet1Name).orElseThrow(IllegalArgumentException::new);
-        Sheet sheet2 = getSheet(spreadsheet, sheet2Name).orElseThrow(IllegalArgumentException::new);
+    public static void compareSheets(String spreadsheetId, String sheet1Name, String sheet2Name) {
+        try {
+            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            Sheets service = new Sheets.Builder(HTTP_TRANSPORT, Context.getJsonFactory(),
+                    CredentialProvider.getCredentials(HTTP_TRANSPORT, SCOPES))
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+            Spreadsheet spreadsheet = service.spreadsheets().get(spreadsheetId).setIncludeGridData(true).execute();
+            Sheet sheet1 = getSheet(spreadsheet, sheet1Name).orElseThrow(IllegalArgumentException::new);
+            Sheet sheet2 = getSheet(spreadsheet, sheet2Name).orElseThrow(IllegalArgumentException::new);
+            List<String> diffs = new SheetComparator().compare(sheet1, sheet2);
+            if (!diffs.isEmpty()) {
+                fail(String.join("\n", diffs));
+            }
+        } catch (GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

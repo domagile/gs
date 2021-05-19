@@ -23,6 +23,6 @@ public class FBC003_eachRowTest extends FBCTest {
                 .fillResultsWithColors(true)
                 .build();
         execute(options);
-        checkExcelResult();
+        checkResult();
     }
 }

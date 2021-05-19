@@ -21,6 +21,6 @@ public class FBC001_entireRangeTest extends FBCTest {
                 .fillResultsWithColors(true)
                 .build();
         execute(options);
-        checkExcelResult();
+        checkResult();
     }
 }

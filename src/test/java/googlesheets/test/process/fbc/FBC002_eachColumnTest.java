@@ -22,6 +22,6 @@ public class FBC002_eachColumnTest extends FBCTest {
                 .calculationMode(CalculationModeEnumeration.EACH_COLUMN)
                 .build();
         execute(options);
-        checkExcelResult();
+        checkResult();
     }
 }

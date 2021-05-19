@@ -17,7 +17,7 @@ public class CS036_emptyRowFromDriveFormulaTest extends CSTest {
     public void emptyRowFromDrive() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()
                 .driveSheets("CS_oneEmptyRow")
-                .combinedSpreadsheets(new SpreadsheetSelection("CS_025", 1, 2),
+                .combinedSpreadsheets(new SpreadsheetSelection("CS_036", 1, 2),
                         new SpreadsheetSelection("CS_oneEmptyRow", 1))
                 .considerTableHeaders(true)
                 .useFormula(true)

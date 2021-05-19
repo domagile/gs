@@ -6,6 +6,8 @@ import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+
 public class EXT002_byStringsTest extends EXTTest {
     @Test
     public void extract()
@@ -23,5 +25,11 @@ public class EXT002_byStringsTest extends EXTTest {
                 .build();
         execute(options);
         checkResult();
+    }
+
+
+    @Override
+    protected void restoreInitialDocumentState() {
+        clickUndo(2);
     }
 }
