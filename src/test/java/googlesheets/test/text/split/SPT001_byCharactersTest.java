@@ -7,11 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class SPT001_byCharactersTest extends SPTTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/17l0vFgDqMpCuWcAndNagY0TJ2M1OYd3UVpqXknpZQPM/edit#gid=1996497916");
-    }
-
     @Test
     public void split() {
         SplitTextOptions options = new SplitTextOptionsBuilder()

@@ -5,11 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV034_eachSelectedRowRightClearTest extends MVTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1GbAwQLOphizbvZiRofbTkpRo5UntwZavAMjSw0F__80/edit#gid=197173765");
-    }
-
     @Test
     public void merge()
     {

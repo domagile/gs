@@ -12,6 +12,7 @@ import java.util.List;
 
 import static googlesheets.service.generic.addon.FunctionReinvocationUtil.reinvokeFunctionWithDelay;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.TableHelper.selectRowsInTable;
 import static googlesheets.service.generic.webdriver.FieldHelper.*;
 import static googlesheets.service.generic.webdriver.Locators.TAG_SELECT;
 import static googlesheets.service.generic.webdriver.Locators.TAG_TR;

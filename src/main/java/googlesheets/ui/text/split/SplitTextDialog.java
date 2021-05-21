@@ -11,8 +11,7 @@ import static googlesheets.service.generic.xpath.XPathHelper.textContains;
 
 public class SplitTextDialog {
     public void setSplitType(SplitTypeEnumeration splitType) {
-        WebElement label = getElementByXpath(textContains(splitType.getText(), "label"));
-        clickElement(label);
+        setAdxMultipageValue(splitType.getText());
     }
 
     public void setSplitValuesByCharacters() {

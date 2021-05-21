@@ -5,11 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV042_eachSelectedColumnTest extends MVTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1V5uK8TcUeDpEHv4j_DepD1k7n1ike5jryU06DMcNmAo/edit#gid=730203721");
-    }
-
     @Test
     public void merge()
     {

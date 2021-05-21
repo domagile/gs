@@ -5,11 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV026_oneCellTopRightWrapTest extends MVTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1dOH867BWWz8SEy5DKnuthXDr3H1-tDxMfHxKUwt-yhc/edit#gid=1600101334");
-    }
-
     @Test
     public void merge()
     {

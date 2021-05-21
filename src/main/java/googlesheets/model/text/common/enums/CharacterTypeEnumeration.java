@@ -1,4 +1,4 @@
-package googlesheets.model.text.extract.enums;
+package googlesheets.model.text.common.enums;
 
 public enum CharacterTypeEnumeration {
     FIRST,

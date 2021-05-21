@@ -5,11 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV031_oneCellBottomLeftTest extends MVTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1m9II2GGCOknXlVshLXYk_AbDmxIUydw1wpeVGVUOFQY/edit#gid=1536510895");
-    }
-
     @Test
     public void merge()
     {

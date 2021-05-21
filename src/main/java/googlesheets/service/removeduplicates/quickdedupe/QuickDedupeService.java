@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.TableHelper.selectRowsInTable;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElementByClassName;
 import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;

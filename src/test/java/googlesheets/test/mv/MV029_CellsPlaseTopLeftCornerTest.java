@@ -5,11 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV029_CellsPlaseTopLeftCornerTest extends MVTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/10cNnfzsrUw-Gn-wVayfQeRirccwH944h39mCHVpbB-w/edit#gid=317233314");
-    }
-
     @Test
     public void merge()
     {

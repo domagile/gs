@@ -5,11 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV001_clearContentOfCellsTest extends MVTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1Yte8RXH1siY5c3BbJt-OmbnSvDg4Yg75xS9tTequB7M/edit#gid=1385770735");
-    }
-
     @Test
     public void merge()
     {

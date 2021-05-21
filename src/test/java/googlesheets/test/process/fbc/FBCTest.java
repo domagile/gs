@@ -26,12 +26,6 @@ public class FBCTest extends DefaultSideAddonTest<FunctionByColorOptions> {
     }
 
 
-    @Before
-    public void openSpreadsheet() {
-        GoogleSheetService.openSpreadsheetByName(getSpreadsheetName());
-    }
-
-
     protected void checkResult() {
         switchDriverToDefaultContent();
         SpreadsheetService.compareSheets(getSpreadsheetIdByUrl(), getSheetName(), "Result");

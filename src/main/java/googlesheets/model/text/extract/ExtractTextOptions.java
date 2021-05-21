@@ -1,7 +1,7 @@
 package googlesheets.model.text.extract;
 
 import googlesheets.model.generic.SideAddonOptions;
-import googlesheets.model.text.extract.enums.CharacterTypeEnumeration;
+import googlesheets.model.text.common.enums.CharacterTypeEnumeration;
 import googlesheets.model.text.extract.enums.DataTypeEnumeration;
 import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
 

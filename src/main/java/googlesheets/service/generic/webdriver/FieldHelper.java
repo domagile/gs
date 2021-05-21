@@ -1,6 +1,5 @@
 package googlesheets.service.generic.webdriver;
 
-import googlesheets.service.generic.xpath.XPathHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static googlesheets.service.generic.webdriver.Locators.TAG_IFRAME;
 import static googlesheets.service.generic.xpath.XPathHelper.attributeIs;
 import static org.openqa.selenium.By.xpath;
 

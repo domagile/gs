@@ -5,11 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV010_skipEmptyCellsTest extends MVTest{
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/17G52DHqVtwWy3Vg9l2RAFLsgrnyoCh7q5C3FK7GRR3Q/edit#gid=621139806");
-    }
-
     @Test
     public void merge()
     {

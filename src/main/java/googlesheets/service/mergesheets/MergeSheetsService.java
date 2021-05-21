@@ -15,6 +15,8 @@ import static googlesheets.model.mergesheets.MergeSheetsResultLocationEnumeratio
 import static googlesheets.service.generic.addon.FunctionReinvocationUtil.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.addon.GenericAddonService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.TableHelper.selectPairsInTable;
+import static googlesheets.service.generic.google.TableHelper.selectTriplesInTable;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElement;
 import static googlesheets.service.generic.webdriver.Locators.TAG_SELECT;
 

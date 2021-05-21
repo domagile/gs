@@ -1,6 +1,6 @@
 package googlesheets.ui.text.extract;
 
-import googlesheets.model.text.extract.enums.CharacterTypeEnumeration;
+import googlesheets.model.text.common.enums.CharacterTypeEnumeration;
 import googlesheets.model.text.extract.enums.DataTypeEnumeration;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;

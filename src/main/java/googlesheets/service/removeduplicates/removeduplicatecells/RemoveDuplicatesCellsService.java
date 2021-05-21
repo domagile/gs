@@ -7,6 +7,7 @@ import org.openqa.selenium.*;
 
 import static googlesheets.service.generic.addon.FunctionReinvocationUtil.reinvokeFunctionWithDelay;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.TableHelper.selectRowsInTable;
 import static googlesheets.service.generic.webdriver.FieldHelper.getElementByClassName;
 import static googlesheets.service.generic.webdriver.FieldHelper.getPresentElement;
 

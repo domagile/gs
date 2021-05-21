@@ -8,6 +8,7 @@ import java.util.List;
 
 import static googlesheets.service.generic.addon.GenericAddonService.waitForWorkingMessageDisplayedAndHidden;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
+import static googlesheets.service.generic.google.TableHelper.selectRowsInTable;
 
 public class AdvancedFindReplaceService {
     public static final String BUTTON_ID_FIND_ALL = "afrFindActionButtonBottom";

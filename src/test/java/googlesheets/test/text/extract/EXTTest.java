@@ -25,12 +25,6 @@ public class EXTTest extends DefaultSideAddonTest<ExtractTextOptions> {
     }
 
 
-    @Before
-    public void openSpreadsheet() {
-        GoogleSheetService.openSpreadsheetByName(getSpreadsheetName());
-    }
-
-
     protected void checkResult() {
         switchDriverToDefaultContent();
         SpreadsheetService.compareSheets(getSpreadsheetIdByUrl(), getSheetName(), "Result");

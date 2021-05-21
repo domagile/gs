@@ -2,9 +2,8 @@ package googlesheets.test.text.extract;
 
 import googlesheets.model.text.extract.ExtractTextOptionBuilder;
 import googlesheets.model.text.extract.ExtractTextOptions;
-import googlesheets.model.text.extract.enums.CharacterTypeEnumeration;
+import googlesheets.model.text.common.enums.CharacterTypeEnumeration;
 import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EXT001_lastCharactersTest extends EXTTest {

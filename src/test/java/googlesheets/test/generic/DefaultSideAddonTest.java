@@ -2,10 +2,14 @@ package googlesheets.test.generic;
 
 import googlesheets.model.generic.SideAddonOptions;
 import googlesheets.service.generic.addon.SideAddonService;
+import googlesheets.service.generic.google.GoogleSheetService;
+import googlesheets.service.technical.api.SpreadsheetService;
 import googlesheets.service.technical.file.FileType;
 import org.junit.After;
+import org.junit.Before;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+import static googlesheets.service.generic.google.GoogleSheetService.getSpreadsheetIdByUrl;
 import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
 import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.startCSVDownload;
@@ -15,6 +19,11 @@ import static org.junit.Assert.fail;
 public class DefaultSideAddonTest<T extends SideAddonOptions> extends AddonTest {
     private SideAddonService<T> service;
     private String etalonDir;
+
+
+    protected DefaultSideAddonTest(SideAddonService<T> service) {
+        this(service, null);
+    }
 
 
     protected DefaultSideAddonTest(SideAddonService<T> service, String etalonDir) {
@@ -32,15 +41,21 @@ public class DefaultSideAddonTest<T extends SideAddonOptions> extends AddonTest 
 
 
     protected void checkResult() {
-        String spreadsheetName = getSpreadsheetName();
-        String sheetName = getSheetName();
-        if (fileExists(spreadsheetName, sheetName, FileType.CSV)) {
-            fail(String.format("File for list %s already exists", sheetName));
+        if (etalonDir == null) {
+            switchDriverToDefaultContent();
+            SpreadsheetService.compareSheets(getSpreadsheetIdByUrl(), getSheetName(), "Result");
         }
-        switchDriverToDefaultContent();
-        startCSVDownload();
-        compareFileWithEtalon(spreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.CSV));
-        removeDownloadedSheetFile(spreadsheetName, sheetName, FileType.CSV);
+        else {
+            String spreadsheetName = getSpreadsheetName();
+            String sheetName = getSheetName();
+            if (fileExists(spreadsheetName, sheetName, FileType.CSV)) {
+                fail(String.format("File for list %s already exists", sheetName));
+            }
+            switchDriverToDefaultContent();
+            startCSVDownload();
+            compareFileWithEtalon(spreadsheetName, sheetName, getEtalonFileName(spreadsheetName, FileType.CSV));
+            removeDownloadedSheetFile(spreadsheetName, sheetName, FileType.CSV);
+        }
     }
 
 
@@ -59,6 +74,12 @@ public class DefaultSideAddonTest<T extends SideAddonOptions> extends AddonTest 
 
     private String getEtalonFileName(String spreadsheetName, FileType fileType) {
         return etalonDir + spreadsheetName + '.' + fileType.name().toLowerCase();
+    }
+
+
+    @Before
+    public void openSpreadsheet() {
+        GoogleSheetService.openSpreadsheetByName(getSpreadsheetName());
     }
 
 

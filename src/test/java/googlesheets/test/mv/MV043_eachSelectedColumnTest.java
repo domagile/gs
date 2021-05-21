@@ -7,11 +7,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MV043_eachSelectedColumnTest extends MVTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1haTtECwtb2HrBI2NXV7KuhMsttPuegXIEj-zR7QcSJo/edit#gid=271770542");
-    }
-
     @Test
     public void merge() {
         MergeValuesOptions options = new MergeValuesOptionBuilder()
