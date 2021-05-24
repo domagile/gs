@@ -8,7 +8,7 @@ import java.util.List;
 import static java.lang.Math.max;
 
 public class SheetComparator {
-    private List<String> diffs = new ArrayList<>();
+    private final List<String> diffs = new ArrayList<>();
     private CellReference cellReference;
 
     public List<String> compare(Sheet sheet1, Sheet sheet2) {
@@ -31,12 +31,18 @@ public class SheetComparator {
     private void compareRowData(RowData rowData1, RowData rowData2, int rowIndex) {
         List<CellData> cellList1 = rowData1.getValues();
         List<CellData> cellList2 = rowData2.getValues();
-        if (checkNull(cellList1, cellList2, "Cell list for row " + rowIndex)) {
+        if (checkNull(getNonEmptyCellList(cellList1), getNonEmptyCellList(cellList2), "Cell list for row " + (rowIndex + 1))) {
             return;
         }
         for (int i = 0; i < max(cellList1.size(), cellList2.size()); i++) {
             compareCellData(getCellData(cellList1, i), getCellData(cellList2, i), new CellReference(rowIndex, i));
         }
+    }
+
+
+    private List<CellData> getNonEmptyCellList(List<CellData> cellList) {
+        return cellList != null && cellList.stream().anyMatch(cellData -> getNonEmptyCellData(cellData) != null)
+                ? cellList : null;
     }
 
 
@@ -47,54 +53,60 @@ public class SheetComparator {
 
     private void compareCellData(CellData cellData1, CellData cellData2, CellReference cellReference) {
         this.cellReference = cellReference;
-
-        if (isOneCellNull(cellData1, cellData2)) {
+        if (checkNull(getNonEmptyCellData(cellData1), getNonEmptyCellData(cellData2), "Cell data")) {
             return;
         }
 
-        compareFormat(cellData1.getEffectiveFormat(), cellData2.getEffectiveFormat());
         compareValues(cellData1.getFormattedValue(), cellData2.getFormattedValue(), "Formatted value");
+        compareFormat(cellData1.getEffectiveFormat(), cellData2.getEffectiveFormat());
         compareValues(cellData1.getHyperlink(), cellData2.getHyperlink(), "Hyperlink");
         compareValues(cellData1.getNote(), cellData2.getNote(), "Note");
         this.cellReference = null;
     }
 
-    private boolean isOneCellNull(CellData cellData1, CellData cellData2) {
-        if (cellData1 == null || cellData2 == null) {
-            if (cellData1 == null && cellData2.getFormattedValue() == null
-                    || cellData2 == null && cellData1.getFormattedValue() == null) {
-                return true;
-            }
-            else {
-                checkNull(getCellValue(cellData1), getCellValue(cellData2), "Cell data");
-                return true;
-            }
+
+    private CellData getNonEmptyCellData(CellData cellData) {
+        if (cellData != null &&
+                (cellData.getFormattedValue() != null
+                        || cellData.getHyperlink() != null
+                        || cellData.getNote() != null
+                        || getNonEmptyFormat(cellData.getEffectiveFormat()) != null)) {
+            return cellData;
         }
-        return false;
-    }
-
-
-    private String getCellValue(CellData cellData) {
-        return cellData == null ? null : cellData.getFormattedValue();
+        return null;
     }
 
 
     private void compareFormat(CellFormat format1, CellFormat format2) {
-        if (checkNull(format1, format2, "Format")) {
+        if (checkNull(getNonEmptyFormat(format1), getNonEmptyFormat(format2), "Format")) {
             return;
         }
         compareTextFormat(format1.getTextFormat(), format2.getTextFormat());
         compareNumberFormat(format1.getNumberFormat(), format2.getNumberFormat());
-        compareBorders(format1.getBorders(), format2.getBorders());
         comparePadding(format1.getPadding(), format2.getPadding());
-        compareValues(format1.getBackgroundColor(), format2.getBackgroundColor(), "Background color");
         compareValues(format1.getHorizontalAlignment(), format2.getHorizontalAlignment(), "Horizontal alignment");
         compareValues(format1.getVerticalAlignment(), format2.getVerticalAlignment(), "Vertical alignment");
-        compareValues(format1.getHyperlinkDisplayType(), format2.getHyperlinkDisplayType(), "Hyperlink display type");
         compareValues(format1.getTextDirection(), format2.getTextDirection(), "Text direction");
         compareValues(format1.getWrapStrategy(), format2.getWrapStrategy(), "Wrap strategy");
         compareTextRotation(format1.getTextRotation(), format2.getTextRotation());
+        compareBorders(format1.getBorders(), format2.getBorders());
+        compareValues(format1.getBackgroundColor(), format2.getBackgroundColor(), "Background color");
+        compareValues(format1.getHyperlinkDisplayType(), format2.getHyperlinkDisplayType(), "Hyperlink display type");
     }
+
+
+    private CellFormat getNonEmptyFormat(CellFormat format) {
+        if (format != null &&
+                (format.getBorders() != null
+                        || !format.getBackgroundColor().equals(new Color().setRed(1f).setGreen(1f).setBlue(1f))
+                        || format.getHyperlinkDisplayType() != null)) {
+            return format;
+        }
+        else {
+            return null;
+        }
+    }
+
 
     private void compareTextRotation(TextRotation textRotation1, TextRotation textRotation2) {
         if (checkNull(textRotation1, textRotation2, "Text rotation")) {
@@ -171,15 +183,6 @@ public class SheetComparator {
     }
 
 
-    private boolean isSizeEqual(List<?> list1, List<?> list2, String message) {
-        if (list1.size() != list2.size()) {
-            diffs.add((cellReference == null ? "" : cellReference + "\n") + message + "\nActual value: " + list1.size() + "\nExpected value: " + list2.size());
-            return false;
-        }
-        return true;
-    }
-
-
     private void compareValues(Object value1, Object value2, String message) {
         if (value1 == null && value2 != null ||
                 value1 != null && !value1.equals(value2)) {
@@ -189,8 +192,8 @@ public class SheetComparator {
 
 
     private static class CellReference {
-        private int row;
-        private int cell;
+        private final int row;
+        private final int cell;
 
         CellReference(int row, int cell) {
             this.row = row;
