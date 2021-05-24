@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS005_nonMatchingRowsStatusColumnTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1UgHkL4jhOIyD9Jn_EYw7yLqvEyyqzxNZ2Z4r2eTKSh8/edit#gid=1483068467");
-    }
-
-
     @Test
     public void merge()
     {

@@ -5,6 +5,8 @@ import com.google.api.services.sheets.v4.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.max;
+
 public class SheetComparator {
     private List<String> diffs = new ArrayList<>();
     private CellReference cellReference;
@@ -29,23 +31,53 @@ public class SheetComparator {
     private void compareRowData(RowData rowData1, RowData rowData2, int rowIndex) {
         List<CellData> cellList1 = rowData1.getValues();
         List<CellData> cellList2 = rowData2.getValues();
-        if (checkNull(cellList1, cellList2, "Cell list for row " + rowIndex) ||
-                !isSizeEqual(cellList1, cellList2, "Different number of cells for row " + rowIndex)) {
+        if (checkNull(cellList1, cellList2, "Cell list for row " + rowIndex)) {
             return;
         }
-        for (int i = 0; i < cellList1.size(); i++) {
-            compareCellData(cellList1.get(i), cellList2.get(i), new CellReference(rowIndex, i));
+        for (int i = 0; i < max(cellList1.size(), cellList2.size()); i++) {
+            compareCellData(getCellData(cellList1, i), getCellData(cellList2, i), new CellReference(rowIndex, i));
         }
     }
 
+
+    private CellData getCellData(List<CellData> list, int index) {
+        return index >= list.size() ? null : list.get(index);
+    }
+
+
     private void compareCellData(CellData cellData1, CellData cellData2, CellReference cellReference) {
         this.cellReference = cellReference;
+
+        if (isOneCellNull(cellData1, cellData2)) {
+            return;
+        }
+
         compareFormat(cellData1.getEffectiveFormat(), cellData2.getEffectiveFormat());
         compareValues(cellData1.getFormattedValue(), cellData2.getFormattedValue(), "Formatted value");
         compareValues(cellData1.getHyperlink(), cellData2.getHyperlink(), "Hyperlink");
         compareValues(cellData1.getNote(), cellData2.getNote(), "Note");
         this.cellReference = null;
     }
+
+    private boolean isOneCellNull(CellData cellData1, CellData cellData2) {
+        if (cellData1 == null || cellData2 == null) {
+            if (cellData1 == null && cellData2.getFormattedValue() == null
+                    || cellData2 == null && cellData1.getFormattedValue() == null) {
+                return true;
+            }
+            else {
+                checkNull(getCellValue(cellData1), getCellValue(cellData2), "Cell data");
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private String getCellValue(CellData cellData) {
+        return cellData == null ? null : cellData.getFormattedValue();
+    }
+
 
     private void compareFormat(CellFormat format1, CellFormat format2) {
         if (checkNull(format1, format2, "Format")) {
@@ -156,8 +188,7 @@ public class SheetComparator {
     }
 
 
-    private static class CellReference
-    {
+    private static class CellReference {
         private int row;
         private int cell;
 

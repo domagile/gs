@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS004_addNonMatchingRowsDeselectedTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1QRdjIo-hBVKPhjb06WX-vFds6gUbHM2xJE-Nv1fqx58/edit#gid=1027841536");
-    }
-
-
     @Test
     public void merge()
     {

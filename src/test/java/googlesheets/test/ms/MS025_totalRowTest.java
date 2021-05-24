@@ -11,12 +11,6 @@ import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS025_totalRowTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/19baHcOAR7SIgWXh17CrEzrKjke_lj4N3V-8MffH48PE/edit#gid=1318509995");
-    }
-
-
     @Test
     public void merge()
     {

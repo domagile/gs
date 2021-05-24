@@ -7,12 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MS001_oneFieldNumberTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1bPtGcXtK2uovPuiXBSOh6LIkrMW6Q1Zsp63dlbz5UfM/edit#gid=1599689917");
-    }
-
-
     @Test
     public void merge()
     {

@@ -11,12 +11,6 @@ import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS024_twoRangesTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1-b3pcJC2NQaUnoUsKO_uJwqziIxKmUcfnMjiET5jZYM/edit#gid=499558724");
-    }
-
-
     @Test
     public void merge()
     {

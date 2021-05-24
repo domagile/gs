@@ -9,12 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MS016_multipleFieldsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/16s5augUIAsILyKX_KM_INHrmO5EdsT2M-TFiBpSxtw0/edit#gid=606762906");
-    }
-
-
     @Test
     public void merge()
     {

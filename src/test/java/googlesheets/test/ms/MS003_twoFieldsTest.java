@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS003_twoFieldsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1mQYORrFMa_ex13zhbNQcRwwv_fYxn154X5PmiSkpwTc/edit#gid=52564113");
-    }
-
-
     @Test
     public void merge()
     {

@@ -10,12 +10,6 @@ import org.junit.Test;
 import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE_VALUES_IN;
 
 public class MS027_manyEmptyCellsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/11o8XZwqQdmJjjsj_yHhXpbrW89hSUQ6alUgVnbwg16Y/edit#gid=931034343");
-    }
-
-
     @Test
     public void merge()
     {

@@ -12,12 +12,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class MS007_statusOnlyEmptyNewCellsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1Cp5ndKvJFwPyqv-vqufBYZoGrRHjRE4Eq20eylfVFHg/edit#gid=304723309");
-    }
-
-
     @Test
     public void merge()
     {

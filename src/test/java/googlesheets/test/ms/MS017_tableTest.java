@@ -9,12 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MS017_tableTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1t_joSSsst5FUCCWi5h9LyvwkXqPvtL0OG24Ui3PFEgs/edit#gid=1218274994");
-    }
-
-
     @Test
     public void merge()
     {

@@ -12,12 +12,6 @@ import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS021_clearBackgroundTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1nP-6RcFIMHDww_AfmHZq4-IzeTbv6FpwDms8LC32nAY/edit#gid=845270708");
-    }
-
-
     @Test
     public void merge()
     {

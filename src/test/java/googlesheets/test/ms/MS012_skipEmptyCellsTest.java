@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS012_skipEmptyCellsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1_0GLMd10QWMtYccNAUNiFi5jazlXlFapLFYenBJaDVg/edit#gid=1235910147");
-    }
-
-
     @Test
     public void merge()
     {

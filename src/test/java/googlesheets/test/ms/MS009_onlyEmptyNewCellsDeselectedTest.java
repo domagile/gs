@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS009_onlyEmptyNewCellsDeselectedTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1sHBl5hbqdHVAY1mLjlplk4Ofi2xmJUacidiQ5GdvhHg/edit#gid=748908113");
-    }
-
-
     @Test
     public void merge()
     {

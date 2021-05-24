@@ -12,12 +12,6 @@ import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS028_allColumnsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1LiRGh6_EMzCuTIjvFxoaynZipHYjvuvLNYUFo2bK5oE/edit#gid=199511990");
-    }
-
-
     @Test
     public void merge()
     {

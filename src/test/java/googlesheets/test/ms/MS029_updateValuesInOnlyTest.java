@@ -13,12 +13,6 @@ import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS029_updateValuesInOnlyTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1F0Hpy6GLXdBBG2Vk6ZahGUSGbq9JnBBVHMp3q0ABnKc/edit#gid=2144700002");
-    }
-
-
     @Test
     public void merge()
     {

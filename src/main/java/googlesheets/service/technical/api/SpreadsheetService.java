@@ -9,6 +9,7 @@ import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
+import googlesheets.service.GlobalContext;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -84,6 +85,8 @@ public class SpreadsheetService {
             String query = String.format("name = '%s' and mimeType = '%s'", name, MIME_TYPE_SPREADSHEET);
             FileList result = driveService.files().list().setQ(query).setSpaces("drive")
                     .setIncludeItemsFromAllDrives(true).setSupportsAllDrives(true)
+                    //two options to get access to files of other users
+                    .setCorpora("drive").setDriveId(GlobalContext.DRIVE_ID_TEST_CASES)
                     //Only mentioned fields are fetched for result: id, name, createdTime, mimeType
                     .setFields("files(id, name, mimeType)")
                     .execute();

@@ -10,12 +10,6 @@ import org.junit.Test;
 import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE_VALUES_IN;
 
 public class MS023_withoutHeadersTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1IR78tGm5dwRyDU20UpIa1tZPivwuP13hdqoBmwYz7JY/edit#gid=1073616028");
-    }
-
-
     @Test
     public void merge()
     {

@@ -12,12 +12,6 @@ import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS020_colorUpdatedCellsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/11DiV8yMttjFDBrgmyCqBHfB7G-5IWdHhVMZyqr3yfNI/edit#gid=195735458");
-    }
-
-
     @Test
     public void merge()
     {

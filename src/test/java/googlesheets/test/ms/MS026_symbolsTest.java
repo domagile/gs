@@ -10,12 +10,6 @@ import org.junit.Test;
 import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE_VALUES_IN;
 
 public class MS026_symbolsTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1YINNA2J6CGxP6txNha6gMxyS1UcREU0hcmVBbk2IuYo/edit#gid=1271394453");
-    }
-
-
     @Test
     public void merge()
     {

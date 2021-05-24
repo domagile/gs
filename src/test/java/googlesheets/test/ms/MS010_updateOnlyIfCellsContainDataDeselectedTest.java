@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS010_updateOnlyIfCellsContainDataDeselectedTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1I1iOnovfudmNHdJpLEN0sYw9zi_efCn3gSXAnfYOOQU/edit#gid=208330343");
-    }
-
-
     @Test
     public void merge()
     {

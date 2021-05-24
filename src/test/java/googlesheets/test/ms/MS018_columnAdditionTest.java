@@ -12,12 +12,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class MS018_columnAdditionTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1uXgeLigUEx2CiNiBY084JwJEc3Rm3p5KckBAB1AAQdM/edit#gid=2111511059");
-    }
-
-
     @Test
     public void merge()
     {

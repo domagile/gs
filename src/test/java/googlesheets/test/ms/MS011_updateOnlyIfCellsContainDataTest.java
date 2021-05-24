@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS011_updateOnlyIfCellsContainDataTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1UnEl4kGJevKl6ZCCefSyCclulUlCp5QSuUJkwn_R3B4/edit#gid=2038065021");
-    }
-
-
     @Test
     public void merge()
     {

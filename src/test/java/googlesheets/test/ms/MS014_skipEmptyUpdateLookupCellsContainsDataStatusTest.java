@@ -11,12 +11,6 @@ import org.junit.Test;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS014_skipEmptyUpdateLookupCellsContainsDataStatusTest extends MSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1iULr036mq-qNZYnUDOJvxSL7u5zUHOF2pT2WfF94jWs/edit#gid=604228464");
-    }
-
-
     @Test
     public void merge()
     {
