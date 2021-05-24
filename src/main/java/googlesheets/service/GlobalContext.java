@@ -7,6 +7,7 @@ public class GlobalContext {
     public static final int MAX_REINVOCATION_COUNT = 30;
     public static final int DEFAULT_WORKING_MESSAGE_TIMEOUT = 60;
     public static final boolean USE_SPREADSHEET_API = false;
+    public static final String DRIVE_ID_TEST_CASES = "0APmPoNqPCiHVUk9PVA";
 
     private static GlobalContext instance;
     private static boolean isLoggedIn;
