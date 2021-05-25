@@ -5,11 +5,8 @@ import googlesheets.service.text.split.SplitTextService;
 import googlesheets.test.generic.DefaultSideAddonTest;
 
 public class SPTTest extends DefaultSideAddonTest<SplitTextOptions> {
-    private static final String ETALON_DIR = "text\\split\\";
-
-
     public SPTTest() {
-        super(new SplitTextService(), ETALON_DIR);
+        super(new SplitTextService());
     }
 
 
