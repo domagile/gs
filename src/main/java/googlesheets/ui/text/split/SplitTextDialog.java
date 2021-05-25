@@ -55,7 +55,8 @@ public class SplitTextDialog {
     }
 
     public void setMatchCase(boolean value) {
-        setCheckboxValueByLabelClick("cbSplitByStringsMatchCase", value);
+        //russian symbol c in id
+        setCheckboxValueByLabelClick("\u0441bSplitByStringsMatchCase", value);
     }
 
     public void setTreatConsecutiveDelimitersAsOne(boolean value) {
