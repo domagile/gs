@@ -6,7 +6,7 @@ import googlesheets.model.text.common.enums.CharacterTypeEnumeration;
 import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
 import org.junit.Test;
 
-public class EXT001_lastCharactersTest extends EXTTest {
+public class EXT001_firstCharactersTest extends EXTTest {
     @Test
     public void extract()
     {
@@ -17,6 +17,6 @@ public class EXT001_lastCharactersTest extends EXTTest {
                 .characterNumber(2)
                 .build();
         execute(options);
-        checkExcelResult();
+        checkResult();
     }
 }

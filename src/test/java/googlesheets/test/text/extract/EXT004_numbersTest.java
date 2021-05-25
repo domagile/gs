@@ -15,6 +15,6 @@ public class EXT004_numbersTest extends EXTTest {
                 .extractType(ExtractTypeEnumeration.NUMBERS)
                 .build();
         execute(options);
-        checkExcelResult();
+        checkResult();
     }
 }

@@ -17,6 +17,6 @@ public class EXT006_specificDataTest extends EXTTest {
                 .specificDataType(DataTypeEnumeration.EMAIL)
                 .build();
         execute(options);
-        checkExcelResult();
+        checkResult();
     }
 }
