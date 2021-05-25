@@ -5,7 +5,6 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.*;
@@ -13,13 +12,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public class AFR022_valueDeleteRowsAllFoundEntriesTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/13yUtnkByYEMbiYlPUOwSTrOxUxR_AMfmnoFbRsA7KtQ/edit#gid=51550406");
-
-    }
-
-
     @Test
     public void valueDeleteRowsAllFoundEntries() {
 

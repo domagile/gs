@@ -4,7 +4,6 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.MERGE_VALUES;
@@ -13,11 +12,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR022_withBackupCopyTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1XWirU8OvjfqdVdJh0mj_PuIqb5uEiMZVR_2XBUejpOg/edit#gid=1696092492");
-    }
-
     @Test
     public void withBackupCopy() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

@@ -5,18 +5,11 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
 
 public class AFR008_Hyperlinks extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/16lUM7zB9tXonr3MZCwL0Xrpue0TGD2qHGlaIEes0Q7c/edit#gid=23700143");
-    }
-
-
     @Test
     public void hyperlinks() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()

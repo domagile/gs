@@ -1,20 +1,11 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS021_UniqueColorTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1srwsTJ3Xabw-668NuZ37DuwS4KoUDIJwSInO2SXrtdA/edit#gid=160755906");
-
-    }
-
     @Test
     public void uniqueFillWithColor() {
         runCompareColumnsOrSheets();

@@ -4,18 +4,12 @@ import googlesheets.model.consolidatesheets.ConsolidateSheetsOptionBuilder;
 import googlesheets.model.consolidatesheets.ConsolidateSheetsOptions;
 import googlesheets.model.generic.sheetselection.SheetSelection;
 import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.consolidatesheets.ConsolidationFunctionEnumeration.SUM;
 import static googlesheets.model.consolidatesheets.ConsolidationTypeEnumeration.BY_LABEL;
 
 public class CONS051_sheetSelectionTest extends CONSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1QmYrhXfF0RgHX8LZFjEeguML0OoRY2-lDtYqUac_7Dg/edit#gid=795301200");
-    }
-
     @Test
     public void consolidate()
     {

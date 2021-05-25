@@ -1,22 +1,13 @@
 package googlesheets.test.rd.removeduplicaterows;
 
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR042_partiallySelectedRange extends RDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/17wOQXHHldMmYDtEOLIep27QQvws7uq5mX-yuicj03aw/edit#gid=209200831");
-    }
-
-
     @Test
     public void partiallySelectedRange() {
         runFindDuplicateOrUniqueRows();

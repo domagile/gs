@@ -4,7 +4,6 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
@@ -13,11 +12,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR027_calculateNumbersCOUNTforAllFieldsTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1vbQVk1y4ZHWVyGHHe6yVVsmoy3-fuvADJdwfWRF9B3s/edit#gid=647164091");
-    }
-
     @Test
     public void calculateNumbersCOUNTforAllFields() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

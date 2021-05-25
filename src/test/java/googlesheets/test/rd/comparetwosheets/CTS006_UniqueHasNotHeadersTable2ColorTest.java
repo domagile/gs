@@ -1,21 +1,12 @@
 package googlesheets.test.rd.comparetwosheets;
 
 import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPair;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS006_UniqueHasNotHeadersTable2ColorTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1waghZUsmn2HfkJQQIDAqFl56d0jZ_daTpiEvcnb2EkA/edit#gid=691209808");
-
-    }
-
     @Test
     public void uniqueFillWithColor() {
         runCompareColumnsOrSheets();

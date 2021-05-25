@@ -4,21 +4,14 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
 import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.MEDIAN;
-import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.VARP;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR059_calculateNumbersMEDIANforAllFieldsTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1gfCaf3hxNt4SWgXlafKeQ2HvEAbj7tmvoq4rrBZbLD0/edit#gid=1342921604");
-    }
-
     @Test
     public void calculateNumbersMEDIANforAllFields() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

@@ -3,7 +3,6 @@ package googlesheets.test.cons;
 import googlesheets.model.consolidatesheets.ConsolidateSheetsOptionBuilder;
 import googlesheets.model.consolidatesheets.ConsolidateSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.consolidatesheets.ConsolidationFunctionEnumeration.SUM;
@@ -17,11 +16,6 @@ import static googlesheets.service.generic.webdriver.WebDriverService.switchDriv
 import static googlesheets.ui.components.ResultLocationPanel.clickCustomLocationValueField;
 
 public class CONS046_resultLocationTest extends CONSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1EzHF8qGr5QGgcN-x6AqXTYte7RaM-R8DqnFM4ML6OnY/edit#gid=795301200");
-    }
-
     @Test
     public void customLocationManualSelection() {
         ConsolidateSheetsOptions options = new ConsolidateSheetsOptionBuilder()

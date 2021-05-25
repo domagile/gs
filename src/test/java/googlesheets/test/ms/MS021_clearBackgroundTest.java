@@ -4,10 +4,8 @@ import googlesheets.model.generic.rowselection.PairSelection;
 import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.model.mergesheets.MergeSheetsOptionBuilder;
 import googlesheets.model.mergesheets.MergeSheetsOptions;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.ADD_TO_END;
 import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE_VALUES_IN;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 

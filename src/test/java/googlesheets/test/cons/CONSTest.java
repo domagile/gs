@@ -14,7 +14,7 @@ import static googlesheets.ui.consolidatesheets.ConsolidateSheetsAddonDialog.BUT
 
 public class CONSTest extends DefaultAddonTest {
     public static final String CONSOLIDATE_SHEETS_ETALON_DIR = "consolidatesheets\\";
-    private ConsolidateSheetsService service = new ConsolidateSheetsService();
+    private final ConsolidateSheetsService service = new ConsolidateSheetsService();
 
 
     protected CONSTest() {

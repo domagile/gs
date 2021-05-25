@@ -1,6 +1,5 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
@@ -8,11 +7,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.getFullShee
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS022_uniqueAddStatusTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1dakTJ_kyWaVeGcZhqKQle62auViOcPVRejtAM3VE2M8/edit#gid=7025152");
-    }
-
     @Test
     public void uniqueAddStatus() {
         runCompareColumnsOrSheets();

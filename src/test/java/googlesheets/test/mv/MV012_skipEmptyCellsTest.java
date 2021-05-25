@@ -4,7 +4,6 @@ import googlesheets.model.mergevalues.MergeTypeEnumeration;
 import googlesheets.model.mergevalues.MergeValuesOptionBuilder;
 import googlesheets.model.mergevalues.MergeValuesOptions;
 import googlesheets.model.mergevalues.MergeValuesResultLocationEnumeration;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV012_skipEmptyCellsTest extends MVTest{

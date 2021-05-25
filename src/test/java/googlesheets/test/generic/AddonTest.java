@@ -2,8 +2,7 @@ package googlesheets.test.generic;
 
 import googlesheets.service.generic.google.GoogleSheetService;
 import org.junit.AfterClass;
-
-import java.io.IOException;
+import org.junit.Before;
 
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
@@ -21,6 +20,12 @@ public abstract class AddonTest {
 
     protected static void openDocument(String link) {
         GoogleSheetService.openDoc(link);
+    }
+
+
+    @Before
+    public void openSpreadsheet() {
+        GoogleSheetService.openSpreadsheetByName(getSpreadsheetName());
     }
 
 

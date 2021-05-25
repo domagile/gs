@@ -1,11 +1,9 @@
 package googlesheets.test.text.extract;
 
 import googlesheets.model.text.extract.ExtractTextOptions;
-import googlesheets.service.generic.google.GoogleSheetService;
 import googlesheets.service.technical.api.SpreadsheetService;
 import googlesheets.service.text.extract.ExtractTextService;
 import googlesheets.test.generic.DefaultSideAddonTest;
-import org.junit.Before;
 
 import static googlesheets.service.generic.google.GoogleSheetService.getSpreadsheetIdByUrl;
 import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;

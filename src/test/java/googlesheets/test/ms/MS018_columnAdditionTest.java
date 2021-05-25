@@ -5,8 +5,6 @@ import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.model.mergesheets.MergeSheetsActionEnumeration;
 import googlesheets.model.mergesheets.MergeSheetsOptionBuilder;
 import googlesheets.model.mergesheets.MergeSheetsOptions;
-import googlesheets.service.generic.google.GoogleSheetService;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;

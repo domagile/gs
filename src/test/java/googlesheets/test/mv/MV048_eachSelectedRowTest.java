@@ -1,10 +1,7 @@
 package googlesheets.test.mv;
 
 import googlesheets.model.mergevalues.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MV048_eachSelectedRowTest extends MVTest {
     @Test

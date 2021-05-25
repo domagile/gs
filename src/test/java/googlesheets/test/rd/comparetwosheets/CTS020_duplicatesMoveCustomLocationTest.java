@@ -1,6 +1,5 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
@@ -8,11 +7,6 @@ import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoS
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.setCustomLocationRange;
 
 public class CTS020_duplicatesMoveCustomLocationTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1Fpo8Dojm3E-IQKNUrpxTD6ZkqQW3dPzrk6Axit1Bois/edit#gid=315044403");
-    }
-
     @Test
     public void duplicatesMoveCustomLocation() {
         runCompareColumnsOrSheets();

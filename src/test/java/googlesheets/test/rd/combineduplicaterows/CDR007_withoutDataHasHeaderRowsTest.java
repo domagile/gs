@@ -4,7 +4,6 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,13 +14,8 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR007_withoutDataHasHeaderRowsTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1tfeH7p50wg2lnvEwr2hF2PtqN-9gJymFUdkyFsAUp60/edit#gid=1976293133");
-    }
-
     @Test
-    public void withoutDataHasHeaderRows() throws IOException {
+    public void withoutDataHasHeaderRows() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()
                 .range("C3:F8")
                 .keyColumnIndexes(1)

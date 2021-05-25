@@ -4,10 +4,7 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.MERGE_VALUES;
 import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.*;
@@ -15,11 +12,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR013_check3keyFieldsTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1n7eyCQha5UIiN-hosafa8yyKrbof-djKClPqx8yWx2A/edit#gid=523712294");
-    }
-
     @Test
     public void check3keyFields() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

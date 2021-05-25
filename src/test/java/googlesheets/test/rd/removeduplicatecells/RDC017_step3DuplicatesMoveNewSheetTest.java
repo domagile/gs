@@ -2,7 +2,6 @@ package googlesheets.test.rd.removeduplicatecells;
 
 import googlesheets.service.removeduplicates.removeduplicatecells.CellType;
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
@@ -11,12 +10,6 @@ import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveD
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.setRange;
 
 public class RDC017_step3DuplicatesMoveNewSheetTest extends RDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1JSUV3hf7Y5Aljm62_J7CkQbn-1eVJk0IgwdTAjjgnJM/edit#gid=278445882");
-    }
-
-
     @Test
     public void duplicatesMoveNewSheet() {
         runFindDuplicateOrUniqueCells();

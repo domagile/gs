@@ -5,7 +5,6 @@ import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.model.mergesheets.MergeSheetsActionEnumeration;
 import googlesheets.model.mergesheets.MergeSheetsOptionBuilder;
 import googlesheets.model.mergesheets.MergeSheetsOptions;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MS016_multipleFieldsTest extends MSTest {

@@ -2,7 +2,6 @@ package googlesheets.test.rd.removeduplicatecells;
 
 import googlesheets.service.removeduplicates.removeduplicatecells.CellType;
 import googlesheets.test.rd.removeduplicatecells.generic.RDCTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.*;
@@ -10,12 +9,6 @@ import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveD
 
 
 public class RDC015_step3UniquesCopyCustomLocationTest extends RDCTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1SgYSzPhAXozD-jKxzMCS38kUJkhFkResde1TDm3H3dE/edit#gid=1366297283");
-    }
-
-
     @Test
     public void uniquesCopyCustomLocation() {
         runFindDuplicateOrUniqueCells();

@@ -4,21 +4,14 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
-import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.AVERAGE;
 import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.MIN;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR040_calculateNumbersMINforAllFieldsTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1yFT9xP0fK46mMTOUOXS_EBTqUsfbJD3Sja15lppGDEc/edit#gid=420118895");
-    }
-
     @Test
     public void calculateNumbersMINforAllFields() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

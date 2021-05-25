@@ -4,7 +4,6 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.MERGE_VALUES;
@@ -13,11 +12,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR011_withoutSkipEmptyCellsOn2stepsTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/13x9Ej_bWbcqhL_qXnyfC97vswqHMTsT8AI1n6k9FmNc/edit#gid=958442167");
-    }
-
     @Test
     public void withoutSkipEmptyCells()  {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

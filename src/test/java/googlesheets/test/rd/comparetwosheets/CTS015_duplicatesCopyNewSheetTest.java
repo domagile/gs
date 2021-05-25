@@ -1,6 +1,5 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.getFullSheetName;
@@ -8,11 +7,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.removeSheet
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS015_duplicatesCopyNewSheetTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1pmKYiUTAvnhbgot1AJKCnV5obtxrvsSx6TdDChu0UCQ/edit#gid=1140838692");
-    }
-
     @Test
     public void duplicatesCopyNewSheet() {
         runCompareColumnsOrSheets();

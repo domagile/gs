@@ -1,21 +1,12 @@
 package googlesheets.test.rd.removeduplicaterows;
 
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR039_Step4duplicatesMoveCustomLocation extends RDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1CRkEPKI39ygpPTLWbdgTn4xhZS2IO6rIxMyjLSL_bjQ/edit#gid=589970410");
-    }
-
-
     @Test
     public void duplicatesMoveToAnotherLocation() {
         runFindDuplicateOrUniqueRows();

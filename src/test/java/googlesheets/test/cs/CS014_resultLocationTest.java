@@ -3,7 +3,6 @@ package googlesheets.test.cs;
 import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.combinesheets.CombineSheetsService.chooseStoreToCustomLocation;
@@ -15,11 +14,6 @@ import static googlesheets.service.generic.webdriver.WebDriverService.switchDriv
 import static googlesheets.ui.components.ResultLocationPanel.clickCustomLocationValueField;
 
 public class CS014_resultLocationTest extends CSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/18F2ZxpQWRXQu7vWjTAUTMgsIWyrQwK8QTzlrQhsK9HY/edit#gid=192334885");
-    }
-
     @Test
     public void customLocationManualSelection() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()

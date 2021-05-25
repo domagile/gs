@@ -2,10 +2,8 @@ package googlesheets.test.ms;
 
 import googlesheets.model.mergesheets.MergeSheetsOptions;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
-import googlesheets.service.generic.google.GoogleSheetService;
 import googlesheets.service.mergesheets.MergeSheetsRunner;
 import googlesheets.test.generic.DefaultAddonTest;
-import org.junit.Before;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickElement;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
@@ -77,11 +75,5 @@ public class MSTest extends DefaultAddonTest {
 
     protected void restoreInitialDocumentState(String resultListName)  {
         clickUndo();
-    }
-
-
-    @Before
-    public void openSpreadsheet() {
-        GoogleSheetService.openSpreadsheetByName(getSpreadsheetName());
     }
 }

@@ -4,7 +4,6 @@ import googlesheets.model.process.functionbycolor.CalculationModeEnumeration;
 import googlesheets.model.process.functionbycolor.FunctionByColorEnumeration;
 import googlesheets.model.process.functionbycolor.FunctionByColorOptions;
 import googlesheets.model.process.functionbycolor.FunctionByColorOptionsBuilder;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class FBC002_eachColumnTest extends FBCTest {

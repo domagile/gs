@@ -4,21 +4,14 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
 import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.MAX;
-import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.MIN;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR042_calculateNumbersMAXforOneFieldTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1mL97LQG6JrM-GpqVLdYMg1y7YKZYIMOxfPz6JKdL3iE/edit#gid=460565208");
-    }
-
     @Test
     public void calculateNumbersMAXforOneField() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

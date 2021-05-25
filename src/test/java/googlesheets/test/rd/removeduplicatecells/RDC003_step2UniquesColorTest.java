@@ -2,7 +2,6 @@ package googlesheets.test.rd.removeduplicatecells;
 
 import googlesheets.service.removeduplicates.removeduplicatecells.CellType;
 import googlesheets.test.rd.removeduplicatecells.generic.RDCTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
@@ -10,12 +9,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.getFullShee
 import static googlesheets.service.removeduplicates.removeduplicatecells.RemoveDuplicatesCellsService.*;
 
 public class RDC003_step2UniquesColorTest extends RDCTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1VPAWrG4MSdeTQWsKp1_geRfP7ReYStfxrQQQJnGuySI/edit#gid=756383450");
-    }
-
-
     @Test
     public void uniquesColor() {
         runFindDuplicateOrUniqueCells();

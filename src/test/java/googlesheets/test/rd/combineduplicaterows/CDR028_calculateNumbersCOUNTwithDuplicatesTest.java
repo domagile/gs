@@ -4,21 +4,14 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
 import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.COUNT;
-import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.SUM;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR028_calculateNumbersCOUNTwithDuplicatesTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1yfKQuK0Rsm2ZCADdxTDJkslUri-gw13rpJ7lfZJNOBw/edit#gid=297049346");
-    }
-
     @Test
     public void calculateNumbersCOUNTwithDuplicates() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

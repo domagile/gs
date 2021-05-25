@@ -4,7 +4,6 @@ import googlesheets.model.text.split.SplitTextOptions;
 import googlesheets.model.text.split.SplitTextOptionsBuilder;
 import googlesheets.model.text.split.SplitValuesTypeEnumeration;
 import org.junit.Test;
-import org.openqa.selenium.Keys;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 

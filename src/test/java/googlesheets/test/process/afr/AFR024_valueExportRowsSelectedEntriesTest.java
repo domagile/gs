@@ -5,7 +5,6 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
@@ -13,13 +12,6 @@ import static googlesheets.service.process.advancedfindreplace.AdvancedFindRepla
 import static googlesheets.service.generic.google.GoogleSheetService.sleep;
 
 public class AFR024_valueExportRowsSelectedEntriesTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/11MgDrWIOJiOGfT-KpAydkpifxQR2X0CvYrYJ2Ks99tc/edit#gid=1692402889");
-
-    }
-
-
     @Test
     public void valueExportRowsSelectedEntries() {
 

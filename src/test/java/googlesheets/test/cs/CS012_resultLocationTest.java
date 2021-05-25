@@ -3,18 +3,12 @@ package googlesheets.test.cs;
 import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class CS012_resultLocationTest extends CSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1SOUDdJL7p_-9hTXaespHIF5QbDwnnjsT83GWbAGbLCA/edit#gid=192334885");
-    }
-
     @Ignore
     @Test
     public void customLocationFieldInput() {

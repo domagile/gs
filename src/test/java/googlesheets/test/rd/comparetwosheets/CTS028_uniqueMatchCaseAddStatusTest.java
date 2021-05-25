@@ -1,7 +1,6 @@
 package googlesheets.test.rd.comparetwosheets;
 
 import googlesheets.service.removeduplicates.comparetwosheets.ColumnComparisonPair;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
@@ -9,11 +8,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.getFullShee
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS028_uniqueMatchCaseAddStatusTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument()  {
-        openDocument("https://docs.google.com/spreadsheets/d/1xlRrD_f5irKVN0YRPjbwMKYxvU2rtzTilUEIJe8eVZA/edit#gid=1640915989");
-    }
-
     @Test
     public void uniqueCopyToAnotherLocationNewSheet() {
         runCompareColumnsOrSheets();

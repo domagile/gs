@@ -4,15 +4,9 @@ import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
 import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CS026_emptyRowFromDriveWithHeadersFormulaTest extends CSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1t4GwzhzzBXx1kkM4VxO5wjkxv5jbYu-3KWg7HB8txE0/edit#gid=192334885");
-    }
-
     @Test
     public void emptyRowFromDriveWithHeadersFormula() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()

@@ -4,21 +4,14 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
-import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.MODE;
 import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.STDEV;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR050_calculateNumbersSTDEVwithDuplicatesTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1EzFrW67NT4KFLAnX_iEwFpZ7tL9UHKcLwxFqSZVE22Q/edit#gid=1575492249");
-    }
-
     @Test
     public void calculateNumbersSTDEVwithDuplicates() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

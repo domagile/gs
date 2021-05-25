@@ -3,7 +3,6 @@ package googlesheets.test.text.split;
 import googlesheets.model.text.split.SplitTextOptions;
 import googlesheets.model.text.split.SplitTextOptionsBuilder;
 import googlesheets.model.text.split.SplitValuesTypeEnumeration;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class SPT001_byCharactersTest extends SPTTest {

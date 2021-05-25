@@ -1,19 +1,11 @@
 package googlesheets.test.rd.comparetwosheets;
 
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS016_duplicatesCopyNewSpreadsheetTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1jNKu_cPPtrJSZEjWp199Zty1c9l7V8WGz08rOCvulUs/edit#gid=794119016");
-    }
-
     @Test
     public void duplicatesCopyNewSpreadsheet() {
         runCompareColumnsOrSheets();

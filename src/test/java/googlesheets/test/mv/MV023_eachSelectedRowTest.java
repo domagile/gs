@@ -1,7 +1,6 @@
 package googlesheets.test.mv;
 
 import googlesheets.model.mergevalues.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MV023_eachSelectedRowTest extends MVTest{

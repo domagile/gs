@@ -4,7 +4,6 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
@@ -13,11 +12,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR052_calculateNumbersSTDEVPwithDuplicatesTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1ojUXf1-pCVDz_kQziZUYGJrmqqrpSkoQ8ka6gynOssk/edit#gid=1243394650");
-    }
-
     @Test
     public void calculateNumbersSTDEVPwithDuplicates() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

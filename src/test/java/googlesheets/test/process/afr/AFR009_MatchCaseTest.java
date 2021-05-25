@@ -5,18 +5,11 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.*;
 
 public class AFR009_MatchCaseTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1RSPvQnYajSiTI2bsq1--UOz8Isud0RKjav5EoYSgMic/edit#gid=811012383");
-    }
-
-
     @Test
     public void valuesMatchCaseAllSheets() {
 

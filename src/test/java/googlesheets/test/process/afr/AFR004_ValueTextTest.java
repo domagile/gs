@@ -5,17 +5,11 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.*;
 
 public class AFR004_ValueTextTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1I1JwBoOYVVj-OaA9pSiGlcvwJQPM6UP7v_NoBlaT72M/edit#gid=1034543723");
-    }
-
     @Test
     public void valuesTextAllSheets() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()

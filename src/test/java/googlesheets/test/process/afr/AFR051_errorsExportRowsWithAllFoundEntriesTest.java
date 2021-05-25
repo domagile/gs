@@ -5,17 +5,11 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
 
 public class AFR051_errorsExportRowsWithAllFoundEntriesTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/18sxhZPArPT8A2rKxu45pNsE4m5n9cHXbHUCiMveT68o/edit#gid=343746373");
-    }
-
     @Test
     public void errorsExportRowsWithAllFoundEntries() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()

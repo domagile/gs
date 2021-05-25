@@ -5,18 +5,12 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AFR036_notesDeleteRowsWithAllFoundEntriesTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1TnEfAfrGp27ZNnPslRN7QU75NiIewdEtZo1t8rue8co/edit#gid=125546058");
-    }
-
     @Test
     public void notesDeleteRowsWithAllFoundEntries() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()

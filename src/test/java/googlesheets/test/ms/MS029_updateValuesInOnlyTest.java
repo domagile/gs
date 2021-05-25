@@ -2,15 +2,12 @@ package googlesheets.test.ms;
 
 import googlesheets.model.generic.rowselection.PairSelection;
 import googlesheets.model.generic.rowselection.TripleSelection;
-import googlesheets.model.mergesheets.ColumnDisplayEnumeration;
 import googlesheets.model.mergesheets.MergeSheetsOptionBuilder;
 import googlesheets.model.mergesheets.MergeSheetsOptions;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.mergesheets.ColumnDisplayEnumeration.UPDATE_VALUES_IN_ONLY;
 import static googlesheets.model.mergesheets.MergeSheetsActionEnumeration.UPDATE_VALUES_IN;
-import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 public class MS029_updateValuesInOnlyTest extends MSTest {
     @Test

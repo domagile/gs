@@ -4,21 +4,14 @@ import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptionBuil
 import googlesheets.model.rd.combineduplicaterows.CombineDuplicateRowsOptions;
 import googlesheets.model.rd.combineduplicaterows.MergedColumn;
 import googlesheets.test.rd.combineduplicaterows.generic.CDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.model.rd.combineduplicaterows.ActionEnumeration.CALCULATE_NUMBERS;
-import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.MAX;
 import static googlesheets.model.rd.combineduplicaterows.DelimiterFunctionEnumeration.PRODUCT;
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 
 
 public class CDR045_calculateNumbersPRODUCTforOneFieldTest extends CDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1vewZoliVgZrSpLinc9lVZUqDjEfJJmDClmW5krAWpfE/edit#gid=1749815883");
-    }
-
     @Test
     public void calculateNumbersPRODUCTforOneField() {
         CombineDuplicateRowsOptions options = new CombineDuplicateRowsOptionBuilder()

@@ -5,17 +5,11 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.*;
 
 public class AFR012_value_ByMaskEntireCellTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1-ilTu3IfEfKs1YiXWpSh-VITNbm8wJrEFHtGlFSZSZg/edit#gid=344783695");
-    }
-
     @Test
     public void valuesByMaskEntireCellAllSheets() {
 

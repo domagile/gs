@@ -1,6 +1,5 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
@@ -8,11 +7,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.getFullShee
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS023_uniqueClearValuesTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1DDCYrPn75cMgxWZAWo5p9Q77TC-6YyD53MJ3u1z5zWI/edit#gid=1821560764");
-    }
-
     @Test
     public void uniqueClearValues() {
         runCompareColumnsOrSheets();

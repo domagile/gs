@@ -5,18 +5,12 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.*;
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AFR019_valueReplaceTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/11pEa5QQFme1KqSfelzOqjyZQKVETXCu5DUE2OCPERI4/edit#gid=606209076");
-    }
-
     @Test
     public void valuesRepleceAllSheets() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()

@@ -4,15 +4,9 @@ import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CS011_resultLocationTest extends CSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1lyKZDeKJRLyWvEjuFcm4AiOjYQ_wk9aybuH_XB86MwQ/edit#gid=192334885");
-    }
-
     @Test
     public void resultsToNewSpreadsheet() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()

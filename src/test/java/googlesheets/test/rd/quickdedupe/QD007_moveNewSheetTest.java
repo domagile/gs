@@ -4,7 +4,6 @@ import googlesheets.model.rd.quickdedupe.QuickDedupeActionEnumeration;
 import googlesheets.model.rd.quickdedupe.QuickDedupeOptionBuilder;
 import googlesheets.model.rd.quickdedupe.QuickDedupeOptions;
 import googlesheets.test.rd.quickdedupe.generic.QDTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
@@ -12,11 +11,6 @@ import static googlesheets.service.generic.google.GoogleSheetService.getFullShee
 
 
 public class QD007_moveNewSheetTest extends QDTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1v9xt2ZD6V2h4FN7ud1Ne1gjwnDK1-SIot1Q93bSn05A/edit#gid=1900589725");
-    }
-
     @Test
     public void moveNewSheet() {
         QuickDedupeOptions options = new QuickDedupeOptionBuilder()

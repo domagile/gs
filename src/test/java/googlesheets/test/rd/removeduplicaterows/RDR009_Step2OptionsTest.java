@@ -1,19 +1,11 @@
 package googlesheets.test.rd.removeduplicaterows;
 
 import googlesheets.test.rd.removeduplicaterows.generic.RDRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.removeduplicates.removeduplicatesrows.RemoveDuplicatesRowsService.*;
 
 public class RDR009_Step2OptionsTest extends RDRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/18Al9xGUL-rW4_eQ1ZksxjnciIeYcbRGpnjvQxlT5fKo/edit#gid=1443097557");
-    }
-
     @Test
     public void duplicates_1stOccurrencesFirstLastColumns() {
         runFindDuplicateOrUniqueRows();

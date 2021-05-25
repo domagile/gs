@@ -4,15 +4,9 @@ import googlesheets.model.combinesheets.CombineSheetsOptionBuilder;
 import googlesheets.model.combinesheets.CombineSheetsOptions;
 import googlesheets.model.generic.ResultLocation;
 import googlesheets.model.generic.sheetselection.SpreadsheetSelection;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CS017_sheetSelectionTest extends CSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1-wsjCON7BXJPjI0i8ENJPsaRb_fo92shsLyG1qd2Q6c/edit#gid=192334885");
-    }
-
     @Test
     public void twoSpreadsheets() {
         CombineSheetsOptions options = new CombineSheetsOptionBuilder()

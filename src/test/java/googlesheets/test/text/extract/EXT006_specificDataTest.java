@@ -4,7 +4,6 @@ import googlesheets.model.text.extract.ExtractTextOptionBuilder;
 import googlesheets.model.text.extract.ExtractTextOptions;
 import googlesheets.model.text.extract.enums.DataTypeEnumeration;
 import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EXT006_specificDataTest extends EXTTest {

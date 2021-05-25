@@ -2,11 +2,9 @@ package googlesheets.test.generic;
 
 import googlesheets.model.generic.SideAddonOptions;
 import googlesheets.service.generic.addon.SideAddonService;
-import googlesheets.service.generic.google.GoogleSheetService;
 import googlesheets.service.technical.api.SpreadsheetService;
 import googlesheets.service.technical.file.FileType;
 import org.junit.After;
-import org.junit.Before;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.generic.google.GoogleSheetService.getSpreadsheetIdByUrl;
@@ -17,8 +15,8 @@ import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.startXLSXDo
 import static org.junit.Assert.fail;
 
 public class DefaultSideAddonTest<T extends SideAddonOptions> extends AddonTest {
-    private SideAddonService<T> service;
-    private String etalonDir;
+    private final SideAddonService<T> service;
+    private final String etalonDir;
 
 
     protected DefaultSideAddonTest(SideAddonService<T> service) {
@@ -74,12 +72,6 @@ public class DefaultSideAddonTest<T extends SideAddonOptions> extends AddonTest 
 
     private String getEtalonFileName(String spreadsheetName, FileType fileType) {
         return etalonDir + spreadsheetName + '.' + fileType.name().toLowerCase();
-    }
-
-
-    @Before
-    public void openSpreadsheet() {
-        GoogleSheetService.openSpreadsheetByName(getSpreadsheetName());
     }
 
 

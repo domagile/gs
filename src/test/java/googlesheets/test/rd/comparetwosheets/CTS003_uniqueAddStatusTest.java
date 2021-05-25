@@ -1,20 +1,11 @@
 package googlesheets.test.rd.comparetwosheets;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
 import static googlesheets.service.removeduplicates.comparetwosheets.CompareTwoSheetsService.*;
 
 public class CTS003_uniqueAddStatusTest extends CTSTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/1nA7SO5thwtn54aQ0b8qJkXig0Ea3QJtnmASOkYWTrpc/edit#gid=1143947967");
-    }
-
-
     @Test
     public void uniqueAddStatus2equalColumns() {
         runCompareColumnsOrSheets();

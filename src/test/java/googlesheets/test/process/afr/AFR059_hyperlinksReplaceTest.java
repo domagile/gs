@@ -5,7 +5,6 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -13,11 +12,6 @@ import static googlesheets.service.process.advancedfindreplace.AdvancedFindRepla
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AFR059_hyperlinksReplaceTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/11pEa5QQFme1KqSfelzOqjyZQKVETXCu5DUE2OCPERI4/edit#gid=606209076");
-    }
-
     @Ignore
     @Test
     public void valuesRepleceAllSheets() {

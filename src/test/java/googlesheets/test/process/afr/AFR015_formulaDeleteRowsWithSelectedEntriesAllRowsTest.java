@@ -5,7 +5,6 @@ import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptionB
 import googlesheets.model.process.advancedfindreplace.AdvancedFindReplaceOptions;
 import googlesheets.service.process.advancedfindreplace.SearchInSelection;
 import googlesheets.test.process.afr.generic.AFRTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static googlesheets.service.process.advancedfindreplace.AdvancedFindReplaceService.runMenuAction;
@@ -13,11 +12,6 @@ import static googlesheets.service.process.advancedfindreplace.AdvancedFindRepla
 import static googlesheets.service.generic.google.GoogleSheetService.*;
 
 public class AFR015_formulaDeleteRowsWithSelectedEntriesAllRowsTest extends AFRTest {
-    @BeforeClass
-    public static void openDocument() {
-        openDocument("https://docs.google.com/spreadsheets/d/10NUhpgZgg9WE4JbxlUF0QIlT6dqbK0H2bR6A-3u6lHU/edit#gid=1406858805");
-    }
-
     @Test
     public void formulaDeteleRowsWithSelectedEntriesAllRows() {
         AdvancedFindReplaceOptions options = new AdvancedFindReplaceOptionBuilder()

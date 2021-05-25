@@ -3,7 +3,6 @@ package googlesheets.test.ms;
 import googlesheets.model.generic.rowselection.PairSelection;
 import googlesheets.model.mergesheets.MergeSheetsOptionBuilder;
 import googlesheets.model.mergesheets.MergeSheetsOptions;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class MS001_oneFieldNumberTest extends MSTest {
