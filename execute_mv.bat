@@ -1,2 +1,2 @@
-call gradle test --tests googlesheets.test.mv*
+call gradle clean test --tests googlesheets.test.mv*
 pause
