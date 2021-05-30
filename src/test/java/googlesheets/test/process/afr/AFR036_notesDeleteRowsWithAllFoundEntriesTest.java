@@ -22,7 +22,7 @@ public class AFR036_notesDeleteRowsWithAllFoundEntriesTest extends AFRTest {
         execute(options);
 
         runMenuAction(AFRActionEnumeration.DELETE_ROWS_WITH_ALL_ENTRIES);
-        checkResult("Export results ");
+        checkResult("Master");
     }
 
 
