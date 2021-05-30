@@ -15,7 +15,8 @@ public class SPT005_byCharactersTest extends SPTTest {
                 .splitValuesType(SplitValuesTypeEnumeration.BY_CHARACTERS)
                 .customOption(true)
                 //8220 is unicode code of "left double quotation mark"
-                .customCharacters("@.<>()#" + ((char) 8220))
+               // .customCharacters("@.<>()#" + ((char) 8220))
+                .customCharacters("@.<>()#" + ((char) 34))
                 .build();
         execute(options);
         checkResult();
