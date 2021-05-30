@@ -33,6 +33,6 @@ public class MS006_addStatusColumnTest extends MSTest {
 
     @Override
     protected void restoreInitialDocumentState(String resultListName) {
-        clickUndo(2);
+        clickUndo(10);
     }
 }
