@@ -3,6 +3,8 @@ package googlesheets.test.mv;
 import googlesheets.model.mergevalues.*;
 import org.junit.Test;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+
 public class MV048_eachSelectedRowTest extends MVTest {
     @Test
     public void merge() {
@@ -20,4 +22,8 @@ public class MV048_eachSelectedRowTest extends MVTest {
         checkExcelResult();
     }
 
+    @Override
+    protected void restoreInitialDocumentState() {
+        clickUndo(7);
+    }
 }
