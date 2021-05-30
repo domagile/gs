@@ -2,8 +2,9 @@ package googlesheets.test.generic;
 
 import googlesheets.model.generic.ResultLocationProvider;
 import googlesheets.service.generic.addon.resultchecker.ResultChecker;
-import googlesheets.service.generic.addon.resultchecker.ResultCheckerImpl;
+import googlesheets.service.generic.addon.resultchecker.FileResultCheckerImpl;
 import googlesheets.service.generic.addon.resultchecker.ResultInfo;
+import googlesheets.service.generic.addon.resultchecker.SpreadsheetResultCheckerImpl;
 import org.junit.After;
 
 public abstract class DefaultAddonTest extends AddonTest {
@@ -11,9 +12,14 @@ public abstract class DefaultAddonTest extends AddonTest {
     private ResultChecker resultChecker;
 
 
+    protected DefaultAddonTest() {
+        resultChecker = new SpreadsheetResultCheckerImpl();
+    }
+
+
     protected DefaultAddonTest(String etalonDir)
     {
-        resultChecker = new ResultCheckerImpl(etalonDir);
+        resultChecker = new FileResultCheckerImpl(etalonDir);
     }
 
 

@@ -7,10 +7,10 @@ import static googlesheets.service.generic.google.GoogleSheetService.*;
 import static googlesheets.service.technical.file.FileService.*;
 import static googlesheets.ui.generic.google.SpreadsheetMainMenuUtil.*;
 
-public class ResultCheckerImpl implements ResultChecker {
+public class FileResultCheckerImpl implements ResultChecker {
     private String etalonDir;
 
-    public ResultCheckerImpl(String etalonDir) {
+    public FileResultCheckerImpl(String etalonDir) {
         this.etalonDir = etalonDir;
     }
 

@@ -1,11 +1,8 @@
 package googlesheets.service.generic.google;
 
-import googlesheets.model.generic.rowselection.PairSelection;
-import googlesheets.model.generic.rowselection.TripleSelection;
 import googlesheets.service.GlobalContext;
 import googlesheets.service.generic.addon.FunctionInvocationException;
-import googlesheets.service.generic.addon.sheetselection.EntityList;
-import googlesheets.service.generic.webdriver.Locators;
+import googlesheets.service.generic.webdriver.FieldHelper;
 import googlesheets.service.generic.webdriver.WebDriverService;
 import googlesheets.service.generic.xpath.XPathHelper;
 import googlesheets.service.technical.api.SpreadsheetService;
@@ -17,20 +14,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.BiConsumer;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static googlesheets.service.generic.addon.FunctionReinvocationUtil.invokeFunctionWithReinvocation;
 import static googlesheets.service.generic.google.Credentials.LOGIN;
 import static googlesheets.service.generic.google.Credentials.PASSWORD;
 import static googlesheets.service.generic.webdriver.FieldHelper.*;
-import static googlesheets.service.generic.webdriver.Locators.*;
-import static googlesheets.service.generic.webdriver.WebDriverService.*;
+import static googlesheets.service.generic.webdriver.Locators.TAG_SPAN;
+import static googlesheets.service.generic.webdriver.WebDriverService.openLink;
+import static googlesheets.service.generic.webdriver.WebDriverService.switchDriverToDefaultContent;
 import static googlesheets.service.generic.xpath.XPathHelper.*;
+import static org.openqa.selenium.By.className;
+import static org.openqa.selenium.By.xpath;
 
 
 public class GoogleSheetService {
@@ -243,6 +243,25 @@ public class GoogleSheetService {
     }
 
 
+    public static void setAngularCheckboxValue(String checkboxText, boolean value) {
+        WebElement checkboxLabel = getClickableElementByXpath(textContains(checkboxText, "label"));
+        boolean isSelected = checkboxLabel.getAttribute("class").contains("ui-label-active");
+        if (isSelected != value) {
+            checkboxLabel.click();
+        }
+    }
+
+
+    public static void setAngularComboboxValue(int comboboxIndex, String value) {
+        WebElement combobox = getElements(className("ui-dropdown-label")).get(comboboxIndex);
+        String uniqueClass = Arrays.stream(combobox.getAttribute("class").split(" "))
+                .filter(s -> s.startsWith("ng-tns-")).findFirst().get();
+        clickElement(combobox);
+        clickElement(getClickableElement(xpath(parentWithAttributeAndDescendantWithText(
+                "p-dropdownitem", "class", uniqueClass, "span", value))));
+    }
+
+
     public static void setAdxMultipageValue(String text) {
         WebElement label = getElementByXpath(textContains(text, "label"));
         clickElement(label);
@@ -257,7 +276,7 @@ public class GoogleSheetService {
 
 
     public static void clickUndo() {
-        clickElement(getElement("t-undo").findElement(By.className("goog-toolbar-button-inner-box")));
+        clickElement(getElement("t-undo").findElement(className("goog-toolbar-button-inner-box")));
     }
 
 
@@ -274,17 +293,17 @@ public class GoogleSheetService {
 
 
     public static void clickElementByClass(String className) {
-        clickElement(By.className(className));
+        clickElement(className(className));
     }
 
 
     public static void clickElementByAttribute(String attribute, String value) {
-        clickElement(By.xpath(XPathHelper.attributeIs(attribute, value)));
+        clickElement(xpath(attributeIs(attribute, value)));
     }
 
 
     public static void clickElementByText(String text) {
-        clickElement(By.xpath(XPathHelper.textIs(text)));
+        clickElement(xpath(XPathHelper.textIs(text)));
     }
 
 
@@ -310,14 +329,14 @@ public class GoogleSheetService {
     public static void selectAdxComboboxValue(String id, String value) {
         invokeFunctionWithReinvocation(() -> {
             WebElement adxCombobox = getElement(id);
-            clickElement(adxCombobox.findElement(By.className("adx-custom-select-button")));
-            WebElement optionsDiv = adxCombobox.findElement(By.className("adx-custom-select-menu"));
+            clickElement(adxCombobox.findElement(className("adx-custom-select-button")));
+            WebElement optionsDiv = adxCombobox.findElement(className("adx-custom-select-menu"));
             if (!waitForCondition(
                     () -> optionsDiv.getCssValue("display").equals("block"),
                     2, 500)) {
                 throw new FunctionInvocationException();
             }
-            clickElement(optionsDiv.findElement(By.xpath(textIs(value))));
+            clickElement(optionsDiv.findElement(xpath(textIs(value))));
         }, StaleElementReferenceException.class);
     }
 
@@ -337,8 +356,18 @@ public class GoogleSheetService {
 
 
     public static void setText(String fieldId, String text) {
+        setText(() -> getPresentElement(fieldId), text);
+    }
+
+
+    public static void setAngularText(int elementIndex, String elementClass, String text) {
+        setText(() -> FieldHelper.getElements(className(elementClass)).get(elementIndex), text);
+    }
+
+
+    public static void setText(Supplier<WebElement> fieldSupplier, String text) {
         invokeFunctionWithReinvocation(textValue -> {
-            WebElement field = getPresentElement(fieldId);
+            WebElement field = fieldSupplier.get();
             field.clear();
             field.sendKeys(textValue);
         }, text, InvalidElementStateException.class);

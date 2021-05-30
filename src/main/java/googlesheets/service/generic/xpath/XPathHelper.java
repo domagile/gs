@@ -29,4 +29,11 @@ public class XPathHelper {
     {
         return String.format(".//*[@%s='%s']", attributeName, attributeValue);
     }
+
+
+    public static String parentWithAttributeAndDescendantWithText(String parentTag, String parentAttribute, String parentAttributeValue,
+                                                                  String descendantTag, String descendantText) {
+        return String.format("//%s[contains(@%s, '%s')]/descendant::%s[text() = '%s']",
+                parentTag, parentAttribute, parentAttributeValue, descendantTag, descendantText);
+    }
 }
