@@ -6,10 +6,11 @@ import googlesheets.model.text.extract.ExtractTextOptions;
 import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
 import org.junit.Test;
 
+import static googlesheets.service.generic.google.GoogleSheetService.clickUndo;
+
 public class EXT048_firstCharactersTest extends EXTTest {
     @Test
-    public void extract()
-    {
+    public void extract() {
         ExtractTextOptions options = new ExtractTextOptionBuilder()
                 .range("A2:A25")
                 .extractType(ExtractTypeEnumeration.FIRST_LAST_CHARACTERS)
@@ -20,4 +21,10 @@ public class EXT048_firstCharactersTest extends EXTTest {
         execute(options);
         checkResult();
     }
+
+    @Override
+    protected void restoreInitialDocumentState() {
+        clickUndo(2);
+    }
+
 }
