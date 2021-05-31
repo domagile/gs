@@ -2,26 +2,34 @@ package googlesheets.model.text.extract;
 
 import googlesheets.model.generic.SideAddonOptions;
 import googlesheets.model.text.common.enums.CharacterTypeEnumeration;
-import googlesheets.model.text.extract.enums.DataTypeEnumeration;
-import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
+import googlesheets.model.text.extract.enums.*;
 
 public class ExtractTextOptions implements SideAddonOptions {
-    private CharacterTypeEnumeration characterType;
     private ExtractTypeEnumeration extractType;
-    private int characterNumber;
+
     private boolean allAfterTextOption;
     private boolean allBeforeTextOption;
     private String allAfterTextValue;
     private String allBeforeTextValue;
-    private boolean stringMatchCase;
+    private boolean matchCase;
+    private boolean extractAllOccurrences;
+    private AllOccurrencesPlacementEnumeration allOccurrencesPlacement;
+    private boolean insertNewColumnWithResult;
+    private boolean clearExtractedText;
+
+    private CharacterTypeEnumeration characterType;
+    private int characterNumber;
+
+    private boolean numbersHaveSeparators;
+    private DecimalSeparatorEnumeration decimalSeparator;
+    private ThousandsSeparatorEnumeration thousandsSeparator;
+
     private int firstCharPosition;
     private boolean extractedCharNumberOption;
     private int extractedCharNumberValue;
+
     private DataTypeEnumeration specificDataType;
     private String mask;
-    private boolean maskMatchCase;
-    private boolean placeResultToNewColumn;
-    private boolean clearExtractedText;
     private String range;
 
     @Override
@@ -90,12 +98,12 @@ public class ExtractTextOptions implements SideAddonOptions {
         this.allBeforeTextValue = allBeforeTextValue;
     }
 
-    public boolean isStringMatchCase() {
-        return stringMatchCase;
+    public boolean isMatchCase() {
+        return matchCase;
     }
 
-    public void setStringMatchCase(boolean stringMatchCase) {
-        this.stringMatchCase = stringMatchCase;
+    public void setMatchCase(boolean matchCase) {
+        this.matchCase = matchCase;
     }
 
     public int getFirstCharPosition() {
@@ -130,12 +138,12 @@ public class ExtractTextOptions implements SideAddonOptions {
         this.specificDataType = specificDataType;
     }
 
-    public boolean isPlaceResultToNewColumn() {
-        return placeResultToNewColumn;
+    public boolean isInsertNewColumnWithResult() {
+        return insertNewColumnWithResult;
     }
 
-    public void setPlaceResultToNewColumn(boolean placeResultToNewColumn) {
-        this.placeResultToNewColumn = placeResultToNewColumn;
+    public void setInsertNewColumnWithResult(boolean insertNewColumnWithResult) {
+        this.insertNewColumnWithResult = insertNewColumnWithResult;
     }
 
     public boolean isClearExtractedText() {
@@ -155,11 +163,43 @@ public class ExtractTextOptions implements SideAddonOptions {
         this.mask = mask;
     }
 
-    public boolean isMaskMatchCase() {
-        return maskMatchCase;
+    public boolean isExtractAllOccurrences() {
+        return extractAllOccurrences;
     }
 
-    public void setMaskMatchCase(boolean maskMatchCase) {
-        this.maskMatchCase = maskMatchCase;
+    public void setExtractAllOccurrences(boolean extractAllOccurrences) {
+        this.extractAllOccurrences = extractAllOccurrences;
+    }
+
+    public AllOccurrencesPlacementEnumeration getAllOccurrencesPlacement() {
+        return allOccurrencesPlacement;
+    }
+
+    public void setAllOccurrencesPlacement(AllOccurrencesPlacementEnumeration allOccurrencesPlacement) {
+        this.allOccurrencesPlacement = allOccurrencesPlacement;
+    }
+
+    public boolean isNumbersHaveSeparators() {
+        return numbersHaveSeparators;
+    }
+
+    public void setNumbersHaveSeparators(boolean numbersHaveSeparators) {
+        this.numbersHaveSeparators = numbersHaveSeparators;
+    }
+
+    public DecimalSeparatorEnumeration getDecimalSeparator() {
+        return decimalSeparator;
+    }
+
+    public void setDecimalSeparator(DecimalSeparatorEnumeration decimalSeparator) {
+        this.decimalSeparator = decimalSeparator;
+    }
+
+    public ThousandsSeparatorEnumeration getThousandsSeparator() {
+        return thousandsSeparator;
+    }
+
+    public void setThousandsSeparator(ThousandsSeparatorEnumeration thousandsSeparator) {
+        this.thousandsSeparator = thousandsSeparator;
     }
 }

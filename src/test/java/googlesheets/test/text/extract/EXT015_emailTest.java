@@ -14,7 +14,7 @@ public class EXT015_emailTest extends EXTTest {
     {
         ExtractTextOptions options = new ExtractTextOptionBuilder()
                 .range("C2:C50")
-                .extractType(ExtractTypeEnumeration.SPECIFIC_DATA)
+                .extractType(ExtractTypeEnumeration.LINKS)
                 .specificDataType(DataTypeEnumeration.EMAIL)
                 .placeResultToNewColumn(true)
                 .clearExtractedText(true)

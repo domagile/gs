@@ -18,7 +18,7 @@ public class EXT037_byStringsTest extends EXTTest {
                 .allAfterTextValue("AAA")
                 .allBeforeTextOption(true)
                 .allBeforeTextValue("ZZZ")
-                .stringMatchCase(true)
+                .matchCase(true)
                 .placeResultToNewColumn(true)
                 .build();
         execute(options);

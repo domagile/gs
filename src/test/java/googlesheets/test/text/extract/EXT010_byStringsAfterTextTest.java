@@ -16,7 +16,7 @@ public class EXT010_byStringsAfterTextTest extends EXTTest {
                 .extractType(ExtractTypeEnumeration.BY_STRINGS)
                 .allAfterTextOption(true)
                 .allAfterTextValue("NAB")
-                .stringMatchCase(true)
+                .matchCase(true)
                 .clearExtractedText(true)
                 .build();
         execute(options);

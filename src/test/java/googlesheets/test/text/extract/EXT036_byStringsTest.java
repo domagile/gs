@@ -16,7 +16,7 @@ public class EXT036_byStringsTest extends EXTTest {
                 .extractType(ExtractTypeEnumeration.BY_STRINGS)
                 .allBeforeTextOption(true)
                 .allBeforeTextValue("Man")
-                .stringMatchCase(true)
+                .matchCase(true)
                 .placeResultToNewColumn(true)
                 .build();
         execute(options);

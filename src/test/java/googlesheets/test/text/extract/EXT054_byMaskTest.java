@@ -13,7 +13,7 @@ public class EXT054_byMaskTest extends EXTTest {
                 .range("L3:L31")
                 .extractType(ExtractTypeEnumeration.BY_MASK)
                 .mask("Val*")
-                .maskMatchCase(true)
+                .matchCase(true)
                 .placeResultToNewColumn(true)
                 .build();
         execute(options);

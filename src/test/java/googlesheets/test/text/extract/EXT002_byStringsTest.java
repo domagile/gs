@@ -18,7 +18,7 @@ public class EXT002_byStringsTest extends EXTTest {
                 .allAfterTextValue("0 ")
                 .allBeforeTextOption(true)
                 .allBeforeTextValue("Jr")
-                .stringMatchCase(true)
+                .matchCase(true)
                 .placeResultToNewColumn(true)
                 .clearExtractedText(true)
                 .build();

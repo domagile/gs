@@ -16,7 +16,7 @@ public class EXT032_byStringsTest extends EXTTest {
                 .extractType(ExtractTypeEnumeration.BY_STRINGS)
                 .allAfterTextOption(true)
                 .allAfterTextValue("use")
-                .stringMatchCase(true)
+                .matchCase(true)
                 .build();
         execute(options);
         checkResult();

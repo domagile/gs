@@ -12,7 +12,7 @@ public class EXT006_specificDataTest extends EXTTest {
     {
         ExtractTextOptions options = new ExtractTextOptionBuilder()
                 .range("C2:C50")
-                .extractType(ExtractTypeEnumeration.SPECIFIC_DATA)
+                .extractType(ExtractTypeEnumeration.LINKS)
                 .specificDataType(DataTypeEnumeration.EMAIL)
                 .build();
         execute(options);

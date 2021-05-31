@@ -16,7 +16,7 @@ public class EXT035_byStringsTest extends EXTTest {
                 .extractType(ExtractTypeEnumeration.BY_STRINGS)
                 .allBeforeTextOption(true)
                 .allBeforeTextValue("Softcover")
-                .stringMatchCase(true)
+                .matchCase(true)
                 .build();
         execute(options);
         checkResult();

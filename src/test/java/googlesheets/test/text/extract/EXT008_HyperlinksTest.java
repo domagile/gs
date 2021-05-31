@@ -12,7 +12,7 @@ public class EXT008_HyperlinksTest extends EXTTest {
     {
         ExtractTextOptions options = new ExtractTextOptionBuilder()
                 .range("H1:H59")
-                .extractType(ExtractTypeEnumeration.SPECIFIC_DATA)
+                .extractType(ExtractTypeEnumeration.LINKS)
                 .specificDataType(DataTypeEnumeration.HYPERLINK)
                 .placeResultToNewColumn(true)
                 .build();

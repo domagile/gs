@@ -1,8 +1,7 @@
 package googlesheets.model.text.extract;
 
 import googlesheets.model.text.common.enums.CharacterTypeEnumeration;
-import googlesheets.model.text.extract.enums.DataTypeEnumeration;
-import googlesheets.model.text.extract.enums.ExtractTypeEnumeration;
+import googlesheets.model.text.extract.enums.*;
 
 public class ExtractTextOptionBuilder {
     private String range;
@@ -13,15 +12,45 @@ public class ExtractTextOptionBuilder {
     private boolean allBeforeTextOption;
     private String allAfterTextValue;
     private String allBeforeTextValue;
-    private boolean stringMatchCase;
+    private boolean matchCase;
     private int firstCharPosition;
     private boolean extractedCharNumberOption;
     private int extractedCharNumberValue;
     private DataTypeEnumeration specificDataType;
     private String mask;
-    private boolean maskMatchCase;
     private boolean placeResultToNewColumn;
     private boolean clearExtractedText;
+    private boolean extractAllOccurrences;
+    private AllOccurrencesPlacementEnumeration allOccurrencesPlacement;
+    private boolean numbersHaveSeparators;
+    private DecimalSeparatorEnumeration decimalSeparator;
+    private ThousandsSeparatorEnumeration thousandsSeparator;
+
+
+    public ExtractTextOptionBuilder extractAllOccurrences(boolean extractAllOccurrences) {
+        this.extractAllOccurrences = extractAllOccurrences;
+        return this;
+    }
+
+    public ExtractTextOptionBuilder allOccurrencesPlacement(AllOccurrencesPlacementEnumeration allOccurrencesPlacement) {
+        this.allOccurrencesPlacement = allOccurrencesPlacement;
+        return this;
+    }
+
+    public ExtractTextOptionBuilder numbersHaveSeparators(boolean numbersHaveSeparators) {
+        this.numbersHaveSeparators = numbersHaveSeparators;
+        return this;
+    }
+
+    public ExtractTextOptionBuilder decimalSeparator(DecimalSeparatorEnumeration decimalSeparator) {
+        this.decimalSeparator = decimalSeparator;
+        return this;
+    }
+
+    public ExtractTextOptionBuilder thousandsSeparator(ThousandsSeparatorEnumeration thousandsSeparator) {
+        this.thousandsSeparator = thousandsSeparator;
+        return this;
+    }
 
     public ExtractTextOptionBuilder range(String range) {
         this.range = range;
@@ -63,8 +92,8 @@ public class ExtractTextOptionBuilder {
         return this;
     }
 
-    public ExtractTextOptionBuilder stringMatchCase(boolean matchCase) {
-        this.stringMatchCase = matchCase;
+    public ExtractTextOptionBuilder matchCase(boolean matchCase) {
+        this.matchCase = matchCase;
         return this;
     }
 
@@ -93,11 +122,6 @@ public class ExtractTextOptionBuilder {
         return this;
     }
 
-    public ExtractTextOptionBuilder maskMatchCase(boolean maskMatchCase) {
-        this.maskMatchCase = maskMatchCase;
-        return this;
-    }
-
     public ExtractTextOptionBuilder placeResultToNewColumn(boolean placeResultToNewColumn) {
         this.placeResultToNewColumn = placeResultToNewColumn;
         return this;
@@ -107,6 +131,9 @@ public class ExtractTextOptionBuilder {
         this.clearExtractedText = clearExtractedText;
         return this;
     }
+
+
+
 
     public ExtractTextOptions build() {
         ExtractTextOptions options = new ExtractTextOptions();
@@ -118,15 +145,19 @@ public class ExtractTextOptionBuilder {
         options.setAllBeforeTextOption(allBeforeTextOption);
         options.setAllAfterTextValue(allAfterTextValue);
         options.setAllBeforeTextValue(allBeforeTextValue);
-        options.setStringMatchCase(stringMatchCase);
+        options.setMatchCase(matchCase);
         options.setFirstCharPosition(firstCharPosition);
         options.setExtractedCharNumberOption(extractedCharNumberOption);
         options.setExtractedCharNumberValue(extractedCharNumberValue);
         options.setSpecificDataType(specificDataType);
         options.setMask(mask);
-        options.setMaskMatchCase(maskMatchCase);
-        options.setPlaceResultToNewColumn(placeResultToNewColumn);
+        options.setInsertNewColumnWithResult(placeResultToNewColumn);
         options.setClearExtractedText(clearExtractedText);
+        options.setExtractAllOccurrences(extractAllOccurrences);
+        options.setAllOccurrencesPlacement(allOccurrencesPlacement);
+        options.setNumbersHaveSeparators(numbersHaveSeparators);
+        options.setDecimalSeparator(decimalSeparator);
+        options.setThousandsSeparator(thousandsSeparator);
         return options;
     }
 }

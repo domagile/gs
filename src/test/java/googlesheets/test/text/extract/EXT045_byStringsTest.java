@@ -17,7 +17,7 @@ public class EXT045_byStringsTest extends EXTTest {
                 .allAfterTextOption(true)
                 .allAfterTextValue("Roald")
                 .clearExtractedText(true)
-                .stringMatchCase(true)
+                .matchCase(true)
                 .placeResultToNewColumn(true)
                 .build();
         execute(options);
